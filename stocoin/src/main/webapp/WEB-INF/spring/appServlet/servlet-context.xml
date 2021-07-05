@@ -21,8 +21,14 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.sc.stocoin" />
-	
+	<context:component-scan base-package="com.ch.mybatis" />
+	<beans:bean id="sc" class="com.sc.stocoin.service.SessionChk"></beans:bean>
+	<interceptors>
+		<interceptor>
+			<mapping path="/login"/>
+			<beans:ref bean="sc"></beans:ref>
+		</interceptor>
+	</interceptors>
 	
 	
 </beans:beans>

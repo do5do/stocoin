@@ -1,0 +1,28 @@
+<!DOCTYPE tiles-definitions PUBLIC
+ "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+ "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="tilesbase" template="/WEB-INF/views/layout.jsp">
+		<put-attribute name="title"	value="" />
+		<put-attribute name="header"	value="/WEB-INF/views/header1.jsp" />
+		<put-attribute name="menu"	value="/WEB-INF/views/menu.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
+	</definition>
+	<definition name="home" extends="tilesbase">
+		<put-attribute name="title" value="안녕하세요 타일즈 샘플입니다." />
+		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
+	</definition>
+	<definition name="first" extends="tilesbase">
+		<put-attribute name="title" value="안녕하세요 타일즈 샘플입니다." />
+		<put-attribute name="body"	value="/WEB-INF/views/first.jsp" />
+	</definition>
+	<definition name="second" extends="tilesbase">
+		<put-attribute name="title" value="두번재 페이지입니다." />
+		<put-attribute name="body"	value="/WEB-INF/views/second.jsp" />
+	</definition>
+	<definition name="third" extends="tilesbase">
+		<put-attribute name="title" value="세번재 페이지입니다." />
+		<put-attribute name="body"	value="/WEB-INF/views/third.jsp" />
+	</definition>
+</tiles-definitions>
