@@ -1,0 +1,6 @@
+.classpath
+.deployables
+.git
+.project
+.settings
+*/target/*
