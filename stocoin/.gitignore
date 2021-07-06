@@ -4,3 +4,4 @@ META-INF/*
 .settings/
 .project
 .classpath
+/BigData/
