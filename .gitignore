@@ -3,4 +3,4 @@
 .git
 .project
 .settings
-*/target/*
+/stocoin/target/*
