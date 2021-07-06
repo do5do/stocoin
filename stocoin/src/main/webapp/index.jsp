@@ -8,7 +8,7 @@
 </head>
 <body>
 <script type="text/javascript">
-	location.href="main";
+	location.href="home";
 	// asdfsa
 </script>
 </body>
