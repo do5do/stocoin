@@ -1,0 +1,33 @@
+<!DOCTYPE tiles-definitions PUBLIC
+ "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+ "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<!-- 레이 아웃 적용 -->
+	<definition name="tilesbase" template="/WEB-INF/views/layout.jsp">
+		<put-attribute name="title" value="stocoin" />
+		<put-attribute name="header" value="/WEB-INF/views/header.jsp" />
+		<put-attribute name="body" 	 value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
+	</definition>
+
+	<!-- {1}폴더명 {2}는 jsp이름 -->
+	<definition name="*/*" extends="tilesbase">
+		<put-attribute name="body"	value="/WEB-INF/views/{1}/{2}.jsp" />
+	</definition>
+
+	<!-- 레이아웃 적용 안함 -->
+	<definition name="exclude" template="/WEB-INF/views/exclude.jsp">
+		<put-attribute name="body" 	 value="" />
+	</definition>
+
+	<!-- exclude폴더 안에 {1}에 jsp이름 -->
+	<definition name="exclude/*" extends="exclude">
+		<put-attribute name="body"	value="/WEB-INF/views/exclude/{1}.jsp" />
+	</definition>
+
+	
+	
+</tiles-definitions>
+
+
+
