@@ -1,2 +1,3 @@
-*/target/*
-/BigData/
+target/*
+META-INF/*
+.springBeans
