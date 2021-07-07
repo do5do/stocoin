@@ -222,10 +222,6 @@ a {
   text-decoration: underline;
 }
 
-a:hover {
-  color: #3768bd;
-}
-
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
   color: inherit;
   text-decoration: none;
