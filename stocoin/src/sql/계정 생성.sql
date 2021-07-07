@@ -1,3 +1,3 @@
--- SYS 계정 --
+-- SYSTEM 에서 --
 create user stocoin identified by stocoin;
 grant connect, resource, dba to stocoin;
