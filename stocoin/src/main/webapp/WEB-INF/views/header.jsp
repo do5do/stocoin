@@ -12,8 +12,7 @@
 		// mode 제어
 		$('#mode_btn').on('click', function() {
 			if (!$('#mode_btn').hasClass('active')) {
-				$('header').addClass('white');
-				$('footer').addClass('white');
+				$('header, footer, .container').addClass('white');
 				$('body').css('background', '#fff');
 				$('*').css('color', '#000');
 				
@@ -21,8 +20,7 @@
 				$('#mode_btn figure img').attr('src', '/stocoin/resources/images/sun.svg');
 				//$('head').append('<link id="white" rel="stylesheet" type="text/css" href="/stocoin/resources/bootstrap/css/bootstrap_white.css">')
 			} else {
-				$('header').removeClass('white');
-				$('footer').removeClass('white');
+				$('header, footer, .container').removeClass('white');
 				$('body').css('background', 'var(--bg-color)');
 				$('*').css('color', '#fff');
 				
@@ -41,9 +39,9 @@
 		</div>
 		<nav>
 			<ul>
-				<li><a href="coin/coinList" id="coin">코인</a></li>
-				<li><a href="stock/stockList" id="stock">주식</a></li>
-				<li><a href="board/boardList" id="board">게시판</a></li>
+				<li><a href="/stocoin/coin/coinList" id="coin">코인</a></li>
+				<li><a href="/stocoin/stock/stockList" id="stock">주식</a></li>
+				<li><a href="/stocoin/board/boardList" id="board">게시판</a></li>
 				<li><a href="#" id="login">로그인</a></li>
 				<li id="mode_btn">
 					<figure><img src="/stocoin/resources/images/moon.svg"></figure>
