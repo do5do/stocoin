@@ -41,9 +41,9 @@
 		</div>
 		<nav>
 			<ul>
-				<li><a href="#" id="coin">코인</a></li>
-				<li><a href="#" id="stock">주식</a></li>
-				<li><a href="#" id="board">게시판</a></li>
+				<li><a href="coin/coinList" id="coin">코인</a></li>
+				<li><a href="stock/stockList" id="stock">주식</a></li>
+				<li><a href="board/boardList" id="board">게시판</a></li>
 				<li><a href="#" id="login">로그인</a></li>
 				<li id="mode_btn">
 					<figure><img src="/stocoin/resources/images/moon.svg"></figure>

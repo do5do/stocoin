@@ -71,13 +71,13 @@ nav ul {
 
 nav ul li {
 	margin-left: 40px;
-	height: 18px;
+	height: 19px;
 }
 
 #mode_btn {
 	position: relative;
-	width: 54px;
-	height: 30px;
+	width: 47px;
+	height: 26px;
 	background: var(--point-color);
 	border-radius: 30px;
 	cursor: pointer;
@@ -87,8 +87,8 @@ nav ul li {
 	position: absolute;
 	left: 0;
 	margin: 0;
-	width: 30px;
-    height: 30px;
+	width: 26px;
+    height: 26px;
     background: #fff;
     border-radius: 50%;
     transition: all .3s ease;
@@ -103,7 +103,7 @@ nav ul li {
 }
 
 #mode_btn figure img {
-	width: 16px;
+	width: 14px;
 	position: absolute;
     top: 50%;
     left: 50%;
