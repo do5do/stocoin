@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
 	$(document).ready(function() {
 		// nav active control
@@ -42,7 +42,7 @@
 				<li><a href="/stocoin/coin/coinList" id="coin">코인</a></li>
 				<li><a href="/stocoin/stock/stockList" id="stock">주식</a></li>
 				<li><a href="/stocoin/board/boardList" id="board">게시판</a></li>
-				<li><a href="#" id="login">로그인</a></li>
+				<li><a href="https://kauth.kakao.com/oauth/authorize?client_id=8d7498ce8ee97c514f96feb042750e1e&redirect_uri=http://localhost:8080/stocoin/coin/coinList&response_type=code" id="login">로그인</a></li>
 				<li id="mode_btn">
 					<figure><img src="/stocoin/resources/images/moon.svg"></figure>
 				</li>
