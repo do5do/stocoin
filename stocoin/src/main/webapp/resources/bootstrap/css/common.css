@@ -14,7 +14,6 @@ ul, li {
 	padding: 0;
 	margin: 0;
 }
-
 /* common */
 
 .container {
@@ -26,6 +25,21 @@ body {
 	flex-direction: column;
 	height: 100vh;
 }
+
+/* header white */
+header.white {
+	background: #fff;
+}
+
+header.white a {
+	color: #000;
+	font-size: 16px;
+}
+
+footer.white {
+	border-top: 1px solid #e4e4e4;
+}
+/* header white : end */
 
 header {
 	position: fixed;
@@ -52,10 +66,48 @@ nav {
 
 nav ul {
 	display: flex;
+	align-items: center;
 }
 
 nav ul li {
-	padding-left: 40px;
+	margin-left: 40px;
+	height: 18px;
+}
+
+#mode_btn {
+	position: relative;
+	width: 54px;
+	height: 30px;
+	background: var(--point-color);
+	border-radius: 30px;
+	cursor: pointer;
+}
+
+#mode_btn figure {
+	position: absolute;
+	left: 0;
+	margin: 0;
+	width: 30px;
+    height: 30px;
+    background: #fff;
+    border-radius: 50%;
+    transition: all .3s ease;
+}
+
+#mode_btn.active figure {
+	left: 25px;
+}
+
+#mode_btn.active {
+	box-shadow: 2px 1px 3px 0px #c3c3c3;
+}
+
+#mode_btn figure img {
+	width: 16px;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 nav ul li a {
@@ -64,7 +116,7 @@ nav ul li a {
 }
 
 nav ul li a.active {
-	color: var(--point-color);
+	color: var(--point-color) !important;
 	font-weight: 600;
 }
 
