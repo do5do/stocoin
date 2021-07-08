@@ -8,13 +8,15 @@
 <meta name="viewport" content="width=device-width, initialscale=1">
 <title><tiles:insertAttribute name="title"></tiles:insertAttribute></title>
 <link rel="stylesheet" type="text/css" href="/stocoin/resources/bootstrap/css/bootstrap_black.css">
-<link rel="stylesheet" type="text/css" href="/stocoin/resources/bootstrap/css/bootstrap_white.css">
+<link rel="stylesheet" type="text/css" href="/stocoin/resources/bootstrap/css/common.css">
 <script type="text/javascript" src="/stocoin/resources/bootstrap/js/jquery.js"></script>
 <script type="text/javascript" src="/stocoin/resources/bootstrap/js/bootstrap.js"></script>
 </head>
 <body>
 	<tiles:insertAttribute name="header"></tiles:insertAttribute>
-	<tiles:insertAttribute name="body"></tiles:insertAttribute>
+	<div class="container">
+		<tiles:insertAttribute name="body"></tiles:insertAttribute>
+	</div>
 	<tiles:insertAttribute name="footer"></tiles:insertAttribute>
 </body>
 </html>

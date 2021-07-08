@@ -1,3 +1,3 @@
--- SYSTEM ¿¡¼­ --
+-- SYSTEM ï¿½ï¿½ï¿½ï¿½ --
 create user stocoin identified by stocoin;
 grant connect, resource, dba to stocoin;
