@@ -12,21 +12,25 @@
 		// mode 제어
 		$('#mode_btn').on('click', function() {
 			if (!$('#mode_btn').hasClass('active')) {
-				$('header, footer, .container').addClass('white');
+				$('header, footer, body').addClass('white');
 				$('body').css('background', '#fff');
 				$('*').css('color', '#000');
+				// summernote 제어
+				$('#summer_iframe').contents().find('#title').css('color', 'black');
+				$('#summer_iframe').contents().find('link#cyborg').remove();
 				
 				$('#mode_btn').addClass('active');
 				$('#mode_btn figure img').attr('src', '/stocoin/resources/images/sun.svg');
-				//$('head').append('<link id="white" rel="stylesheet" type="text/css" href="/stocoin/resources/bootstrap/css/bootstrap_white.css">')
 			} else {
-				$('header, footer, .container').removeClass('white');
+				$('header, footer, body').removeClass('white');
 				$('body').css('background', 'var(--bg-color)');
 				$('*').css('color', '#fff');
+				// summernote 제어
+				$('#summer_iframe').contents().find("#title").css('color', '#fff');
+				$('#summer_iframe').contents().find('link#before').before('<link href="//bootswatch.com/3/cyborg/bootstrap.css" rel="stylesheet" id="cyborg">');
 				
 				$('#mode_btn').removeClass('active');
 				$('#mode_btn figure img').attr('src', '/stocoin/resources/images/moon.svg');
-				//$('head').find('link#white').remove();
 			}
 		})
 	});
@@ -35,7 +39,7 @@
 <header>
 	<div class="container">
 		<div class="logo">
-			<a href="#"><img alt="로고" src='/stocoin/resources/images/logo.png'></a>
+			<a href="/stocoin/coin/coinList"><img alt="로고" src='/stocoin/resources/images/logo.png'></a>
 		</div>
 		<nav>
 			<ul>

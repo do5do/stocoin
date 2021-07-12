@@ -1,5 +1,63 @@
 @charset "UTF-8";
 
-.nav {
+/* boardList :start */
+.tabs {
+	display: flex;
 	justify-content: center;
 }
+
+.tabs li {
+	margin: 20px;
+	padding-bottom: 8px;
+}
+
+.tabs li.active {
+	border-bottom: 2px solid var(--point-color);
+}
+
+.tabs li a {
+	font-size: 20px;
+}
+
+.news ul {
+	padding-bottom: 50px;
+}
+
+.news li {
+	display: flex;
+	align-items: center;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	border-bottom: 1px solid #404040;
+	padding: 20px 0;
+	cursor: pointer;
+}
+
+.news li p {
+	background: var(--bg-color);
+	color: #fff;
+	margin-bottom: 0;
+}
+
+.news li .date {
+	color: #888;
+	padding-top: 4px;
+	font-size: 14px;
+}
+
+.news li .right {
+	margin-left: auto;
+}
+
+.news li .views {
+	color: #888;
+	padding-top: 4px;
+	text-align: right;
+}
+
+.news li .right .far {
+	padding-right: 8px;
+}
+
+/* boardList :end */

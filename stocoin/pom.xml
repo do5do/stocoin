@@ -33,7 +33,6 @@
 			<version>2.3.1</version>
 		</dependency>
 		<!-- javax.bind error가 날 시 추가 해보기 :end -->
-    <dependencies>
     	<!-- Jackson -->
 		<dependency> 
 			<groupId>org.codehaus.jackson</groupId> 

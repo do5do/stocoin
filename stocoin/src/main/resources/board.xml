@@ -2,5 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardns">
-
+	<insert id="insert" parameterType="board">
+		<selectKey order="BEFORE" keyProperty="bno" resultType="integer">
+			select nvl(max(bno), 0) + 1 bno from board
+		</selectKey>
+		insert into board values(#{bno}, #{title}, #{content}, sysdate, 0, 'n', 1)
+	</insert>
+	
+	<select id="boardList" resultType="board">
+		select * from board order by dates, bno
+	</select>
 </mapper>
