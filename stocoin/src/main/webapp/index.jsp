@@ -8,7 +8,7 @@
 </head>
 <body>
 	<script type="text/javascript">
-		location.href = "http://192.168.0.221:8080/stocoin/chat.do";
+		location.href = "coin/coinList";
 	</script>
 </body>
 </html>

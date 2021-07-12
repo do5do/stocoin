@@ -1,16 +1,10 @@
 package com.sc.stocoin;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 /**
  * Handles requests for the application home page.
  */
@@ -18,6 +12,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 	@RequestMapping("chat")
 	public String chat() {
-		return "chat";
+		return "exclude/chat";
+	}
+	@RequestMapping("testPy")
+	public String testPy() {
+		try {
+			String line;
+			Process p = Runtime.getRuntime().exec("python C:\\BigData\\python\\kiwoom-main\\tutorials\\2.Login.py");
+			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+					while ((line = input.readLine()) != null) {
+					System.out.println(line);
+					}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return "exclude/testPy";
 	}
 }

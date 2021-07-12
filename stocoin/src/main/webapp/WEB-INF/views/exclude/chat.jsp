@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<jsp:useBean id="ss" class="com.sc.stocoin.StocoinStrings" scope="page" />
 <!DOCTYPE html><html><head><meta charset="UTF-8"><title>Insert title here</title>
 <script type="text/javascript">
 	var websocket; // function밖으로 빼변 전역변수로 활용
@@ -18,7 +19,7 @@
 	});
 	function connect() {
 		//                            server ip           servlet-context에 등록된 이름
-		websocket = new WebSocket("ws://172.30.1.52:8080/stocoin/chat-ws.do");
+		websocket = new WebSocket("ws://" + "${ss.getIP()}" + "/stocoin/chat-ws.do");
 		websocket.onopen = Open;
 		websocket.onmessage = onMessage;
 		websocket.onclose = onClose;
