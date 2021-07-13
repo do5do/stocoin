@@ -7,7 +7,7 @@
 <body>
 	<script type="text/javascript">
 		alert("환영합니다!");
-		location.href = "coin/coinList";
+		location.href = "${prevUrl}";
 	</script>
 </body>
 </html>

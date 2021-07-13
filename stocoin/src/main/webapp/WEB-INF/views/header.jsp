@@ -35,6 +35,12 @@
 			}
 		})
 	});
+	
+	function login() {
+		var curUrl = window.location.pathname;
+		$.post("/stocoin/login2", "curUrl="+curUrl, function(data) {});
+		location.href="https://kauth.kakao.com/oauth/authorize?client_id=8d7498ce8ee97c514f96feb042750e1e&redirect_uri=http://localhost:8080/stocoin/login&response_type=code"
+	}
 </script>
 
 <header>
@@ -48,7 +54,7 @@
 				<li><a href="/stocoin/stock/stockList" id="stock">주식</a></li>
 				<li><a href="/stocoin/board/boardList" id="board">게시판</a></li>
 				<c:if test="${empty access_Token}">
-					<li><a href="https://kauth.kakao.com/oauth/authorize?client_id=8d7498ce8ee97c514f96feb042750e1e&redirect_uri=http://localhost:8080/stocoin/login&response_type=code" id="login">로그인</a></li>
+					<li><a onclick="login()" id="login">로그인</a></li>
 				</c:if>
 				<c:if test="${not empty access_Token}">
 					<li><a href="/stocoin/trade/myCoinList" id="trade">마이페이지</a></li>
