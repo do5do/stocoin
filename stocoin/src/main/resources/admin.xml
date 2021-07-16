@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminns">
+    
+    <select id="select" parameterType="string" resultType="admin">
+        select * from admin where id=#{id} and pwd=#{pwd}
+    </select>    
+ 	<insert id="list" parameterType="hashmap">
+		<selectKey order="BEFORE" keyProperty="mno" resultType="integer">
+			select nvl(max(mno), 0) + 1 mno from member
+		</selectKey>
+		insert into member values(#{mno}, #{id}, #{nick}, sysdate, 'n')
+	</insert>
+</mapper>

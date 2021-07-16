@@ -10,8 +10,8 @@ public class TradeController {
 	@Autowired
 	private TradeService ts;
 	
-	@RequestMapping("/trade/myCoinList")
+	@RequestMapping("/myPage/myCoinList")
 	public String coinList() {
-		return "trade/myCoinList";
+		return "myPage/myCoinList";
 	}
 }

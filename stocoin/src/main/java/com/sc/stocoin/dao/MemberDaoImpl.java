@@ -30,4 +30,8 @@ public class MemberDaoImpl implements MemberDao	{
 		sst.update("memberns.updateDel", id);
 	}
 
+	public int update(Member member) {
+		return sst.update("memberns.update", member);
+	}
+
 }

@@ -30,11 +30,7 @@ public class MemberController{
     }
     
     @RequestMapping("login")
-    public String login(@RequestParam(value = "code", required = false) String code, HttpSession session,
-    			Model model) throws Exception{
-    	
-    	String prevUrl = url;
-    	
+    public String login(@RequestParam(value = "code", required = false) String code, HttpSession session, Model model) throws Exception{
     	// 사용자 토큰, 정보 가져오기
     	String access_Token = ms.getAccessToken(code);
     	HashMap<String, Object> userInfo = ms.getUserInfo(access_Token);
@@ -49,9 +45,16 @@ public class MemberController{
     			ms.updateDel(id);
     		}
     	}
+    	
+    	int mno = member.getMno();
 
+    	// 세션 삽입
     	session.setAttribute("id", id);
     	session.setAttribute("access_Token", access_Token);
+    	session.setAttribute("mno", mno);
+    	
+    	// 이전 주소 가져오기
+    	String prevUrl = url;
     	model.addAttribute("prevUrl", prevUrl);
     	
         return "member/login";
@@ -70,5 +73,20 @@ public class MemberController{
     public String delete(HttpSession session) {
     	session.invalidate();
         return "member/logout";
+    }
+    
+    @RequestMapping("/member/updateForm")
+    public String updateForm(HttpSession session, Model model) {
+    	String id = (String) session.getAttribute("id");
+    	Member member = ms.select(id);
+    	model.addAttribute("member", member);
+    	return "member/updateForm";
+    }
+
+    @RequestMapping("/member/update")
+    public String update(Member member, Model model) {
+    	int result = ms.update(member);
+    	model.addAttribute("result", result);
+    	return "member/update";
     }
 }

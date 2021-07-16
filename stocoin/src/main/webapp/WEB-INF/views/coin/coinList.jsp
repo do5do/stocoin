@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/stocoin/resources/bootstrap/css/coin/coinList.css">
+<link rel="stylesheet" type="text/css" href="/stocoin/resources/css/admin/adminPage.css">
 <script type="text/javascript">
 	$(function() {
 		var td3 = document.querySelectorAll("td:nth-child(3)");

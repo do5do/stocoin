@@ -2,6 +2,7 @@ package com.sc.stocoin.service;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import com.sc.stocoin.model.Member;
 
@@ -17,4 +18,8 @@ public interface MemberService {
 	public void delete(String access_Token, String id) throws IOException;
 
 	public void updateDel(String id);
+
+	public int update(Member member);
+
+	public List<Member> member(String id);
 }

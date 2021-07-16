@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -136,6 +137,16 @@ public class MemberServiceImpl implements MemberService {
 
 	public void updateDel(String id) {
 		md.updateDel(id);
+	}
+
+	@Override
+	public int update(Member member) {
+		return md.update(member);
+	}
+
+	@Override
+	public List<Member> member(String id) {
+		return null;
 	}
 
 }

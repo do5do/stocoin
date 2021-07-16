@@ -14,5 +14,7 @@ public interface MemberDao {
 
 	public void updateDel(String id);
 
+	public int update(Member member);
+	
 
 }

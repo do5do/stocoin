@@ -20,4 +20,9 @@
 	<update id="updateDel" parameterType="string">
 		update member set del='n' where id=#{id}
 	</update>
+	
+	<update id="update" parameterType="string">
+		update member set nick=#{nick} where id=#{id}
+	</update>
+	
 </mapper>
