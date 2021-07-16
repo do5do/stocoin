@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="/stocoin/resources/bootstrap/css/board.css">
+<link rel="stylesheet" href="/stocoin/resources/css/board.css">
 </head>
 <body>
 	<ul class="tabs">
@@ -21,7 +21,7 @@
 	<div class="news">
 		<ul>
 			<c:forEach var="board" items="${list }">
-				<li>
+				<li onclick="location.href='/stocoin/board/boardDetail/bno/${board.bno}'">
 					<div class="left">
 						<p>${board.title }</p>
 						<p class="date">${board.dates }</p>

@@ -15,9 +15,17 @@
 		<put-attribute name="body" value="" />
 	</definition>
 	
+	<definition name="exclude2" template="/WEB-INF/views/exclude2.jsp">
+		<put-attribute name="body" value="" />
+	</definition>
+	
 	<!-- exclude폴더 안에 {1}에 jsp이름 -->
 	<definition name="exclude/*" extends="exclude">
 		<put-attribute name="body" value="/WEB-INF/views/exclude/{1}.jsp" />
+	</definition>
+	
+	<definition name="exclude2/*" extends="exclude2">
+		<put-attribute name="body" value="/WEB-INF/views/exclude2/{1}.jsp" />
 	</definition>
 
 	<!-- {1}폴더명 {2}는 jsp이름 -->

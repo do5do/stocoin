@@ -8,7 +8,7 @@
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-<script id="before" src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/lang/summernote-ko-KR.min.js"></script>
+<script id="after" src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/lang/summernote-ko-KR.min.js"></script>
 <!-- cyborg -->
 <link href="//bootswatch.com/3/cyborg/bootstrap.css" rel="stylesheet" id="cyborg">
 <tiles:insertAttribute name="body"></tiles:insertAttribute>

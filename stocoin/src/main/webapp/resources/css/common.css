@@ -1,0 +1,185 @@
+@charset "UTF-8";
+/* reset */
+:root {
+	--point-color: #19f;
+	--bg-color: #060606;
+}
+
+* {
+	font-family: Apple SD Gothic Neo, AppleSDGothicNeo;
+}
+
+body {
+	background: var(--bg-color);
+}
+
+ul, li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+a {
+	color: #fff;
+	text-decoration: none;
+}
+
+/* common */
+.container {
+	margin: 180px auto;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+
+.title {
+	font-size: 28px;
+	margin-bottom: 36px;
+}
+
+.sub_title {
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.btn {
+	border-radius: 0;
+}
+
+/* input */
+.input_box {
+	text-align: center;
+	padding-top: 24px;
+}
+
+.input_box.right {
+	text-align: right;
+}
+
+input[type="text"] {
+	width: 100%;
+	height: 48px;
+	border: none;
+	border-bottom: 1px solid currentColor;
+	outline: 0;
+	font-size: 15px;
+	margin-bottom: 16px;
+	font-family: inherit;
+	background: none;
+	color: #fff;
+}
+
+input[type="text"]::placeholder {
+	color: currentColor;
+}
+
+/* header white */
+header.white {
+	background: #fff;
+}
+
+header.white a {
+	color: #000;
+	font-size: 16px;
+}
+
+footer.white {
+	border-top: 1px solid #e4e4e4;
+}
+/* header white : end */
+
+header {
+	position: fixed;
+	z-index: 1000;
+	background: var(--bg-color);
+	width: 100%;
+}
+
+header .container {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	padding-top: 2%;
+	padding-bottom: 2%;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.logo a img {
+	width: 180px;
+}
+
+nav {
+	margin-left: auto;
+}
+
+nav ul {
+	display: flex;
+	align-items: center;
+}
+
+nav ul li {
+	margin-left: 40px;
+	height: 19px;
+}
+
+#mode_btn {
+	position: relative;
+	width: 47px;
+	height: 26px;
+	background: var(--point-color);
+	border-radius: 30px;
+	cursor: pointer;
+}
+
+#mode_btn figure {
+	position: absolute;
+	left: 0;
+	margin: 0;
+	width: 26px;
+    height: 26px;
+    background: #fff;
+    border-radius: 50%;
+    transition: all .3s ease;
+}
+
+#mode_btn.active figure {
+	left: 25px;
+}
+
+#mode_btn.active {
+	box-shadow: 2px 1px 3px 0px #c3c3c3;
+}
+
+#mode_btn figure img {
+	width: 14px;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+nav ul li a {
+	text-decoration: none;
+	color: #fff;
+}
+
+nav ul li a.active {
+	color: var(--point-color) !important;
+	font-weight: 600;
+}
+
+footer {
+	margin-top: auto;
+	border-top: 1px solid #282828;
+	padding: 2% 0;
+}
+
+footer p {
+	font-size: 12px;
+	padding-top: 20px;
+	color: #fff;
+}

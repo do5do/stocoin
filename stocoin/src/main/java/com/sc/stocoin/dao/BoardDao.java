@@ -10,4 +10,10 @@ public interface BoardDao {
 
 	List<Board> boardList();
 
+	Board select(int bno);
+
+	void updateViews(int bno);
+
+	int update(Board board);
+
 }

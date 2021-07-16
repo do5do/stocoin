@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,6 +57,10 @@
 		border-radius: 0;
 	}
 	
+	.btn:hover {
+		color: #19f;
+	}
+	
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -73,20 +78,31 @@
 	function checkForm() {
 		if($('#summernote').summernote('isEmpty')) {
 		    preventDefault();
-		  }
-		else {
+		} else {
 			document.iframe_form.target = "_parent";
-			document.iframe_form.action = "/stocoin/board/boardWriteResult"
+			document.iframe_form.action = "/stocoin/board/boardWriteResult";
 			document.iframe_form.submit();
+			
+// 			if (board != null) {
+// 				document.iframe_form.target = "_parent";
+// 				document.iframe_form.action = "/stocoin/board/boardUpdateResult";
+// 				document.iframe_form.submit();
+// 			}
 		}
 	}
 </script>
 </head>
 <body>
 	<form method="post" onsubmit="checkForm()" name="iframe_form">
-		<input type="text" id="title" name="title" placeholder="제목을 입력해주세요." required autofocus>
-		<!-- 내용 작성 -->
-		<textarea id="summernote" name="content" required></textarea>
+		<c:if test="${empty board }">
+			<input type="text" id="title" name="title" placeholder="제목을 입력해주세요." required autofocus>
+			<!-- 내용 작성 -->
+			<textarea id="summernote" name="content" required></textarea>
+		</c:if>
+		<c:if test="${not empty board }">
+			<input type="text" id="title" name="title" placeholder="제목을 입력해주세요." value="${board.title }" required autofocus>
+			<textarea id="summernote" name="content" required>${board.content }</textarea>
+		</c:if>
 		<div class="input_box">
 			<input type="submit" class="btn btn-primary" value="저장">
 			<input type="button" class="btn outline" value="취소/목록" onclick="history.go(-1)">

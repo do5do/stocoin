@@ -49,7 +49,10 @@ public class MemberController{
     			ms.updateDel(id);
     		}
     	}
+    	
+    	int mno = member.getMno();
 
+    	session.setAttribute("mno", mno);
     	session.setAttribute("id", id);
     	session.setAttribute("access_Token", access_Token);
     	model.addAttribute("prevUrl", prevUrl);
