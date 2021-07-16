@@ -50,16 +50,19 @@
 			</tr>
 			</thead>
 			<tbody class="table-light">
-			<c:forEach var="member" items="${member}">
+			<c:forEach var="member" items="${list}">
 				<tr class="table-dark">
-					<td><c:if test="${member.admin eq 0}">
-						<input type="checkbox" name="member_id" value="${member.nick }"></c:if></td>
+					<td>
+<%-- 					<c:if test="${member.list eq 0}"> --%>
+						<input type="checkbox" name="member_id" value="${member.nick }">
+<%-- </c:if> --%>
+						</td>
 					<td>${member.mno }</td>
 					<td>${member.nick }</td>
 					<td>${member.reg_date }</td>
 					<td><c:choose>
-						<c:when test="${member.delete eq 'y'}">탈퇴</c:when>
-						<c:when test="${member.delete eq 'n'}">가입</c:when></c:choose></td></tr>
+						<c:when test="${member.del eq 'y'}">탈퇴</c:when>
+						<c:when test="${member.del eq 'n'}">가입</c:when></c:choose></td></tr>
 						</c:forEach>
 			</tbody>
 		</table>

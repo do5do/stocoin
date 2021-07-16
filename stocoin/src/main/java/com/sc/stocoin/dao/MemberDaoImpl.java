@@ -1,6 +1,7 @@
 package com.sc.stocoin.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -32,6 +33,11 @@ public class MemberDaoImpl implements MemberDao	{
 
 	public int update(Member member) {
 		return sst.update("memberns.update", member);
+	}
+
+	@Override
+	public List<Member> list() {
+		return sst.selectList("memberns.list");
 	}
 
 }

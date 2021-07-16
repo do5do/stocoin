@@ -21,5 +21,5 @@ public interface MemberService {
 
 	public int update(Member member);
 
-	public List<Member> member(String id);
+	public List<Member> list();
 }

@@ -145,8 +145,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Member> member(String id) {
-		return null;
+	public List<Member> list() {
+		return md.list();
 	}
 
 }
