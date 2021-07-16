@@ -6,11 +6,13 @@
 		<typeAlias alias="board" type="com.sc.stocoin.model.Board"/>
 		<typeAlias alias="member" type="com.sc.stocoin.model.Member"/>
 		<typeAlias alias="admin" type="com.sc.stocoin.model.Admin"/>
+		<typeAlias alias="coin" type="com.sc.stocoin.model.Coin"/>
 	</typeAliases>
 	<!-- 매퍼정보 설정 -->
 	<mappers>
 		<mapper resource="board.xml" />
 		<mapper resource="member.xml" />
 		<mapper resource="admin.xml" />
+		<mapper resource="coin.xml" />
 	</mappers>
 </configuration>
