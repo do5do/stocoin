@@ -58,7 +58,8 @@ public class AdminController {
 		String id = (String)session.getAttribute("id");
 //		Admin admin = as.select(id);
 		Member member = ms.select(id);
-		List<Member> list = ms.member(id);
+		List<Member> list = ms.list();
+		System.out.println("size="+list.size());
 		model.addAttribute("member", member);
 		model.addAttribute("list",list);
 		return "admin/adminPage";
