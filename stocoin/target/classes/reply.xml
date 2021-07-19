@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="replyns">
+	<insert id="insert" parameterType="reply">
+		<selectKey order="BEFORE" keyProperty="rno" resultType="integer">
+			select nvl(max(rno), 0) + 1 rno from reply
+		</selectKey>
+		insert into reply values(#{bno}, #{rno}, #{content}, sysdate, 'n', #{mno}, 0)
+	</insert>
+	
+	<select id="replyList" parameterType="reply" resultType="reply">
+		select * from (select rownum rn, a.* from (select r.*, nick from reply r, member m
+		where r.mno = m.mno and bno = #{bno} and r.del = 'n' order by sysdate, rno) a)
+		where rn between #{startRow} and #{endRow}
+	</select>
+	
+	<update id="update" parameterType="reply">
+		update reply set content = #{content} where bno = #{bno} and rno = #{rno}
+	</update>
+	
+	<update id="delete" parameterType="reply">
+		update reply set del = 'y' where bno = #{bno} and rno = #{rno}
+	</update>
+	
+	<update id="updateLikes" parameterType="reply">
+		update reply set likes = #{likes} where bno = #{bno} and rno = #{rno}
+	</update>
+	
+	<select id="selectLikes" parameterType="hashmap" resultType="integer">
+		select likes from reply where rno = #{rno} and mno = #{mno}
+	</select>
+	
+	<select id="getTotal" parameterType="reply" resultType="integer">
+		select count(*) from reply where bno = #{bno} and del = 'n'
+	</select>
+</mapper>

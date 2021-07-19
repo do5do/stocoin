@@ -38,7 +38,7 @@
 	 }
 	 
 	 // 댓글 삭제
-	 function del(bno, rno) {
+	 function replyDel(bno, rno) {
 		 var sendData = "bno="+bno+"&rno="+rno;
 		 
 		 $.post('/stocoin/board/boardReplyDelete', sendData, function(data) {
@@ -118,7 +118,7 @@
 					<c:if test="${reply.mno == mno }">
 						<div class="btn_show" id="show_${reply.rno }">
 							<button class="btn btn-sm btn-primary btn_update">수정</button>
-							<button class="btn btn-sm btn-outline-primary" onclick="del(${reply.bno},${reply.rno})">삭제</button>
+							<button class="btn btn-sm btn-outline-primary" onclick="replyDel(${reply.bno},${reply.rno})">삭제</button>
 						</div>
 						<div class="btn_hide" id="hide_${reply.rno }">
 							<button class="btn btn-primary" onclick="done(${reply.bno},${reply.rno})">완료</button>

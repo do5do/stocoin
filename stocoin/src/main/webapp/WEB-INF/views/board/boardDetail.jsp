@@ -32,6 +32,15 @@
 			}
 		}
 	}
+	
+	// board delete
+	function boardDel() {
+		var con = confirm('정말 삭제 하시겠습니까?');
+		
+		if (con) {
+			location.href='/stocoin/board/boardDelete/bno/${board.bno}'
+		}
+	}
 </script>
 </head>
 <body>
@@ -41,7 +50,7 @@
 		<div class="input_box right">
 			<button class="btn btn-outline-primary col-2" onclick="location.href='/stocoin/board/boardList'">목록</button>
 			<button class="btn btn-outline-primary col-2" onclick="location.href='/stocoin/board/boardUpdate/bno/${board.bno}'">임시 수정 버튼</button>
-			<button class="btn btn-outline-primary col-2" onclick="location.href='/stocoin/board/boardDelete/bno/${board.bno}'">임시 삭제 버튼</button>
+			<button class="btn btn-outline-primary col-2" onclick="boardDel()">임시 삭제 버튼</button>
 		</div>
 		
 		<section class="reply">

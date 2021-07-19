@@ -19,8 +19,8 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<Board> boardList() {
-		return sst.selectList("boardns.boardList");
+	public List<Board> boardList(Board board) {
+		return sst.selectList("boardns.boardList", board);
 	}
 
 	@Override
@@ -36,5 +36,10 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public int update(Board board) {
 		return sst.update("boardns.update", board);
+	}
+
+	@Override
+	public int delete(int bno) {
+		return sst.update("boardns.delete", bno);
 	}
 }

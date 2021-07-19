@@ -34,5 +34,6 @@
 		</ul>
 	</div>
 	<button class="btn btn-outline-primary" onclick="location.href='/stocoin/board/boardWriteForm'">임시 글쓰기 버튼</button>
+	<button class="btn btn-outline-primary col-2" onclick="location.href='/stocoin/board/insertBoard'">insertBoard</button>
 </body>
 </html>

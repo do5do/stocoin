@@ -23,12 +23,12 @@
 	</beans:bean>
 	
 	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" />
+		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
 		<beans:property name="order" value="1" />
 	</beans:bean>
 
 	<!-- Tiles 2 Configure -->
-	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<beans:property name="definitions">
 			<beans:list>
 				<beans:value>/WEB-INF/tiles/tiles.xml</beans:value>
@@ -36,6 +36,14 @@
 		</beans:property>
 	</beans:bean>	
 	
+	<!-- session check -->
+	<beans:bean id="sessionChk" class="com.sc.stocoin.service.SessionChk"></beans:bean>
+	<interceptors>
+		<interceptor>
+			<mapping path=""/>
+			<beans:ref bean="sessionChk"></beans:ref>
+		</interceptor>
+	</interceptors>
 	
 	<context:component-scan base-package="com.sc.stocoin" />
 	

@@ -43,7 +43,7 @@
 	}
 	
 	.btn-primary:hover {
-		color: #ffffff;
+		color: #ffffff !important;
 	   	background-color: #1199ff;
 	   	border-color: #1199ff;
 	}
@@ -80,28 +80,27 @@
 		    preventDefault();
 		} else {
 			document.iframe_form.target = "_parent";
-			document.iframe_form.action = "/stocoin/board/boardWriteResult";
+			if (${not empty board}) {
+				document.iframe_form.action = "/stocoin/board/boardUpdateResult";
+			} else {				
+				document.iframe_form.action = "/stocoin/board/boardWriteResult";
+			}
 			document.iframe_form.submit();
-			
-// 			if (board != null) {
-// 				document.iframe_form.target = "_parent";
-// 				document.iframe_form.action = "/stocoin/board/boardUpdateResult";
-// 				document.iframe_form.submit();
-// 			}
 		}
 	}
 </script>
 </head>
 <body>
 	<form method="post" onsubmit="checkForm()" name="iframe_form">
+		<c:if test="${not empty board }">
+			<input type="hidden" name="bno" value="${board.bno }">
+			<input type="text" id="title" name="title" placeholder="제목을 입력해주세요." value="${board.title }" required autofocus>
+			<textarea id="summernote" name="content" required>${board.content }</textarea>
+		</c:if>
 		<c:if test="${empty board }">
 			<input type="text" id="title" name="title" placeholder="제목을 입력해주세요." required autofocus>
 			<!-- 내용 작성 -->
 			<textarea id="summernote" name="content" required></textarea>
-		</c:if>
-		<c:if test="${not empty board }">
-			<input type="text" id="title" name="title" placeholder="제목을 입력해주세요." value="${board.title }" required autofocus>
-			<textarea id="summernote" name="content" required>${board.content }</textarea>
 		</c:if>
 		<div class="input_box">
 			<input type="submit" class="btn btn-primary" value="저장">
