@@ -39,8 +39,21 @@ public class BoardController {
 	private Integer bno;
 
 	@RequestMapping("/board/boardList")
-	public String boardList(Model model) {
-		List<Board> list = bs.boardList();
+	public String boardList(Board board, String pageNum, Model model) {
+		if (pageNum == null || pageNum.equals("")) {
+			pageNum = "1";
+		}
+		int currentPage = Integer.parseInt(pageNum);
+		int rowPerPage = 5; // 페이지당 리스트 갯수
+		int startRow = (currentPage - 1) * rowPerPage + 1;
+		int endRow = startRow + rowPerPage - 1;
+		
+		board.setStartRow(startRow);
+		board.setEndRow(endRow);
+		
+		List<Board> list = bs.boardList(board);
+		
+		
 		model.addAttribute("list", list);
 		return "board/boardList";
 	}
@@ -78,9 +91,9 @@ public class BoardController {
 	
 	@RequestMapping("/board/boardUpdate/bno/{bno}")
 	public String boardUpdate(@PathVariable int bno, Model model) {
-		this.bno = bno;
 		Board board = bs.select(bno);
 		model.addAttribute("board", board);
+		this.bno = bno;
 		return "board/boardUpdate";
 	}
 	
@@ -91,6 +104,24 @@ public class BoardController {
 		return "board/boardUpdateResult";
 	}
 
+	@RequestMapping("/board/boardDelete/bno/{bno}")
+	public String boardDelete(@PathVariable int bno, Model model) {
+		int result = bs.delete(bno);
+		model.addAttribute("result", result);
+		return "board/boardDelete";
+	}
+	
+	@RequestMapping("/board/insertBoard")
+	public String insertBoard() {
+		for (int i = 0; i <100; i++) {			
+			Board board = new Board();
+			board.setTitle("오늘의 운세 "+i);
+			board.setContent(i+"번 투신자판 하세요.");
+			bs.insert(board);
+		}
+		
+		return "redirect:/board/boardList";
+	}
 	
 	
 	// reply start
