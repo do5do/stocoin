@@ -19,7 +19,27 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Board> boardList() {
-		return bd.boardList();
+	public List<Board> boardList(Board board) {
+		return bd.boardList(board);
+	}
+
+	@Override
+	public Board select(int bno) {
+		return bd.select(bno);
+	}
+
+	@Override
+	public void updateViews(int bno) {
+		bd.updateViews(bno);
+	}
+
+	@Override
+	public int update(Board board) {
+		return bd.update(board);
+	}
+
+	@Override
+	public int delete(int bno) {
+		return bd.delete(bno);
 	}
 }

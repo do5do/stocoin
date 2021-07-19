@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberns">
+	<insert id="insert" parameterType="hashmap">
+		<selectKey order="BEFORE" keyProperty="mno" resultType="integer">
+			select nvl(max(mno), 0) + 1 mno from member
+		</selectKey>
+		insert into member values(#{mno}, #{id}, #{nick}, sysdate, 'n')
+	</insert>
+	
+	<select id="select" parameterType="string" resultType="member">
+		select * from member where id=#{id}
+	</select>
+	
+	<update id="delete" parameterType="string">
+		update member set del='y' where id=#{id}
+	</update>
+	
+	<update id="updateDel" parameterType="string">
+		update member set del='n' where id=#{id}
+	</update>
+</mapper>

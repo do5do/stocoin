@@ -12,4 +12,18 @@
 	<select id="boardList" resultType="board">
 		select * from board order by dates, bno
 	</select>
+	
+	<!-- board detail -->
+	<select id="select" parameterType="integer" resultType="board">
+		select * from board where bno = #{bno}
+	</select>
+	
+	<!-- views count -->
+	<update id="updateVeiws" parameterType="integer">
+		update board set views = views + 1 where bno = #{bno}
+	</update>
+	
+	<update id="update" parameterType="board">
+		update board set title = #{title}, content = #{content} where bno = #{bno}
+	</update>
 </mapper>

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="/stocoin/resources/bootstrap/css/board.css">
+<link rel="stylesheet" href="/stocoin/resources/css/board.css">
 </head>
 <body>
 	<ul class="tabs">
@@ -21,7 +21,7 @@
 	<div class="news">
 		<ul>
 			<c:forEach var="board" items="${list }">
-				<li>
+				<li onclick="location.href='/stocoin/board/boardDetail/bno/${board.bno}'">
 					<div class="left">
 						<p>${board.title }</p>
 						<p class="date">${board.dates }</p>
@@ -34,5 +34,6 @@
 		</ul>
 	</div>
 	<button class="btn btn-outline-primary" onclick="location.href='/stocoin/board/boardWriteForm'">임시 글쓰기 버튼</button>
+	<button class="btn btn-outline-primary col-2" onclick="location.href='/stocoin/board/insertBoard'">insertBoard</button>
 </body>
 </html>

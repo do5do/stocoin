@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="replyLikesns">
+	<insert id="insertLikes">
+		insert into replyLikes values(#{mno}, #{bno}, #{rno})
+	</insert>
+	
+	<select id="select" parameterType="replyLikes" resultType="replyLikes">
+		select * from replyLikes where mno = #{mno} and rno = #{rno} and bno = #{bno}
+	</select>
+	
+	<delete id="delete" parameterType="replyLikes">
+		delete from replyLikes where mno = #{mno} and rno = #{rno} and bno = #{bno}
+	</delete>
+	
+	<select id="selectMno" parameterType="hashmap" resultType="replyLikes">
+		select * from replyLikes where mno = #{mno} and bno = #{bno}
+	</select>
+</mapper>

@@ -8,13 +8,13 @@
 <body>
 	<c:if test="${result > 0 }">
 		<script type="text/javascript">
-			alert('입력 완료!');
+			alert('수정 완료!');
 			location.href="/stocoin/board/boardList";
 		</script>
 	</c:if>
 	<c:if test="${result <= 0 }">
 		<script type="text/javascript">
-			alert('입력 실패!');
+			alert('수정 실패!');
 			history.go(-1);
 		</script>
 	</c:if>

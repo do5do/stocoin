@@ -19,7 +19,27 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<Board> boardList() {
-		return sst.selectList("boardns.boardList");
+	public List<Board> boardList(Board board) {
+		return sst.selectList("boardns.boardList", board);
+	}
+
+	@Override
+	public Board select(int bno) {
+		return sst.selectOne("boardns.select", bno);
+	}
+
+	@Override
+	public void updateViews(int bno) {
+		sst.update("boardns.updateVeiws", bno);
+	}
+
+	@Override
+	public int update(Board board) {
+		return sst.update("boardns.update", board);
+	}
+
+	@Override
+	public int delete(int bno) {
+		return sst.update("boardns.delete", bno);
 	}
 }

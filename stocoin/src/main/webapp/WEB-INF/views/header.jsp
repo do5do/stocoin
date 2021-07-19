@@ -28,7 +28,7 @@
 				$('*').css('color', '#fff');
 				// summernote 제어
 				$('#summer_iframe').contents().find("#title").css('color', '#fff');
-				$('#summer_iframe').contents().find('link#before').before('<link href="//bootswatch.com/3/cyborg/bootstrap.css" rel="stylesheet" id="cyborg">');
+				$('#summer_iframe').contents().find('script#after').after('<link href="//bootswatch.com/3/cyborg/bootstrap.css" rel="stylesheet" id="cyborg">');
 				
 				$('#mode_btn').removeClass('active');
 				$('#mode_btn figure img').attr('src', '/stocoin/resources/images/moon.svg');
@@ -39,7 +39,7 @@
 	function login() {
 		var curUrl = window.location.pathname;
 		$.post("/stocoin/login2", "curUrl="+curUrl, function(data) {});
-		location.href="https://kauth.kakao.com/oauth/authorize?client_id=8d7498ce8ee97c514f96feb042750e1e&redirect_uri=http://localhost:8080/stocoin/login&response_type=code"
+		location.href="https://kauth.kakao.com/oauth/authorize?client_id=8d7498ce8ee97c514f96feb042750e1e&redirect_uri=http://localhost:8080/stocoin/login&response_type=code";
 	}
 </script>
 

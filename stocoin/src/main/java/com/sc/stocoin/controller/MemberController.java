@@ -48,7 +48,6 @@ public class MemberController{
     	
     	int mno = member.getMno();
 
-    	// 세션 삽입
     	session.setAttribute("id", id);
     	session.setAttribute("access_Token", access_Token);
     	session.setAttribute("mno", mno);
