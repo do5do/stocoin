@@ -8,8 +8,6 @@ import java.util.Map;
 public interface CoinService {
 
 	List<Map<String, String>> getCoinInfo() throws IOException, ParseException;
-
-	List<Map<String, String>> getFluctuation_Rate() throws IOException, ParseException;
 	
 //	List<String> getChartList(List<Map<String, String>> coinList) throws IOException;
 

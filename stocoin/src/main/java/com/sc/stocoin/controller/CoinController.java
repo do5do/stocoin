@@ -20,15 +20,19 @@ public class CoinController {
 	
 	@RequestMapping("/coin/coinList")
 	public String coinList(Model model) throws IOException, ParseException {
-		List<Map<String, String>> coinList = cs.getCoinInfo();
-		List<Map<String, String>> Fluctuation_Rate = cs.getFluctuation_Rate();
 //		List<String> chartList = cs.getChartList(coinList);
 		
-		model.addAttribute("coinList", coinList);
-		model.addAttribute("Fluctuation_Rate", Fluctuation_Rate);
 //		model.addAttribute("chartList", chartList);
-		
+//		System.out.println("??????????");
 		return "coin/coinList";
+	}
+
+	@RequestMapping("/exclude2/coinListReload")
+	public String coinListReload(Model model) throws IOException, ParseException {
+		List<Map<String, String>> coinList = cs.getCoinInfo();
+		model.addAttribute("coinList", coinList);
+		
+		return "exclude2/coinListReload";
 	}
 
 	

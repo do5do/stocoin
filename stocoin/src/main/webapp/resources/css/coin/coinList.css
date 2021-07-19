@@ -69,6 +69,12 @@
     padding-right: 0.5rem;
 }
 
+.sort {
+	font-size: 12px;
+    vertical-align: top;
+    cursor: pointer;
+}
+
 #table_wrapper {
     height: 800px;
     overflow-y: auto;
