@@ -13,7 +13,7 @@ public interface MemberDao {
 
 	public void delete(String id);
 
-	public void updateDel(String id);
+	public void updateDel(HashMap<String, Object> userInfo);
 
 	public int update(Member member);
 

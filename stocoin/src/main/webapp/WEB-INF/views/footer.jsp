@@ -8,6 +8,6 @@
 <footer>
 	<div align="center">
 		<img width="160px" alt="로고" src="/stocoin/resources/images/logo.png">
-		<p>© 2021, stocoin. All Rights Res<a onclick="admin()" style="color: #adafae; cursor:initial">er</a>ved.</p>
+		<p>© 2021, stocoin. All Rights Res<a onclick="admin()" style="color: #fff; cursor:initial">er</a>ved.</p>
 	</div>
 </footer>

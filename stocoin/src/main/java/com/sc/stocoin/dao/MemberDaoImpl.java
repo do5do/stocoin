@@ -2,7 +2,6 @@ package com.sc.stocoin.dao;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +26,8 @@ public class MemberDaoImpl implements MemberDao	{
 		sst.update("memberns.delete", id);
 	}
 
-	public void updateDel(String id) {
-		sst.update("memberns.updateDel", id);
+	public void updateDel(HashMap<String, Object> userInfo) {
+		sst.update("memberns.updateDel", userInfo);
 	}
 
 	public int update(Member member) {
@@ -39,5 +38,7 @@ public class MemberDaoImpl implements MemberDao	{
 	public List<Member> list() {
 		return sst.selectList("memberns.list");
 	}
+
+
 
 }
