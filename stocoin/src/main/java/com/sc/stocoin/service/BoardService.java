@@ -18,4 +18,6 @@ public interface BoardService {
 
 	int delete(int bno);
 
+	int getTotal(Board board);
+
 }

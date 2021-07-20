@@ -23,6 +23,11 @@
 	padding-bottom: 50px;
 }
 
+.news .emptyList {
+	text-align: center;
+	padding-top: 26px;
+}
+
 .news li {
 	display: flex;
 	align-items: center;
@@ -35,7 +40,6 @@
 }
 
 .news li p {
-	background: var(--bg-color);
 	color: #fff;
 	margin-bottom: 0;
 }
@@ -51,22 +55,23 @@
 }
 
 .news li .views {
-	color: #888;
+	color: #888 !important;
 	padding-top: 4px;
 	text-align: right;
 }
 
-.far {
+.icon {
 	padding-right: 8px;
+	color: #888 !important;
 }
 /* boardList :end */
 
 /* boardDetail */
-.boardDetail p img {
+.board p img {
 	width: 100% !important;
 }
 
-.boardDetail.container {
+.board.container {
 	margin-top: 0;
 	margin-bottom: 0;
 }
@@ -138,7 +143,7 @@ textarea::placeholder {
 .pagination {
 	justify-content: center;
 	align-items: center;
-	margin-top: 60px;
+	margin-top: 48px;
 }
 
 .pagination li {
@@ -147,13 +152,13 @@ textarea::placeholder {
 
 .pagination li a {
 	display: block;
-	width: 20px;
+	width: 24px;
 	height: 20px;
 	text-align: center;
 }
 
 .pagination li.active a {
-	color: var(--point-color);
+	color: var(--point-color) !important;
 	font-weight: 600;
 }
 
@@ -162,15 +167,15 @@ textarea::placeholder {
     top: 50%;
     left: 50%;
 	display: block;
-	border-top: 1px solid #fff;
-	border-left: 1px solid #fff;
+	border-top: 1px solid currentColor;
+	border-left: 1px solid currentColor;
 	width: 10px;
 	height: 10px;
 	transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .pagination .arrow2 {
-	left: 5px;
+	left: 6px;
 }
 
 .pagination .arrow.right {
@@ -178,6 +183,6 @@ textarea::placeholder {
 }
 
 .pagination .arrow.right.arrow2 {
-	left: 15px;
+	left: 18px;
 }
 

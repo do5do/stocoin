@@ -6,12 +6,12 @@
 		<selectKey order="BEFORE" keyProperty="bno" resultType="integer">
 			select nvl(max(bno), 0) + 1 bno from board
 		</selectKey>
-		insert into board values(#{bno}, #{title}, #{content}, sysdate, 0, 'n', 1)
+		insert into board values(#{bno}, #{title}, #{content}, sysdate, 0, 'n', #{types})
 	</insert>
 	
 	<select id="boardList" resultType="board">
 		select * from (select rownum rn, a.* from
-		(select * from board where del = 'n' order by bno) a)
+		(select * from board where del = 'n' and types = #{types} order by bno) a)
 		where rn between #{startRow} and #{endRow}
 	</select>
 	
@@ -32,4 +32,8 @@
 	<update id="delete" parameterType="integer">
 		update board set del = 'y' where bno = #{bno}
 	</update>
+	
+	<select id="getTotal" resultType="integer">
+		select count(*) from board where del = 'n' and types = #{types}
+	</select>
 </mapper>

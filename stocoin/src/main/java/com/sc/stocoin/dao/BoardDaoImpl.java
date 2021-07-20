@@ -42,4 +42,9 @@ public class BoardDaoImpl implements BoardDao {
 	public int delete(int bno) {
 		return sst.update("boardns.delete", bno);
 	}
+
+	@Override
+	public int getTotal(Board board) {
+		return sst.selectOne("boardns.getTotal", board);
+	}
 }

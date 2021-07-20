@@ -39,75 +39,101 @@ public class BoardController {
 	private Integer bno;
 
 	@RequestMapping("/board/boardList")
-	public String boardList(Board board, String pageNum, Model model) {
+	public String boardList(Board board, String pageNum, String types, Model model) {
 		if (pageNum == null || pageNum.equals("")) {
 			pageNum = "1";
 		}
+		
+		if (types == null || types.equals("")) {
+			types = "1";
+		}
+				
 		int currentPage = Integer.parseInt(pageNum);
-		int rowPerPage = 5; // 페이지당 리스트 갯수
+		int rowPerPage = 8; // 페이지당 리스트 갯수
 		int startRow = (currentPage - 1) * rowPerPage + 1;
 		int endRow = startRow + rowPerPage - 1;
+		// type setting
+		int typeInt = Integer.parseInt(types);
 		
 		board.setStartRow(startRow);
 		board.setEndRow(endRow);
+		board.setTypes(typeInt);
 		
+		// 리스트 가져오기
 		List<Board> list = bs.boardList(board);
+		int total = bs.getTotal(board);
 		
+		PagingBean pb = new PagingBean(currentPage, rowPerPage, total);
 		
+		model.addAttribute("types", typeInt);
 		model.addAttribute("list", list);
+		model.addAttribute("pb", pb);
 		return "board/boardList";
 	}
 
 	@RequestMapping("/board/boardWriteForm")
-	public String boardWriteForm() {
+	public String boardWriteForm(int types, Model model) {
+		model.addAttribute("types", types);
 		return "board/boardWriteForm";
 	}
 
 	@RequestMapping("/exclude/summernoteForm")
-	public String summernoteForm(Model model) {
+	public String summernoteForm(int types, Model model) {
 		if (bno != null) {			
 			Board board = bs.select(bno);
 			model.addAttribute("board", board);
 		}
+		model.addAttribute("types", types);
 		return "exclude/summernoteForm";
 	}
 
 	@RequestMapping("/board/boardWriteResult")
-	public String boardWriteResult(Board board, Model model) {
+	public String boardWriteResult(Board board, int types, Model model) {
 		int result = bs.insert(board);
+		
 		model.addAttribute("result", result);
+		model.addAttribute("types", types);
 		return "board/boardWriteResult";
 	}
 
-	@RequestMapping("/board/boardDetail/bno/{bno}")
-	public String boardDetail(@PathVariable int bno, Model model) {
+	@RequestMapping("/board/boardDetail/bno/{bno}/types/{types}")
+	public String boardDetail(@PathVariable int bno, @PathVariable int types,  Model model) {
 		Board board = bs.select(bno);
 		// views count
 		bs.updateViews(bno);
-
+		
+		model.addAttribute("types", types);
 		model.addAttribute("board", board);
 		return "board/boardDetail";
 	}
 	
 	@RequestMapping("/board/boardUpdate/bno/{bno}")
 	public String boardUpdate(@PathVariable int bno, Model model) {
-		Board board = bs.select(bno);
-		model.addAttribute("board", board);
 		this.bno = bno;
+		Board board = bs.select(bno);
+		int types = board.getTypes();
+		
+		model.addAttribute("types", types);
+		model.addAttribute("board", board);
 		return "board/boardUpdate";
 	}
 	
 	@RequestMapping("/board/boardUpdateResult")
-	public String boardUpdateResult(Board board, Model model) {
+	public String boardUpdateResult(Board board, int types, Model model) {
 		int result = bs.update(board);
+		int bno = board.getBno();
+		
 		model.addAttribute("result", result);
+		model.addAttribute("types", types);
+		model.addAttribute("bno", bno);
 		return "board/boardUpdateResult";
 	}
 
 	@RequestMapping("/board/boardDelete/bno/{bno}")
-	public String boardDelete(@PathVariable int bno, Model model) {
+	public String boardDelete(@PathVariable int bno, int types, Model model) {
 		int result = bs.delete(bno);
 		model.addAttribute("result", result);
+		model.addAttribute("types", types);
 		return "board/boardDelete";
 	}
 	
@@ -119,7 +145,6 @@ public class BoardController {
 			board.setContent(i+"번 투신자판 하세요.");
 			bs.insert(board);
 		}
-		
 		return "redirect:/board/boardList";
 	}
 	

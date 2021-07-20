@@ -80,11 +80,13 @@
 		    preventDefault();
 		} else {
 			document.iframe_form.target = "_parent";
+			
 			if (${not empty board}) {
-				document.iframe_form.action = "/stocoin/board/boardUpdateResult";
+				document.iframe_form.action = "/stocoin/board/boardUpdateResult?types=${types}";
 			} else {				
-				document.iframe_form.action = "/stocoin/board/boardWriteResult";
+				document.iframe_form.action = "/stocoin/board/boardWriteResult?types=${types}";
 			}
+			
 			document.iframe_form.submit();
 		}
 	}
@@ -92,6 +94,7 @@
 </head>
 <body>
 	<form method="post" onsubmit="checkForm()" name="iframe_form">
+		<input type="hidden" name="types" value="${types }">
 		<c:if test="${not empty board }">
 			<input type="hidden" name="bno" value="${board.bno }">
 			<input type="text" id="title" name="title" placeholder="제목을 입력해주세요." value="${board.title }" required autofocus>

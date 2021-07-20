@@ -9,9 +9,10 @@
 	<c:if test="${result > 0 }">
 		<script type="text/javascript">
 			alert('입력 완료!');
-			location.href="/stocoin/board/boardList";
+			location.href="/stocoin/board/boardList?types=${types}";
 		</script>
 	</c:if>
+	
 	<c:if test="${result <= 0 }">
 		<script type="text/javascript">
 			alert('입력 실패!');

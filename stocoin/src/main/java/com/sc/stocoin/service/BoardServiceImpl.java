@@ -42,4 +42,9 @@ public class BoardServiceImpl implements BoardService {
 	public int delete(int bno) {
 		return bd.delete(bno);
 	}
+
+	@Override
+	public int getTotal(Board board) {
+		return bd.getTotal(board);
+	}
 }

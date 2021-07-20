@@ -30,10 +30,10 @@
 		var sendData = "content="+$('#content_'+rno).text()+"&bno="+bno+"&rno="+rno;
 		
 		$.post('/stocoin/board/boardReplyUpdate', sendData, function(data) {
-			alert('리뷰가 수정되었습니다.');
 			$('#content_'+rno).attr('contenteditable', 'false');
 			$('#hide_'+rno).hide();
 			$('#show_'+rno).show();
+			//alert('리뷰가 수정되었습니다.');
 		})
 	 }
 	 
@@ -42,8 +42,8 @@
 		 var sendData = "bno="+bno+"&rno="+rno;
 		 
 		 $.post('/stocoin/board/boardReplyDelete', sendData, function(data) {
-			 alert("리뷰가 삭제되었습니다.");
 			 $('#replyLoad').html(data);
+			 //alert("리뷰가 삭제되었습니다.");
 		 })
 	 }
 	 
@@ -121,8 +121,8 @@
 							<button class="btn btn-sm btn-outline-primary" onclick="replyDel(${reply.bno},${reply.rno})">삭제</button>
 						</div>
 						<div class="btn_hide" id="hide_${reply.rno }">
-							<button class="btn btn-primary" onclick="done(${reply.bno},${reply.rno})">완료</button>
-							<button class="btn btn-outline-primary btn_update_close">취소</button>
+							<button class="btn btn-sm btn-primary" onclick="done(${reply.bno},${reply.rno})">완료</button>
+							<button class="btn btn-sm btn-outline-primary btn_update_close">취소</button>
 						</div>
 					</c:if>
 				</li>

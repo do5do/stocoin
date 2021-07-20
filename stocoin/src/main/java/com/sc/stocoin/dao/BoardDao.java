@@ -18,4 +18,6 @@ public interface BoardDao {
 
 	int delete(int bno);
 
+	int getTotal(Board board);
+
 }

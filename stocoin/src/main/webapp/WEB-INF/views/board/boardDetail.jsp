@@ -38,19 +38,19 @@
 		var con = confirm('정말 삭제 하시겠습니까?');
 		
 		if (con) {
-			location.href='/stocoin/board/boardDelete/bno/${board.bno}'
+			location.href='/stocoin/board/boardDelete/bno/${board.bno}?types=${types}'
 		}
 	}
 </script>
 </head>
 <body>
-	<div class="container col-8 boardDetail">
+	<div class="container col-8 board">
 		<h2 class="title" align="center">뉴스 게시글 상세</h2>
 		<p>${board.content }</p>
 		<div class="input_box right">
-			<button class="btn btn-outline-primary col-2" onclick="location.href='/stocoin/board/boardList'">목록</button>
-			<button class="btn btn-outline-primary col-2" onclick="location.href='/stocoin/board/boardUpdate/bno/${board.bno}'">임시 수정 버튼</button>
-			<button class="btn btn-outline-primary col-2" onclick="boardDel()">임시 삭제 버튼</button>
+			<button class="btn btn-outline-primary col-3" onclick="location.href='/stocoin/board/boardList?types=${types}'">목록</button>
+			<button class="btn btn-outline-primary col-3" onclick="location.href='/stocoin/board/boardUpdate/bno/${board.bno}'">임시 수정 버튼</button>
+			<button class="btn btn-outline-primary col-3" onclick="boardDel()">임시 삭제 버튼</button>
 		</div>
 		
 		<section class="reply">

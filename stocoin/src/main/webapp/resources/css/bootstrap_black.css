@@ -3363,7 +3363,7 @@ fieldset:disabled .btn {
 }
 
 .btn-outline-primary {
-  color: #1199ff;
+  color: #1199ff !important;
   border-color: #1199ff;
 }
 
