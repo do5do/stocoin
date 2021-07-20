@@ -4,12 +4,11 @@
 <mapper namespace="adminns">
     
     <select id="select" parameterType="string" resultType="admin">
-        select * from admin where id=#{id} and pwd=#{pwd}
+        select * from admin where id=#{id}
     </select>    
- 	<insert id="list" parameterType="hashmap">
-		<selectKey order="BEFORE" keyProperty="mno" resultType="integer">
-			select nvl(max(mno), 0) + 1 mno from member
-		</selectKey>
-		insert into member values(#{mno}, #{id}, #{nick}, sysdate, 'n')
-	</insert>
+ 	
+ 	<update id="deleteList">
+ 		update member set del='y' where id=#{id}
+ 	</update>
+	
 </mapper>

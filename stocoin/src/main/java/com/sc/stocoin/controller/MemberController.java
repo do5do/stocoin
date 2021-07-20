@@ -1,20 +1,21 @@
 package com.sc.stocoin.controller;
+
 import java.io.IOException;
+
 import java.util.HashMap;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sc.stocoin.model.Member;
 import com.sc.stocoin.service.MemberService;
+
 @Controller
 public class MemberController{
     @Autowired
@@ -42,7 +43,7 @@ public class MemberController{
     		ms.insert(userInfo);
     	} else {
     		if (member.getDel().equals("y")) { // 두 번째(이상) 회원 가입 일 때
-    			ms.updateDel(id);
+    			ms.updateDel(userInfo);
     		}
     	}
     	

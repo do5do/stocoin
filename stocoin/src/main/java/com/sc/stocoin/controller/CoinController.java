@@ -21,11 +21,11 @@ public class CoinController {
 	@RequestMapping("/coin/coinList")
 	public String coinList(Model model) throws IOException, ParseException {
 		List<Map<String, String>> coinList = cs.getCoinInfo();
-		List<Map<String, String>> Fluctuation_Rate = cs.getFluctuation_Rate();
+//		List<Map<String, String>> Fluctuation_Rate = cs.getFluctuation_Rate();
 //		List<String> chartList = cs.getChartList(coinList);
 		
 		model.addAttribute("coinList", coinList);
-		model.addAttribute("Fluctuation_Rate", Fluctuation_Rate);
+//		model.addAttribute("Fluctuation_Rate", Fluctuation_Rate);
 //		model.addAttribute("chartList", chartList);
 		
 		return "coin/coinList";

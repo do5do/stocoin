@@ -17,7 +17,7 @@ public interface MemberService {
 
 	public void delete(String access_Token, String id) throws IOException;
 
-	public void updateDel(String id);
+	public void updateDel(HashMap<String, Object> userInfo);
 
 	public int update(Member member);
 

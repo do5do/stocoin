@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -27,13 +26,10 @@ public class MemberServiceImpl implements MemberService {
 
 	public String getAccessToken(String authorize_code) throws IOException {
 		String reqURL = "https://kauth.kakao.com/oauth/token";
-
 		URL url = new URL(reqURL);
-
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
 		// POST 요청을 위해 기본값이 false인 setDoOutput을 true로
-
 		conn.setRequestMethod("POST");
 		conn.setDoOutput(true);
 
@@ -47,9 +43,7 @@ public class MemberServiceImpl implements MemberService {
 		bw.write(sb.toString());
 		bw.flush();
 
-		// 결과 코드가 200이라면 성공
-		int responseCode = conn.getResponseCode();
-		System.out.println("responseCode : " + responseCode);
+		conn.getResponseCode();
 
 		// 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
 		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -59,15 +53,12 @@ public class MemberServiceImpl implements MemberService {
 		while ((line = br.readLine()) != null) {
 			result += line;
 		}
-		System.out.println("response body : " + result);
 
 		// Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
 		JsonParser parser = new JsonParser();
 		JsonElement element = parser.parse(result);
 
 		String access_Token = element.getAsJsonObject().get("access_token").getAsString();
-
-		System.out.println("access_token : " + access_Token);
 
 		br.close();
 		bw.close();
@@ -82,12 +73,9 @@ public class MemberServiceImpl implements MemberService {
 		URL url = new URL(reqURL);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
-
 		// 요청에 필요한 Header에 포함될 내용
 		conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-
-		int responseCode = conn.getResponseCode();
-		System.out.println("responseCode : " + responseCode);
+		conn.getResponseCode();
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
@@ -97,7 +85,6 @@ public class MemberServiceImpl implements MemberService {
 		while ((line = br.readLine()) != null) {
 			result += line;
 		}
-		System.out.println("response body : " + result);
 
 		JsonParser parser = new JsonParser();
 		JsonElement element = parser.parse(result);
@@ -113,38 +100,33 @@ public class MemberServiceImpl implements MemberService {
 		return userInfo;
 	}
 
-	public Member select(String id) {
-		return md.select(id);
-	}
-
-	public void insert(HashMap<String, Object> userInfo) {
-		md.insert(userInfo);
-	}
-
-	@Override
 	public void delete(String access_Token, String id) throws IOException {
 		String reqURL = "https://kapi.kakao.com/v1/user/unlink";
 		URL url = new URL(reqURL);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("POST");
 		conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-		
-		int responseCode = conn.getResponseCode();
-		System.out.println("responseCode : " + responseCode);
+		conn.getResponseCode();
 		
 		md.delete(id);
 	}
-
-	public void updateDel(String id) {
-		md.updateDel(id);
+	
+	public Member select(String id) {
+		return md.select(id);
+	}
+	
+	public void insert(HashMap<String, Object> userInfo) {
+		md.insert(userInfo);
 	}
 
-	@Override
+	public void updateDel(HashMap<String, Object> userInfo) {
+		md.updateDel(userInfo);
+	}
+
 	public int update(Member member) {
 		return md.update(member);
 	}
 
-	@Override
 	public List<Member> list() {
 		return md.list();
 	}
