@@ -51,7 +51,7 @@
 	<context:component-scan base-package="com.sc.stocoin" />
 	<!-- jsp와 java프로그램을 controller통하지 않고 직접 연결 -->
 	<default-servlet-handler/>
-	<beans:bean id="cs" class="com.sc.stocoin.ChatSocketHandler"></beans:bean>
+	<beans:bean id="cs" class="com.sc.stocoin.controller.ChatSocketHandler"></beans:bean>
 	<websocket:handlers>
 		<websocket:mapping handler="cs" path="/chat-ws.do"/>
 	</websocket:handlers>

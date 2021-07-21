@@ -13,7 +13,7 @@
 		<org.springframework-version>4.2.4.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
-		<org.apache.tiles-version>2.2.2</org.apache.tiles-version>
+		<org.apache.tiles-version>3.0.8</org.apache.tiles-version>
 	</properties>
 	<dependencies>
 		<!-- javax.bind error가 날 시 추가 해보기 :start -->

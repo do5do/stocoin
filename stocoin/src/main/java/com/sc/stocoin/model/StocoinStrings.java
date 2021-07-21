@@ -1,4 +1,4 @@
-package com.sc.stocoin;
+package com.sc.stocoin.model;
 
 public class StocoinStrings {
 	private static String SRC = "C:\\Users\\catap\\git\\stocoin\\stocoin\\src\\main\\clt\\";
