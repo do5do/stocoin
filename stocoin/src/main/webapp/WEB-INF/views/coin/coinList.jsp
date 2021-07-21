@@ -6,25 +6,46 @@
 <head>
 <link rel="stylesheet" type="text/css"
 	href="/stocoin/resources/css/coin/coinList.css">
+<style type="text/css">
+	.group-3uonVBsm:first-child {
+		display: none !important;
+	}
+</style>
 <script type="text/javascript">
+	// 페이지 로딩 시 코인 리스트 로드
+	var kinds = "fluctuation_rate";
+	var sorts = "desc";
+
 	$(function() {
-		$('#table_wrapper').load("/stocoin/exclude2/coinListReload");
-
-		var sortChk = true;
-		$('li').click(function() {
-			$('.sort').text('');
-			if ($(this).siblings('.sort').text() == '↓') {
-				console.log("??????");
-				$(this).siblings('.sort').text('↑');
-			} else {
-				$(this).siblings('.sort').text('↓');
-			}
-		});
+		$('#table_wrapper').load("/stocoin/exclude2/coinListReload?kind=" + kinds + "&sort=" + sorts);
+		$('#chart').load("/stocoin/exclude2/coinChart");
 	});
-
-	setInterval(myTimer, 3000);
+	
+	// 정렬
+	function sort(kind) {
+		if ($("#" + kind).text() == "↓") {
+			kinds = kind;
+			sorts = 'asc';
+			$('.sort').text('');
+			$("#" + kind).text('↑');
+			$('#table_wrapper').load("/stocoin/exclude2/coinListReload?kind=" + kinds + "&sort=" + sorts)
+		} else {
+			kinds = kind;
+			sorts = 'desc';
+			$('.sort').text('');
+			$("#" + kind).text('↓');
+			$('#table_wrapper').load("/stocoin/exclude2/coinListReload?kind=" + kinds + "&sort=" + sorts)
+		}
+	}
+	
+	// 5초 간격으로 코인 리스트 로드
+	setInterval(myTimer, 5000);
 	function myTimer() {
-		$('#table_wrapper').load("/stocoin/exclude2/coinListReload");
+		$('#table_wrapper').load("/stocoin/exclude2/coinListReload?kind=" + kinds + "&sort=" + sorts);
+	}
+	
+	function chartChange(name) {
+		$('#chart').load("/stocoin/exclude2/coinChart?name=" + name);
 	}
 </script>
 </head>
@@ -36,16 +57,17 @@
 					href="#">검색</a>
 			</div>
 			<ul>
-				<li class="col-4">코인명 <span class="sort"></span></li>
-				<li class="col-4">가격 <span class="sort"></span></li>
-				<li class="col-4">등락률 <span class="sort">↓</span></li>
+				<li class="col-4" onclick="sort('name')">코인명 <span id="name" class="sort"></span></li>
+				<li class="col-4" onclick="sort('price')">가격 <span id="price" class="sort"></span></li>
+				<li class="col-4" onclick="sort('fluctuation_rate')">등락률 <span id="fluctuation_rate" class="sort">↓</span></li>
 			</ul>
 			<div id="table_wrapper"></div>
 		</div>
 
 		<div id="content_right" class="col-xl-9 col-lg-8 col-md-7 col-7">
-			<h4>BTC (비트코인)</h4>
-			<div id="chart"></div>
+			<div id="chart">
+				<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+			</div>
 		</div>
 	</div>
 </body>
