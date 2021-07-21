@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sc.stocoin.model.Board;
 import com.sc.stocoin.model.Member;
+import com.sc.stocoin.model.Qna;
 import com.sc.stocoin.model.Reply;
 import com.sc.stocoin.model.ReplyLikes;
 import com.sc.stocoin.service.BoardService;
 import com.sc.stocoin.service.MemberService;
 import com.sc.stocoin.service.PagingBean;
+import com.sc.stocoin.service.QnaService;
 import com.sc.stocoin.service.ReplyLikesService;
 import com.sc.stocoin.service.ReplyService;
 
@@ -34,6 +36,9 @@ public class BoardController {
 	
 	@Autowired
 	private ReplyLikesService rls;
+	
+	@Autowired
+	private QnaService qs;
 	
 	// board update
 	private Integer bno;
@@ -63,10 +68,11 @@ public class BoardController {
 		List<Board> list = bs.boardList(board);
 		int total = bs.getTotal(board);
 		
+		// paging
 		PagingBean pb = new PagingBean(currentPage, rowPerPage, total);
 		
-		model.addAttribute("types", typeInt);
 		model.addAttribute("list", list);
+		model.addAttribute("types", typeInt);
 		model.addAttribute("pb", pb);
 		return "board/boardList";
 	}
@@ -138,11 +144,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board/insertBoard")
-	public String insertBoard() {
+	public String insertBoard(int types) {
 		for (int i = 0; i <100; i++) {			
 			Board board = new Board();
 			board.setTitle("오늘의 운세 "+i);
 			board.setContent(i+"번 투신자판 하세요.");
+			board.setTypes(types);
 			bs.insert(board);
 		}
 		return "redirect:/board/boardList";
