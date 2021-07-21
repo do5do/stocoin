@@ -7,6 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +29,7 @@ public class CoinServiceImpl implements CoinService {
 	private CoinDao cd;
 
 	@Override
-	public List<Map<String, String>> getCoinInfo() throws IOException, ParseException {
+	public List<Map<String, Object>> getCoinInfo(String kind, String sort) throws IOException, ParseException {
 		// 가져올 api 주소 연결
 		String reqURL = "https://api.bithumb.com/public/ticker/ALL";
 		URL url = new URL(reqURL);
@@ -65,20 +67,49 @@ public class CoinServiceImpl implements CoinService {
 		attributes.remove("date");
 
 		// 코인 이름 담을 list 세팅
-		List<Map<String, String>> coinList = new ArrayList<Map<String, String>>();
+		List<Map<String, Object>> coinList = new ArrayList<Map<String, Object>>();
 
 		// map에 있는 key이름을 list에 담기
 		for (Map.Entry<String, Object> att : attributes.entrySet()) {
-			Map<String, String> coin = new HashMap<String, String>();
+			Map<String, Object> coin = new HashMap<String, Object>();
 			float price = data.getAsJsonObject().get(att.getKey()).getAsJsonObject().get("closing_price").getAsFloat();
 			float fluctuation_rate = data.getAsJsonObject().get(att.getKey()).getAsJsonObject().get("fluctate_rate_24H").getAsFloat();
-			coin.put("fluctuation_rate",  String.valueOf(fluctuation_rate));
-			coin.put("price", String.format("%,.1f", price));
+			coin.put("fluctuation_rate",  fluctuation_rate);
+			coin.put("price", price);
 			coin.put("name", att.getKey());
 
 			coinList.add(coin);
 		}
+		
+		Collections.sort(coinList, new Comparator<Map<String, Object>>() {
+			@Override
+			public int compare(Map<String, Object> o1, Map<String, Object> o2) {
+				if (sort.equals("asc")) {
+					if (kind.equals("name")) {
+						String name1 = (String) o1.get(kind);
+						String name2 = (String) o2.get(kind);
+						return name1.compareTo(name2);
 
+					} else {
+						Float name1 = (float) o1.get(kind);
+						Float name2 = (float) o2.get(kind);
+						return name1.compareTo(name2);
+					}
+				} else {
+					if (kind.equals("name")) {
+						String name1 = (String) o1.get(kind);
+						String name2 = (String) o2.get(kind);
+						return name2.compareTo(name1);
+
+					} else {
+						Float name1 = (float) o1.get(kind);
+						Float name2 = (float) o2.get(kind);
+						return name2.compareTo(name1);
+					}
+				}
+			}
+		});
+		
 		br.close();
 
 		return coinList;

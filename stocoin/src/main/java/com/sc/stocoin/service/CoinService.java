@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface CoinService {
 
-	List<Map<String, String>> getCoinInfo() throws IOException, ParseException;
+	List<Map<String, Object>> getCoinInfo(String kind, String sort) throws IOException, ParseException;
 	
 //	List<String> getChartList(List<Map<String, String>> coinList) throws IOException;
 

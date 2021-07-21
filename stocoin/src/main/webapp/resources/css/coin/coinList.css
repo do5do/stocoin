@@ -22,6 +22,7 @@
 /* 왼쪽 테이블 영역 시작 ------------------------------------ */
 #search {
     margin-bottom: 5px;
+    padding-right: 7px;
 }
 
 #search>input {
@@ -49,6 +50,7 @@
 #content_left ul li {
 	font-size: 14px;
 	font-weight: 700;
+	cursor: pointer;
 }
 
 #content_left ul li:nth-child(1) {
@@ -72,7 +74,7 @@
 .sort {
 	font-size: 12px;
     vertical-align: top;
-    cursor: pointer;
+    position: absolute;
 }
 
 #table_wrapper {
@@ -123,6 +125,5 @@
 
 /* 오른쪽 차트 영역 시작 ------------------------------------ */
 #chart {
-	border: 1px solid #fff;
-	height: 400px;
+	height: 500px;
 }
