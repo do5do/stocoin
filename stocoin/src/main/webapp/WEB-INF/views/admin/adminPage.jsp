@@ -4,8 +4,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css"
-	href="/stocoin/resources/css/admin/adminPage.css">
+<style>
+	.admin.container {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+	
+	.table {
+		text-align:left;
+		margin: 40px auto;
+	}
+</style>
 <script type="text/javascript">
 	function del(id) {
 		var con = confirm("정말로 탈퇴 처리 하시겠습니까?");
@@ -13,77 +22,100 @@
 			location.href = "/stocoin/admin/memberOut/id/" + id;
 		} 
 	}
+	
+	$(function() {
+		// tab active control
+		$('#1').addClass('active');
+		
+		var curUrl = window.location.href;
+		var sliceUrl = curUrl.split("=")[1];
+		
+		if (sliceUrl == null || sliceUrl == 1) {
+			$('#'+sliceUrl).addClass("active");
+		} else if (sliceUrl == 2) {
+			$('.tabs li').removeClass('active');
+			$('#'+sliceUrl).addClass("active");
+		}
+	})
 </script>
 </head>
 <body>
-	<div id="content_right" class="col-xl-9 col-lg-8 col-md-7 col-7">
-		<h4>관리자 메뉴</h4>
-	</div>
-	<div class="col-10 bd-content">
-		<div class="mt-5 mb-5">
-			<font color="white" size="6">회원관리</font>
-		</div>
-		
+	<div class="container admin">
+		<ul class="tabs" >
+			<li id="1">
+				<a class="tab" href="/stocoin/admin/adminPage">회원 관리</a>
+			</li>
+			<li id="2">
+				<a class="tab" href="/stocoin/board/boardList?types=2">게시판 관리</a>
+			</li>		
+			<li>
+				<a class="tab" href="">주식 관리</a>
+			</li>
+			<li>
+				<a class="tab" href="">코인 관리</a>
+			</li>
+		</ul>
+	
 		<table class="table table-hover">
-			<thead class="table-primary">
-				<tr class="table-dark">
-					<th style="width: 5%">선택</th>
-					<th style="width: 12%">회원번호</th>
-					<th style="width: 10%">닉네임</th>
-					<th style="width: 20%">가입일</th>
-					<th style="width: 10%">ID상태</th>
-					<th style="width: 10%">삭제</th>
+			<thead>
+				<tr>
+					<th class="col-2" style="padding-left:20px;">회원번호</th>
+					<th class="col-2">닉네임</th>
+					<th class="col-3">가입일</th>
+					<th class="col-3">ID상태</th>
+					<th class="col-2">삭제</th>
 				</tr>
 			</thead>
-			<tbody class="table-light">
+			<tbody>
 				<c:forEach var="member" items="${list}">
-					<tr class="table-dark">
-						<td>
-							<input type="checkbox" name="id" value="${member.id }">
-						</td>
-						<td>${member.mno }</td>
+					<tr>
+						<td style="padding-left:20px;">${member.mno }</td>
 						<td>${member.nick }</td>
 						<td>${member.reg_date }</td>
-						<td><c:choose>
-								<c:when test="${member.del eq 'y'}">탈퇴</c:when>
-								<c:when test="${member.del eq 'n'}">가입</c:when>
-							</c:choose></td>
+						<c:choose>
+							<c:when test="${member.del eq 'y'}"><td>탈퇴</td></c:when>
+							<c:when test="${member.del eq 'n'}"><td>가입</td></c:when>
+						</c:choose>
 						<td><a onclick="del(${member.id})">삭제</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<a href="adminLogout.do" class="btn btn-info">로그아웃</a>
 		
-		<div align="center">
-			<nav aria-label="Page navigation example">
-				<ul class="pagination justify-content-center">
-					<c:if test="${startPage > PAGE_PER_BLOCK}">
-						<li class="page-item"><a class="page-link"
-							href="adminPage.do?&pageNum=${startPage - 1}"
-							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-						</a></li>
-					</c:if>
-					<c:forEach var="i" begin="${startPage}" end="${endPage}">
-						<c:choose>
-							<c:when test="${currentPage eq i }">
-								<li class="page-item active" aria-current="page"><a
-									class="page-link" href="adminPage.do?&pageNum=${i}">${i}</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item"><a class="page-link"
-									href="adminPage.do?&pageNum=${i}">${i}</a></li>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					<c:if test="${endPage < totalPage}">
-						<li class="page-item"><a class="page-link"
-							href="adminPage.do?&pageNum=${endPage + 1}" aria-label="Next">
-								<span aria-hidden="true">&raquo;</span>
-						</a></li>
-					</c:if>
-				</ul>
-			</nav>
+		<div align="right">
+			<a href="adminLogout.do" class="btn btn-primary col-2">관리자 로그아웃</a>
 		</div>
+		
+		<!-- 페이징 시작 -->
+		<ul class="pagination">
+			<c:if test="${pb.startPage > pb.pagePerBlock }">
+				<li>
+					<a href="/stocoin/admin/adminPage?pageNum=1"><span class="arrow"></span><span class="arrow arrow2"></span></a>
+				</li>
+				<li>
+					<a href="/stocoin/admin/adminPage?pageNum=${pb.startPage - 1 }"><span class="arrow"></span></a>
+				</li>
+			</c:if>
+			<c:forEach var="i" begin="${pb.startPage }" end="${pb.endPage }">
+				<c:if test="${pb.currentPage == i }">
+					<li class="active">
+						<a href="/stocoin/admin/adminPage?pageNum=${i }">${i }</a>
+					</li>
+				</c:if>
+				<c:if test="${pb.currentPage != i }">
+					<li>
+						<a href="/stocoin/admin/adminPage?pageNum=${i }">${i }</a>
+					</li>
+				</c:if>
+			</c:forEach>
+			<c:if test="${pb.endPage < pb.totalPage }">
+				<li>
+					<a href="/stocoin/admin/adminPage?pageNum=${pb.endPage + 1 }"><span class="arrow right"></span></a>
+				</li>
+				<li>
+					<a href="/stocoin/admin/adminPage?pageNum=${pb.totalPage }"><span class="arrow right"></span><span class="arrow right arrow2"></span></a>
+				</li>
+			</c:if>
+		</ul>
 	</div>
 </html>

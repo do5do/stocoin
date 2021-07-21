@@ -14,6 +14,7 @@ import com.sc.stocoin.model.Admin;
 import com.sc.stocoin.model.Member;
 import com.sc.stocoin.service.AdminService;
 import com.sc.stocoin.service.MemberService;
+import com.sc.stocoin.service.PagingBean;
 	@Controller
 public class AdminController {
 	@Autowired
@@ -48,9 +49,22 @@ public class AdminController {
     }
     
 	@RequestMapping("/admin/adminPage")
-	public String member(HttpSession session, Model model) {
-		List<Member> list = ms.list();
-		model.addAttribute("list",list);
+	public String member(HttpSession session, Model model, String pageNum, Member member) {
+		if (pageNum == null || pageNum.equals("")) {
+			pageNum = "1";
+		}	
+		int currentPage = Integer.parseInt(pageNum);
+		int rowPerPage = 8; // 페이지당 리스트 갯수
+		int startRow = (currentPage - 1) * rowPerPage + 1;
+		int endRow = startRow + rowPerPage - 1;
+		member.setStartRow(startRow);
+		member.setEndRow(endRow);
+		List<Member> list = ms.list(member);	
+		int total = ms.getTotal(member);
+		PagingBean pb = new PagingBean(currentPage, rowPerPage, total);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pb", pb);
 		return "admin/adminPage";
 	}
 	

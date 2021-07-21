@@ -58,17 +58,15 @@
 				</c:if>
 				<c:if test="${not empty id}">
 					<c:if test="${id == 'admin' }">
-						<li><a href="/stocoin/admin/adminPage" id="trade">관리 페이지</a></li>
+						<li><a href="/stocoin/admin/adminPage" id="admin">관리 페이지</a></li>
 					</c:if>
 					<c:if test="${id != 'admin' }">
-						<li><a href="/stocoin/myPage/myCoinList" id="trade">마이페이지</a></li>
+						<li><a href="/stocoin/myPage/myCoinList" id="myPage">마이페이지</a></li>
 					</c:if>
 				</c:if>
 				<li id="mode_btn">
 					<figure><img src="/stocoin/resources/images/moon.svg"></figure>
 				</li>
-				<!-- 나중에 세션으로 로그인/마이페이지/관리자페이지 중 뭐 보여줄지 제어해야함
-				<li><a href="/stocoin/admin/adminPage">관리자페이지</a></li> -->
 			</ul>
 		</nav>
 	</div>

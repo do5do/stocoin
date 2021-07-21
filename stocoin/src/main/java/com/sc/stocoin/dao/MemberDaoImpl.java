@@ -35,8 +35,18 @@ public class MemberDaoImpl implements MemberDao	{
 	}
 
 	@Override
-	public List<Member> list() {
-		return sst.selectList("memberns.list");
+	public List<Member> list(Member member) {
+		return sst.selectList("memberns.list", member);
+	}
+
+	@Override
+	public int getTotal(Member member) {
+		return sst.selectOne("memberns.getTotal", member);
+	}
+
+	@Override
+	public List<Member> adminPage() {
+		return sst.selectList("memberns.adminPage");
 	}
 
 

@@ -9,4 +9,7 @@ public class Member {
 	private String nick;
 	private Date reg_date;
 	private String del;
+	//paging
+	private int startRow; 
+	private int endRow;
 }

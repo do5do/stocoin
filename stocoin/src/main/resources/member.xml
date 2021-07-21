@@ -25,8 +25,12 @@
 		update member set nick=#{nick} where id=#{id}
 	</update>
 	
-	<select id="list" resultType="member">
-		select * from member order by mno desc
+	<select id="list" resultType="member" parameterType="member">
+		select * from (select rownum rn, a.* from (select * from member order by mno desc) a) where rn between #{startRow} and #{endRow}
 	</select>
-
+	
+	<select id="getTotal" resultType="integer">
+		select count(*) from member
+	</select>
+	
 </mapper>

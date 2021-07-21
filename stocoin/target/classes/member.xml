@@ -17,7 +17,20 @@
 		update member set del='y' where id=#{id}
 	</update>
 	
-	<update id="updateDel" parameterType="string">
-		update member set del='n' where id=#{id}
+	<update id="updateDel" parameterType="hashmap">
+		update member set del='n', nick=#{nick} where id=#{id}
 	</update>
+	
+	<update id="update" parameterType="string">
+		update member set nick=#{nick} where id=#{id}
+	</update>
+	
+	<select id="list" resultType="member" parameterType="member">
+		select * from (select rownum rn, a.* from (select * from member order by mno desc) a) where rn between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getTotal" resultType="integer">
+		select count(*) from member
+	</select>
+	
 </mapper>

@@ -21,5 +21,9 @@ public interface MemberService {
 
 	public int update(Member member);
 
-	public List<Member> list();
+	public List<Member> list(Member member);
+
+	public int getTotal(Member member);
+
+	public List<Member> adminPage();
 }

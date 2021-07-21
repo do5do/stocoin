@@ -127,8 +127,18 @@ public class MemberServiceImpl implements MemberService {
 		return md.update(member);
 	}
 
-	public List<Member> list() {
-		return md.list();
+	public List<Member> list(Member member) {
+		return md.list(member);
+	}
+
+	@Override
+	public int getTotal(Member member) {
+		return md.getTotal(member);
+	}
+
+	@Override
+	public List<Member> adminPage() {
+		return md.adminPage();
 	}
 
 }
