@@ -9,6 +9,7 @@
 		<typeAlias alias="coin" type="com.sc.stocoin.model.Coin"/>
 		<typeAlias alias="reply" type="com.sc.stocoin.model.Reply"/>
 		<typeAlias alias="replyLikes" type="com.sc.stocoin.model.ReplyLikes"/>
+		<typeAlias alias="qna" type="com.sc.stocoin.model.Qna"/>
 	</typeAliases>
 	<!-- 매퍼정보 설정 -->
 	<mappers>
@@ -18,5 +19,6 @@
 		<mapper resource="coin.xml" />
 		<mapper resource="reply.xml" />
 		<mapper resource="replyLikes.xml" />
+		<mapper resource="qna.xml" />
 	</mappers>
 </configuration>

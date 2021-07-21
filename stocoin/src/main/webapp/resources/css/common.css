@@ -59,7 +59,12 @@ body {
 	text-align: right;
 }
 
-input[type="text"] {
+.input_box.left {
+	text-align: left;
+	padding-top: 0;
+}
+
+input[type="text"], input[type="password"] {
 	width: 100%;
 	height: 48px;
 	border: none;
@@ -72,8 +77,15 @@ input[type="text"] {
 	color: #fff;
 }
 
-input[type="text"]::placeholder {
+input[type="text"]::placeholder, input[type="password"]::placeholder {
 	color: currentColor;
+}
+
+input[type="checkbox"] {
+	width: 14px;
+	height: 14px;
+	vertical-align: middle;
+    margin-right: 4px;
 }
 
 /* header white */
@@ -182,4 +194,72 @@ footer p {
 	font-size: 12px;
 	padding-top: 20px;
 	color: #fff;
+}
+
+/* pagination */
+.pagination {
+	justify-content: center;
+	align-items: center;
+	margin-top: 36px;
+	margin-bottom: 36px;
+}
+
+.pagination li {
+	position: relative;
+}
+
+.pagination li a {
+	display: block;
+	width: 24px;
+	height: 20px;
+	text-align: center;
+}
+
+.pagination li.active a {
+	color: var(--point-color) !important;
+	font-weight: 600;
+}
+
+.pagination .arrow {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+	display: block;
+	border-top: 1px solid currentColor;
+	border-left: 1px solid currentColor;
+	width: 10px;
+	height: 10px;
+	transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.pagination .arrow2 {
+	left: 6px;
+}
+
+.pagination .arrow.right {
+	transform: translate(-50%, -50%) rotate(135deg);
+}
+
+.pagination .arrow.right.arrow2 {
+	left: 18px;
+}
+
+/* tab */
+.tabs {
+	display: flex;
+	justify-content: center;
+}
+
+.tabs li {
+	margin: 20px;
+	padding-bottom: 8px;
+}
+
+.tabs li.active {
+	border-bottom: 2px solid var(--point-color);
+}
+
+.tabs li a {
+	font-size: 20px;
+	cursor: pointer;
 }

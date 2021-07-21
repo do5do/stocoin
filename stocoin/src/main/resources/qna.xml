@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qnans">
+	<select id="qaList" parameterType="qna" resultType="qna">
+		select * from (select rownum rn, a.* from
+		(select * from qna where del = 'n' order by qno) a)
+		where rn between #{startRow} and #{endRow}
+	</select>
+	
+	<insert id="insert" parameterType="qna">
+		<selectKey order="BEFORE" keyProperty="qno" resultType="integer">
+			select nvl(max(qno), 0) + 1 qno from qna
+		</selectKey>
+		insert into qna values(#{qno}, #{title}, #{content}, sysdate,
+		#{secret}, 'n', #{mno})
+	</insert>
+	
+	<select id="getTotal" resultType="integer">
+		select count(*) from qna where del = 'n'
+	</select>
+</mapper>

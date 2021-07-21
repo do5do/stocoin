@@ -9,7 +9,7 @@
 		insert into board values(#{bno}, #{title}, #{content}, sysdate, 0, 'n', #{types})
 	</insert>
 	
-	<select id="boardList" resultType="board">
+	<select id="boardList" resultType="board" parameterType="board">
 		select * from (select rownum rn, a.* from
 		(select * from board where del = 'n' and types = #{types} order by bno) a)
 		where rn between #{startRow} and #{endRow}

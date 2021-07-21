@@ -1,34 +1,16 @@
 @charset "UTF-8";
 
 /* boardList :start */
-.tabs {
-	display: flex;
-	justify-content: center;
-}
-
-.tabs li {
-	margin: 20px;
-	padding-bottom: 8px;
-}
-
-.tabs li.active {
-	border-bottom: 2px solid var(--point-color);
-}
-
-.tabs li a {
-	font-size: 20px;
-}
-
-.news ul {
+.contents ul {
 	padding-bottom: 50px;
 }
 
-.news .emptyList {
+.contents .emptyList {
 	text-align: center;
 	padding-top: 26px;
 }
 
-.news li {
+.contents li {
 	display: flex;
 	align-items: center;
 	white-space: nowrap;
@@ -39,22 +21,22 @@
 	cursor: pointer;
 }
 
-.news li p {
+.contents li p {
 	color: #fff;
 	margin-bottom: 0;
 }
 
-.news li .date {
+.contents li .date {
 	color: #888;
 	padding-top: 4px;
 	font-size: 14px;
 }
 
-.news li .right {
+.contents li .right {
 	margin-left: auto;
 }
 
-.news li .views {
+.contents li .views {
 	color: #888 !important;
 	padding-top: 4px;
 	text-align: right;
@@ -63,6 +45,10 @@
 .icon {
 	padding-right: 8px;
 	color: #888 !important;
+}
+
+.fa-pen {
+	padding-right: 8px;
 }
 /* boardList :end */
 
@@ -137,52 +123,5 @@ textarea::placeholder {
 
 #replyList .btn_hide {
 	display: none;
-}
-
-/* pagination */
-.pagination {
-	justify-content: center;
-	align-items: center;
-	margin-top: 48px;
-}
-
-.pagination li {
-	position: relative;
-}
-
-.pagination li a {
-	display: block;
-	width: 24px;
-	height: 20px;
-	text-align: center;
-}
-
-.pagination li.active a {
-	color: var(--point-color) !important;
-	font-weight: 600;
-}
-
-.pagination .arrow {
-	position: absolute;
-    top: 50%;
-    left: 50%;
-	display: block;
-	border-top: 1px solid currentColor;
-	border-left: 1px solid currentColor;
-	width: 10px;
-	height: 10px;
-	transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-.pagination .arrow2 {
-	left: 6px;
-}
-
-.pagination .arrow.right {
-	transform: translate(-50%, -50%) rotate(135deg);
-}
-
-.pagination .arrow.right.arrow2 {
-	left: 18px;
 }
 
