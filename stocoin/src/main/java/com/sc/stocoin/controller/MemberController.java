@@ -37,6 +37,8 @@ public class MemberController{
     	HashMap<String, Object> userInfo = ms.getUserInfo(access_Token);
     	// 아이디 설정
     	String id = (String) userInfo.get("id");
+    	// 닉네임 설정
+    	String nickname = (String) userInfo.get("nickname");
     	// 회원가입 유무 판별
     	Member member = ms.select(id);
     	if (member == null) { // 처음 회원 가입 일 때
@@ -52,7 +54,8 @@ public class MemberController{
     	session.setAttribute("id", id);
     	session.setAttribute("access_Token", access_Token);
     	session.setAttribute("mno", mno);
-    	
+    	session.setAttribute("nickname", nickname);
+
     	// 이전 주소 가져오기
     	String prevUrl = url;
     	model.addAttribute("prevUrl", prevUrl);

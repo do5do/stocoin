@@ -77,7 +77,7 @@ public class MemberServiceImpl implements MemberService {
 		conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 		conn.getResponseCode();
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 
 		String line = "";
 		String result = "";
@@ -95,7 +95,7 @@ public class MemberServiceImpl implements MemberService {
 		String nickname = properties.getAsJsonObject().get("nickname").getAsString();
 
 		userInfo.put("id", id);
-		userInfo.put("nick", nickname);
+		userInfo.put("nickname", nickname);
 
 		return userInfo;
 	}

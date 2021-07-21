@@ -8,17 +8,24 @@
 	href="/stocoin/resources/css/coin/coinList.css">
 <script type="text/javascript">
 	$(function() {
-		var td3 = document.querySelectorAll("td:nth-child(3)");
-		for (i = 0; i < td3.length; i++) {
-			if (td3[i].textContent.slice(0, 1) == '-') {
-				$(td3[i]).addClass('change_blue');
-				$(td3[i]).siblings('td:nth-child(2)').addClass('change_blue');
+		$('#table_wrapper').load("/stocoin/exclude2/coinListReload");
+
+		var sortChk = true;
+		$('li').click(function() {
+			$('.sort').text('');
+			if ($(this).siblings('.sort').text() == '↓') {
+				console.log("??????");
+				$(this).siblings('.sort').text('↑');
 			} else {
-				$(td3[i]).addClass('change_red');
-				$(td3[i]).siblings('td:nth-child(2)').addClass('change_red');
+				$(this).siblings('.sort').text('↓');
 			}
-		}
-	})
+		});
+	});
+
+	setInterval(myTimer, 3000);
+	function myTimer() {
+		$('#table_wrapper').load("/stocoin/exclude2/coinListReload");
+	}
 </script>
 </head>
 <body>
@@ -29,29 +36,16 @@
 					href="#">검색</a>
 			</div>
 			<ul>
-				<li class="col-5">코인명</li>
-				<li class="col-4">가격</li>
-				<li class="col-3">등락률</li>
+				<li class="col-4">코인명 <span class="sort"></span></li>
+				<li class="col-4">가격 <span class="sort"></span></li>
+				<li class="col-4">등락률 <span class="sort">↓</span></li>
 			</ul>
-			<div id="table_wrapper">
-				<table class="table table-hover">
-					<tbody>
-						<c:forEach var="coin" items="${coinList}">
-							<tr>
-								<td class="col-5"><span class="coinName">${coin.get("name")}</span>(이더리움)</td>
-								<td class="col-4">${coin.get("price")}</td>
-								<td class="col-3">+0.0</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
+			<div id="table_wrapper"></div>
 		</div>
 
 		<div id="content_right" class="col-xl-9 col-lg-8 col-md-7 col-7">
 			<h4>BTC (비트코인)</h4>
-			<div id="chart">
-			</div>
+			<div id="chart"></div>
 		</div>
 	</div>
 </body>

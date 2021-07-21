@@ -27,8 +27,16 @@ public class CoinController {
 		model.addAttribute("coinList", coinList);
 //		model.addAttribute("Fluctuation_Rate", Fluctuation_Rate);
 //		model.addAttribute("chartList", chartList);
-		
+//		System.out.println("??????????");
 		return "coin/coinList";
+	}
+
+	@RequestMapping("/exclude2/coinListReload")
+	public String coinListReload(Model model) throws IOException, ParseException {
+		List<Map<String, String>> coinList = cs.getCoinInfo();
+		model.addAttribute("coinList", coinList);
+		
+		return "exclude2/coinListReload";
 	}
 
 	
