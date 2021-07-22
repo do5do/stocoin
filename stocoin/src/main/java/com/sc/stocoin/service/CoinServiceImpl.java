@@ -74,7 +74,7 @@ public class CoinServiceImpl implements CoinService {
 			Map<String, Object> coin = new HashMap<String, Object>();
 			float price = data.getAsJsonObject().get(att.getKey()).getAsJsonObject().get("closing_price").getAsFloat();
 			float fluctuation_rate = data.getAsJsonObject().get(att.getKey()).getAsJsonObject().get("fluctate_rate_24H").getAsFloat();
-			coin.put("fluctuation_rate",  fluctuation_rate);
+			coin.put("fluctuation_rate", fluctuation_rate);
 			coin.put("price", price);
 			coin.put("name", att.getKey());
 

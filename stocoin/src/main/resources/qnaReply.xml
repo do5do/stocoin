@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qnareplyns">
+	<select id="select" parameterType="integer" resultType="qnaReply">
+		select * from qnaReply where qno = #{qno}
+	</select>
+	
+	<insert id="insert" parameterType="qnaReply">
+		<selectKey order="BEFORE" keyProperty="qr_no" resultType="integer">
+			select nvl(max(qr_no), 0) + 1 qr_no from qnaReply
+		</selectKey>
+		insert into qnaReply values(#{qr_no}, #{qno}, #{content}, sysdate)
+	</insert>
+</mapper>
