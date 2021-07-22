@@ -28,7 +28,6 @@
 
 .contents li .date {
 	color: #888;
-	padding-top: 4px;
 	font-size: 14px;
 }
 
@@ -125,3 +124,37 @@ textarea::placeholder {
 	display: none;
 }
 
+/* qaDetail */
+.sub {
+	color: #fff;
+	font-weight: 600;
+	padding-right: 16px;
+}
+
+.sub.q {
+	color: var(--point-color) !important;
+	font-size: 17px;
+}
+
+.qaDetail_reply {
+	padding-top: 48px;
+}
+
+.content {
+	padding-bottom: 16px;
+}
+
+.sub_title .q {
+	font-size: 21px;
+	vertical-align: top;
+}
+
+.dates {
+	margin-bottom: 6px;
+	font-size: 15px;
+	text-align: right;
+}
+
+#qrFrm {
+	display: none;
+}

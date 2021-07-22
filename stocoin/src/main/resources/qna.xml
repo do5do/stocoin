@@ -4,7 +4,7 @@
 <mapper namespace="qnans">
 	<select id="qaList" parameterType="qna" resultType="qna">
 		select * from (select rownum rn, a.* from
-		(select * from qna where del = 'n' order by qno) a)
+		(select * from qna order by qno) a)
 		where rn between #{startRow} and #{endRow}
 	</select>
 	
@@ -13,10 +13,14 @@
 			select nvl(max(qno), 0) + 1 qno from qna
 		</selectKey>
 		insert into qna values(#{qno}, #{title}, #{content}, sysdate,
-		#{secret}, 'n', #{mno})
+		#{secret}, #{mno})
 	</insert>
 	
 	<select id="getTotal" resultType="integer">
-		select count(*) from qna where del = 'n'
+		select count(*) from qna
+	</select>
+	
+	<select id="select" parameterType="integer" resultType="qna">
+		select * from qna where qno = #{qno}
 	</select>
 </mapper>

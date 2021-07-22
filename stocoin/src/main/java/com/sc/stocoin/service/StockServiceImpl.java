@@ -45,7 +45,6 @@ public class StockServiceImpl implements StockService {
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyyMMdd");
 		Date time = new Date();
 		String today = format1.format(time);
-		System.out.println(today);
 		
 		// 연결
 		PrintStream ps = new PrintStream(conn.getOutputStream());
@@ -69,9 +68,8 @@ public class StockServiceImpl implements StockService {
 		
 		String result = sb.toString();
 		
-q
-		return stockList;
-
+		System.out.println(result); 
+		return null;
 	}
 
 

@@ -6,10 +6,11 @@
 <head>
 <link rel="stylesheet" href="/stocoin/resources/css/board.css">
 <c:set var="id" value='${sessionScope.id}'></c:set>
+<c:set var="mno" value='${sessionScope.mno}'></c:set>
 <script type="text/javascript">
 	$(function() {
 		// tab active control
-		$('#1').addClass('active');
+		$('#3').addClass('active');
 		
 		var curUrl = window.location.href;
 		var sliceUrl = curUrl.split("=")[1];
@@ -38,6 +39,16 @@
 			location.href='/stocoin/board/qaWriteForm';
 		}
 	}
+	
+	function secret(mno, qno) {
+		if (${not empty id}) {			
+			if (${mno == mno}) {
+				location.href='/stocoin/board/qaDetail?qno='+qno;
+			}
+		} else {
+			alert('확인하려면 로그인이 필요합니다.');
+		}
+	}
 </script>
 </head>
 <body>
@@ -55,45 +66,34 @@
 		</ul>
 		<div class="contents">
 			<ul>
-				<!-- news, notice -->
-				<c:if test="${types != 3 }">
-					<c:if test="${empty list }">
-						<p class="emptyList">게시글이 없습니다.</p>
-					</c:if>
-					<c:if test="${not empty list }">
-						<c:forEach var="board" items="${list }">
-							<li onclick="location.href='/stocoin/board/boardDetail/bno/${board.bno}/types/${types}'">
-								<div class="left">
-									<p>${board.title }</p>
-									<p class="date">${board.dates }</p>
-								</div>
-								<div class="right">
-									<p class="views"><i class="far fa-eye icon"></i>${board.views }</p>
-								</div>
-							</li>
-						</c:forEach>
-					</c:if>
-				</c:if>
 				<!-- 문의하기 -->
-				<c:if test="${types == 3 }">
 				<c:if test="${empty list }">
 					<p class="emptyList">게시글이 없습니다.</p>
 				</c:if>
-					<c:if test="${not empty list }">
-						<c:forEach var="qna" items="${list }">
-							<li onclick="location.href='/stocoin/board/boardDetail/bno/${board.bno}/types/${types}'">
+				<c:if test="${not empty list }">
+					<c:forEach var="qna" items="${list }">
+						<!-- 비밀글 -->
+						<c:if test="${qna.secret == 'y' }">
+							<li onclick="secret(${qna.mno}, ${qna.qno })">
 								<div class="left">
-									<p>${qna.title }</p>
+									<p><span class="sub q">Q</span>비밀글 입니다.</p>
 									<p class="date">${qna.dates }</p>
 								</div>
-								<c:if test="${secret == 'y' }">
-									<div class="right">
-										<p class="views"><i class="far fa-lock-alt icon"></i>비밀글</p>
-									</div>
-								</c:if>
+								<div class="right">
+									<p class="views"><i class="fas fa-lock icon"></i>비밀글</p>
+								</div>
 							</li>
-						</c:forEach>
-					</c:if>
+						</c:if>
+						<!-- 일반글 -->
+						<c:if test="${qna.secret == 'n' }">
+							<li onclick="location.href='/stocoin/board/qaDetail?qno=${qna.qno}'">
+								<div class="left">
+									<p><span class="sub q">Q</span>${qna.title }</p>
+									<p class="date">${qna.dates }</p>
+								</div>
+							</li>
+						</c:if>
+					</c:forEach>
 				</c:if>
 			</ul>
 		</div>
@@ -128,13 +128,7 @@
 				</li>
 			</c:if>
 		</ul>
-		<c:if test="${types != 3 }">		
-			<button class="btn btn-outline-primary" onclick="location.href='/stocoin/board/boardWriteForm?types=${types}'">임시 글쓰기 버튼</button>
-			<button class="btn btn-outline-primary col-2" onclick="location.href='/stocoin/board/insertBoard?types=${types}'">insertBoard</button>
-		</c:if><c:if test="${types == 3 }">
-		
-			<button class="btn btn-outline-primary" onclick="sessionChk()"><i class="fas fa-pen"></i>문의하기</button>
-		</c:if>
+		<button class="btn btn-outline-primary" onclick="sessionChk()"><i class="fas fa-pen"></i>문의하기</button>
 	</div>
 </body>
 </html>

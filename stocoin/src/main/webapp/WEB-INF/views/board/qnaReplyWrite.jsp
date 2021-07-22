@@ -9,7 +9,7 @@
 	<c:if test="${result > 0 }">
 		<script type="text/javascript">
 			alert('입력 완료!');
-			location.href="/stocoin/board/qaList?types=${types}";
+			location.href="/stocoin/board/qaDetail?qno=${qno}";
 		</script>
 	</c:if>
 	

@@ -28,4 +28,9 @@ public class QnaDaoImpl implements QnaDao {
 		return sst.selectOne("qnans.getTotal");
 	}
 
+	@Override
+	public Qna select(int qno) {
+		return sst.selectOne("qnans.select", qno);
+	}
+
 }

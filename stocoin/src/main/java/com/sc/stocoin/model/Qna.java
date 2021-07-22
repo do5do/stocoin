@@ -11,7 +11,6 @@ public class Qna {
 	private String content;
 	private Date dates;
 	private String secret; // y,n
-	private String del;
 	private int mno;
 	// paging
 	private int startRow;

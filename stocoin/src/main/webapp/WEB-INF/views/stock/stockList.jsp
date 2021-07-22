@@ -8,7 +8,7 @@
 	href="/stocoin/resources/css/coin/coinList.css">
 <script type="text/javascript">
 	$(function() {
-		$('#table_wrapper').load("/stocoin/exclude2/coinListReload");
+		$('#table_wrapper').load("/stocoin/exclude2/stockListReload");
 
 		var sortChk = true;
 		$('li').click(function() {
@@ -22,10 +22,10 @@
 		});
 	});
 
-	setInterval(myTimer, 3000);
-	function myTimer() {
-		$('#table_wrapper').load("/stocoin/exclude2/coinListReload");
-	}
+// 	setInterval(myTimer, 3000);
+// 	function myTimer() {
+// 		$('#table_wrapper').load("/stocoin/exclude2/stockListReload");
+// 	}
 	
 </script>
 </head>

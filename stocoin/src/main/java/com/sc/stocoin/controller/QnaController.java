@@ -10,13 +10,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sc.stocoin.model.Qna;
+import com.sc.stocoin.model.QnaReply;
 import com.sc.stocoin.service.PagingBean;
+import com.sc.stocoin.service.QnaReplyService;
 import com.sc.stocoin.service.QnaService;
 
 @Controller
 public class QnaController {
 	@Autowired
 	private QnaService qs;
+	
+	@Autowired
+	private QnaReplyService qrs;
 	
 	@RequestMapping("/board/qaWriteForm")
 	public String qaWriteForm() {
@@ -54,7 +59,6 @@ public class QnaController {
 		qna.setEndRow(endRow);
 		
 		List<Qna> list = qs.qaList(qna);
-		System.out.println("qqqq");
 		int total = qs.getTotal();
 		
 		// paging
@@ -64,6 +68,29 @@ public class QnaController {
 		model.addAttribute("list", list);
 		model.addAttribute("pb", pb);
 		return "board/qaList";
+	}
+	
+	@RequestMapping("/board/qaDetail")
+	public String qaDetail(int qno, Model model) {
+		Qna qna = qs.select(qno);
+		
+		// 문의글에 대한 답변이 있는지
+		QnaReply qr = qrs.select(qno);
+		
+//		if (qr != null) {
+//		}
+		
+		model.addAttribute("qr", qr);
+		model.addAttribute("qna", qna);
+		return "board/qaDetail";
+	}
+	
+	@RequestMapping("/board/qnaReplyWrite")
+	public String qnaReplyFormResult(QnaReply qr, Model model) {
+		int result = qrs.insert(qr);
+		model.addAttribute("result", result);
+		model.addAttribute("qno", qr.getQno());
+		return "board/qnaReplyWrite";
 	}
 	
 }

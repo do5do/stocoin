@@ -12,4 +12,6 @@ public interface QnaDao {
 
 	int getTotal();
 
+	Qna select(int qno);
+
 }
