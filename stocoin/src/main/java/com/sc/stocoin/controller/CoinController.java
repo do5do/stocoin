@@ -1,6 +1,7 @@
 package com.sc.stocoin.controller;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sc.stocoin.model.StocoinStrings;
 import com.sc.stocoin.service.CoinService;
 
 @Controller
@@ -20,6 +22,15 @@ public class CoinController {
 	
 	@RequestMapping("/coin/coinList")
 	public String coinList(Model model) throws IOException, ParseException {
+		
+		String IP = null;
+		try {
+			IP = InetAddress.getLocalHost().getHostAddress() + ":8080";
+		} catch (Exception e) {
+			// TODO: handle exception
+			IP = "";
+		}
+		StocoinStrings.setIP(IP);
 		return "coin/coinList";
 	}
 

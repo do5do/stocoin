@@ -38,23 +38,23 @@ public class MemberController{
     	// 아이디 설정
     	String id = (String) userInfo.get("id");
     	// 닉네임 설정
-    	String nickname = (String) userInfo.get("nickname");
+    	String nick = (String) userInfo.get("nick");
     	// 회원가입 유무 판별
     	Member member = ms.select(id);
+    	int mno = -1;
     	if (member == null) { // 처음 회원 가입 일 때
     		ms.insert(userInfo);
     	} else {
     		if (member.getDel().equals("y")) { // 두 번째(이상) 회원 가입 일 때
     			ms.updateDel(userInfo);
     		}
-    	}
+    		mno = member.getMno();
+    	} 
     	
-    	int mno = member.getMno();
-
+    	session.setAttribute("mno", mno);
     	session.setAttribute("id", id);
     	session.setAttribute("access_Token", access_Token);
-    	session.setAttribute("mno", mno);
-    	session.setAttribute("nickname", nickname);
+    	session.setAttribute("nick", nick);
 
     	// 이전 주소 가져오기
     	String prevUrl = url;
