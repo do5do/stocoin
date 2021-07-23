@@ -5,18 +5,20 @@
 </script>
 <table class="table table-hover">
 	<tbody>
-<%-- 		<c:forEach var="coin" items="${coinList}"> --%>
-<!-- 			<tr> -->
-<%-- 				<td class="col-4"><span class="coinName">${coin.get("name")}</span>(이더리움)</td> --%>
-<%-- 				<c:if test="${coin.get('fluctuation_rate') + 0 >= 0 }"> --%>
-<%-- 					<td class="col-4 change_red">${coin.get("price")}</td> --%>
-<%-- 					<td class="col-4 change_red">${coin.get("fluctuation_rate")}</td> --%>
-<%-- 				</c:if> --%>
-<%-- 				<c:if test="${coin.get('fluctuation_rate') + 0 < 0 }"> --%>
-<%-- 					<td class="col-4 change_blue">${coin.get("price")}</td> --%>
-<%-- 					<td class="col-4 change_blue">${coin.get("fluctuation_rate")}</td> --%>
-<%-- 				</c:if> --%>
-<!-- 			</tr> -->
-<%-- 		</c:forEach> --%>
+		<c:forEach var="stock" items="${stockList}">
+			<tr>
+				<td class="col-4"><span class="coinName">${stock.get("ISU_ABBRV")}</span></td>
+				<c:if test="${stock.get('FLUC_RT') + 0 >= 0 }">
+					<td class="col-4 change_red">${stock.get("TDD_CLSPRC")}</td>
+					<td class="col-4 change_red">+${stock.get("FLUC_RT")}</td>
+					<td class="col-4 change_red">${stock.get("ACC_TRDVOL")}</td>
+				</c:if>
+				<c:if test="${stock.get('FLUC_RT') + 0 < 0 }">
+					<td class="col-4 change_blue">${stock.get("TDD_CLSPRC")}</td>
+					<td class="col-4 change_blue">${stock.get("FLUC_RT")}</td>
+					<td class="col-4 change_blue">${stock.get("ACC_TRDVOL")}</td>
+				</c:if>
+			</tr>
+		</c:forEach>
 	</tbody>
 </table>

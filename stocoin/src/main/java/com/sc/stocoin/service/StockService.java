@@ -6,5 +6,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface StockService {
-	List<Map<String, String>> getStockInfo() throws IOException, ParseException;
+	List<Map<String, Object>> getStockInfo(String kind, String sort) throws IOException, ParseException;
 }

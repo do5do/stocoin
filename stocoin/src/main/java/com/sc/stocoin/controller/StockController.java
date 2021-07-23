@@ -25,10 +25,9 @@ public class StockController {
 	}
 
 	@RequestMapping("/exclude2/stockListReload")
-	public String stockListReload(Model model) throws IOException, ParseException {
-		List<Map<String, String>> stockList = ss.getStockInfo();
+	public String stockListReload(Model model, String kind, String sort) throws IOException, ParseException {
+		List<Map<String, Object>> stockList = ss.getStockInfo(kind, sort);
 		model.addAttribute("stockList", stockList);
-		
 		return "exclude2/stockListReload";
 	}
 

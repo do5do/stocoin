@@ -4,23 +4,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css"
-	href="/stocoin/resources/css/coin/coinList.css">
+<link rel="stylesheet" type="text/css" href="/stocoin/resources/css/coin/coinList.css">
 <script type="text/javascript">
-	$(function() {
-		$('#table_wrapper').load("/stocoin/exclude2/stockListReload");
+	var kinds = "FLUC_RT";
+	var sorts = "desc";
 
-		var sortChk = true;
-		$('li').click(function() {
-			$('.sort').text('');
-			if ($(this).siblings('.sort').text() == '↓') {
-				console.log("??????");
-				$(this).siblings('.sort').text('↑');
-			} else {
-				$(this).siblings('.sort').text('↓');
-			}
-		});
+	$(function() {
+		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts);
 	});
+	
+	// sort
+	function sort(kind) {
+		if ($('#'+kind).text() == "↓") {
+			kinds = kind;
+			sorts = "asc";
+			$('.sort').text("");
+			$('#'+kind).text("↑");
+			$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts);
+		} else {
+			kinds = kind;
+			sorts = "desc";
+			$('.sort').text("");
+			$('#'+kind).text("↓");
+			$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts);
+		}
+	}
 
 // 	setInterval(myTimer, 3000);
 // 	function myTimer() {
@@ -33,13 +41,13 @@
 	<div id="content" class="">
 		<div id="content_left" class="col-xl-3 col-lg-4 col-md-5 col-5">
 			<div id="search">
-				<input type="text" name="search" placeholder="검색어를 입력하세요"> <a
-					href="#">검색</a>
+				<input type="text" name="search" placeholder="검색어를 입력하세요"> <a href="#">검색</a>
 			</div>
 			<ul>
-				<li class="col-4">주식명 <span class="sort"></span></li>
-				<li class="col-4">가격 <span class="sort"></span></li>
-				<li class="col-4">등락률 <span class="sort">↓</span></li>
+				<li class="col-3" onclick="sort('ISU_ABBRV')">주식명 <span id="ISU_ABBRV" class="sort"></span></li>
+				<li class="col-3" onclick="sort('TDD_CLSPRC')">가격 <span id="TDD_CLSPRC" class="sort"></span></li>
+				<li class="col-3" onclick="sort('FLUC_RT')">등락률 <span id="FLUC_RT" class="sort">↓</span></li>
+				<li class="col-3" onclick="sort('ACC_TRDVOL')">거래대금 <span id="ACC_TRDVOL" class="sort"></span></li>
 			</ul>
 			<div id="table_wrapper"></div>
 		</div>
