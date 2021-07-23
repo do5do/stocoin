@@ -4,21 +4,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css"
-	href="/stocoin/resources/css/coin/coinList.css">
-<style type="text/css">
-	.group-3uonVBsm:first-child {
-		display: none !important;
-	}
-</style>
+<link rel="stylesheet" type="text/css" href="/stocoin/resources/css/coinList.css">
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script type="text/javascript">
-	// 페이지 로딩 시 코인 리스트 로드
-	var kinds = "fluctuation_rate";
+	// 정렬 default
+	var kinds = "trade_value";
 	var sorts = "desc";
 
+	// 페이지 로딩 시 코인 리스트, 차트 로드
 	$(function() {
 		$('#table_wrapper').load("/stocoin/exclude2/coinListReload?kind=" + kinds + "&sort=" + sorts);
-		$('#chart').load("/stocoin/exclude2/coinChart");
+		$('#content_right').load("/stocoin/exclude2/coinInfo");
 	});
 	
 	// 정렬
@@ -45,7 +41,17 @@
 	}
 	
 	function chartChange(name) {
-		$('#chart').load("/stocoin/exclude2/coinChart?name=" + name);
+		$('#content_right').load("/stocoin/exclude2/coinInfo?name=" + name);
+	}
+	
+	function tab(item) {
+		if (item == 'sell') {
+			$('#sell').addClass('blue');
+			$('#buy').removeClass('red');
+		} else {
+			$('#buy').addClass('red');
+			$('#sell').removeClass('blue');
+		}
 	}
 </script>
 </head>
@@ -57,17 +63,16 @@
 					href="#">검색</a>
 			</div>
 			<ul>
-				<li class="col-4" onclick="sort('name')">코인명 <span id="name" class="sort"></span></li>
-				<li class="col-4" onclick="sort('price')">가격 <span id="price" class="sort"></span></li>
-				<li class="col-4" onclick="sort('fluctuation_rate')">등락률 <span id="fluctuation_rate" class="sort">↓</span></li>
+				<li class="col-3" onclick="sort('name')">코인명 <span id="name" class="sort"></span></li>
+				<li class="col-3" onclick="sort('price')">가격 <span id="price" class="sort"></span></li>
+				<li class="col-3" onclick="sort('fluctuation_rate')">등락률 <span id="fluctuation_rate" class="sort"></span></li>
+				<li class="col-3" onclick="sort('trade_value')">거래금액 <span id="trade_value" class="sort">↓</span></li>
 			</ul>
 			<div id="table_wrapper"></div>
 		</div>
 
 		<div id="content_right" class="col-xl-9 col-lg-8 col-md-7 col-7">
-			<div id="chart">
-				<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-			</div>
+			<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 		</div>
 	</div>
 </body>
