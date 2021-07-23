@@ -32,9 +32,11 @@ import com.sc.stocoin.dao.StockDao;
 public class StockServiceImpl implements StockService {
 	@Autowired
 	private StockDao cd;
+	
+	private List<Map<String, Object>> stockLists;
 
 	@Override
-	public List<Map<String, Object>> getStockInfo(String kind, String sort) throws IOException, ParseException {
+	public List<Map<String, Object>> getStockList() throws IOException, ParseException {
 		// 연결 URL 설정
 		String requestURL = "bld=dbms/MDC/STAT/standard/MDCSTAT01501&mktId=ALL&share=1&money=1&csvxls_isNo=false&trdDd=";
 		URL otpURL = new URL("http://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd");
@@ -93,10 +95,15 @@ public class StockServiceImpl implements StockService {
 			Map<String, Object> map = new Gson().fromJson(object2, mapTokenType);
 			stockList.add(map);
 		}
-		System.out.println(stockList);
+		this.stockLists = stockList;
 		
+		return stockList;
+	}
+
+	@Override
+	public List<Map<String, Object>> stockListSort(String kind, String sort) {
 		// sort : stockList가 String이면 sort error
-		Collections.sort(stockList, new Comparator<Map<String, Object>>() {
+		Collections.sort(stockLists, new Comparator<Map<String, Object>>() {
 			@Override
 			public int compare(Map<String, Object> o1, Map<String, Object> o2) {
 				if (sort.equals("asc")) {
@@ -126,9 +133,23 @@ public class StockServiceImpl implements StockService {
 				}
 			}
 		});
-		
-		return stockList;
+		return stockLists;
 	}
 
-	
+	@Override
+	public Map<String, Object> getStockInfo(String name) {
+		// 해당 이름에 대한 stock 정보를 담을 map 생성
+		Map<String, Object> stockInfo = new HashMap<>();
+
+		for (int i = 0; i < stockLists.size(); i++) {
+			String names = (String) stockLists.get(i).get("ISU_ABBRV");
+			
+			// 해당 이름이 있는 map을 찾음
+			if (names.equals(name)) {
+				stockInfo = stockLists.get(i);
+			}
+		}
+		
+		return stockInfo;
+	}
 }

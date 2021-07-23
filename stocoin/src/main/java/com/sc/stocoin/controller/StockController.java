@@ -21,15 +21,25 @@ public class StockController {
 	
 	@RequestMapping("/stock/stockList")
 	public String stockList(Model model) throws IOException, ParseException {
+		List<Map<String, Object>> stockList = ss.getStockList();
+		
 		return "stock/stockList";
 	}
 
 	@RequestMapping("/exclude2/stockListReload")
 	public String stockListReload(Model model, String kind, String sort) throws IOException, ParseException {
-		List<Map<String, Object>> stockList = ss.getStockInfo(kind, sort);
-		model.addAttribute("stockList", stockList);
+		List<Map<String, Object>> stockListTemp = ss.stockListSort(kind, sort);
+		model.addAttribute("stockList", stockListTemp);
 		return "exclude2/stockListReload";
 	}
 
-	
+	@RequestMapping("/exclude2/stockInfo")
+	public String stockInfo(String name, Model model) {
+		if (name == null) {
+			name = "삼성전자";
+		}
+		Map<String, Object> stockInfo = ss.getStockInfo(name);
+		model.addAttribute("stockInfo", stockInfo);
+		return "exclude2/stockInfo";
+	}
 }

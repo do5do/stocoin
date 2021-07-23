@@ -6,7 +6,7 @@
 <table class="table table-hover">
 	<tbody>
 		<c:forEach var="stock" items="${stockList}">
-			<tr>
+			<tr onclick="stockInfo('${stock.get('ISU_ABBRV')}')">
 				<td class="col-4"><span class="coinName">${stock.get("ISU_ABBRV")}</span></td>
 				<c:if test="${stock.get('FLUC_RT') + 0 >= 0 }">
 					<td class="col-4 change_red">${stock.get("TDD_CLSPRC")}</td>

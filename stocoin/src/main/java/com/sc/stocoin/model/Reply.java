@@ -11,7 +11,7 @@ public class Reply {
 	private String content;
 	private Date dates;
 	private String del;
-	private int mno;
+	private Integer mno;
 	private int likes;
 	// join
 	private String nick;

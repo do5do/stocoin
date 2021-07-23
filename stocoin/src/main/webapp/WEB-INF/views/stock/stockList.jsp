@@ -5,12 +5,14 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/stocoin/resources/css/coin/coinList.css">
+<link rel="stylesheet" type="text/css" href="/stocoin/resources/css/stock.css">
 <script type="text/javascript">
 	var kinds = "FLUC_RT";
 	var sorts = "desc";
 
 	$(function() {
 		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts);
+		$('#trade').load("/stocoin/exclude2/stockInfo");
 	});
 	
 	// sort
@@ -28,6 +30,10 @@
 			$('#'+kind).text("↓");
 			$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts);
 		}
+	}
+	
+	function stockInfo(name) {
+		$('#trade').load('/stocoin/exclude2/stockInfo?name='+name);
 	}
 
 // 	setInterval(myTimer, 3000);
@@ -49,12 +55,35 @@
 				<li class="col-3" onclick="sort('FLUC_RT')">등락률 <span id="FLUC_RT" class="sort">↓</span></li>
 				<li class="col-3" onclick="sort('ACC_TRDVOL')">거래대금 <span id="ACC_TRDVOL" class="sort"></span></li>
 			</ul>
-			<div id="table_wrapper"></div>
+			<!-- stock list -->
+			<div id="table_wrapper">
+				<table class="table table-hover">
+					<tbody>
+						<c:forEach var="stock" items="${stockList}">
+							<tr onclick="stockInfo('${stock.get('ISU_ABBRV')}')">
+								<td class="col-4"><span class="coinName">${stock.get("ISU_ABBRV")}</span></td>
+								<c:if test="${stock.get('FLUC_RT') + 0 >= 0 }">
+									<td class="col-4 change_red">${stock.get("TDD_CLSPRC")}</td>
+									<td class="col-4 change_red">+${stock.get("FLUC_RT")}</td>
+									<td class="col-4 change_red">${stock.get("ACC_TRDVOL")}</td>
+								</c:if>
+								<c:if test="${stock.get('FLUC_RT') + 0 < 0 }">
+									<td class="col-4 change_blue">${stock.get("TDD_CLSPRC")}</td>
+									<td class="col-4 change_blue">${stock.get("FLUC_RT")}</td>
+									<td class="col-4 change_blue">${stock.get("ACC_TRDVOL")}</td>
+								</c:if>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
 		</div>
 
 		<div id="content_right" class="col-xl-9 col-lg-8 col-md-7 col-7">
 			<h4>삼성전자</h4>
 			<div id="chart"></div>
+			<!-- 매수 매도 -->
+			<div id="trade"></div>
 		</div>
 	</div>
 </body>
