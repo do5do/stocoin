@@ -66,7 +66,8 @@
 
 		<div id="content_right" class="col-xl-9 col-lg-8 col-md-7 col-7">
 			<div id="chart">
-				<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+				<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+				<script type="text/javascript" src="/stocoin/resources/js/dayjs.min.js"></script>
 			</div>
 		</div>
 	</div>
