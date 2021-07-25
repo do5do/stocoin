@@ -31,6 +31,11 @@ public class StockController {
 		
 		return "exclude2/stockListReload";
 	}
-
+	@RequestMapping("/stock/stockChart")
+	public String stockChart(Model model) throws IOException, ParseException {
+		
+		
+		return "";
+	}
 	
 }
