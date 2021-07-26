@@ -4,7 +4,7 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><title>Insert title here</title>
 <script type="text/javascript">
 	var websocket; // function밖으로 빼변 전역변수로 활용
-	var nickname;  // 별명
+	var nick;  // 별명
 	var access = false;
 	$(function() {
 		connect();
@@ -29,13 +29,13 @@
 	function send() {
 		if(access) {
 			var msg = $('#message').val();  // 입력한 메세지 글 읽기
-			websocket.send(nickname+" : "+msg); // 메세지를 별명과 함께 보내기
+			websocket.send(nick+" : "+msg); // 메세지를 별명과 함께 보내기
 			$('#message').val("");  // 메세지에 입력한 글 지우기
 		}
 	}
 	function Open() {
-		nickname = "${param.nickname}"; // 별명 가져오기
-		if(nickname == "undefined" || nickname == null || nickname == "") {
+		nick = "${param.nick}"; // 별명 가져오기
+		if(nick == "undefined" || nick == null || nick == "") {
 			var element = document.getElementById('message');
 			  element.value = "로그인 후에 이용가능합니다";
 			  element.readOnly = true;

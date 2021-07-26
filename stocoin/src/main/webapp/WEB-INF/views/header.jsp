@@ -40,7 +40,7 @@
 	function login() {
 		var curUrl = window.location.pathname;
 		$.post("/stocoin/login2", "curUrl="+curUrl, function(data) {});
-		location.href="https://kauth.kakao.com/oauth/authorize?client_id=8d7498ce8ee97c514f96feb042750e1e&redirect_uri=http://localhost:8080/stocoin/login&response_type=code";
+		location.href="https://kauth.kakao.com/oauth/authorize?client_id=8d7498ce8ee97c514f96feb042750e1e&redirect_uri=http://" + "${ss.getIP()}" + "/stocoin/login&response_type=code";
 	}
 	
 	function chat() {
@@ -53,7 +53,7 @@
 		form.target = "Chatting";
 		form.method = "post";
 
-		parm.push([ 'nickname', '${nickname}' ]);
+		parm.push([ 'nick', '${nick}' ]);
 
 		for (var i = 0; i < parm.length; i++) {
 			input[i] = document.createElement("input");
@@ -72,6 +72,9 @@
 		<div class="logo">
 			<a href="/stocoin/coin/coinList"><img alt="로고" src='/stocoin/resources/images/logo.png'></a>
 		</div>
+		<c:if test="${not empty id}">
+			<p class="welcome">${nick}님 환영합니다</p>
+		</c:if>
 		<nav>
 			<ul>
 				<li><a href="/stocoin/coin/coinList" id="coin">코인</a></li>

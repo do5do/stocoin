@@ -1,12 +1,25 @@
 package com.sc.stocoin.model;
 
+import java.net.InetAddress;
+
 public class StocoinStrings {
-	private static String SRC = "C:\\Users\\catap\\git\\stocoin\\stocoin\\src\\main\\clt\\";
-	private static String IP = "192.168.0.115:8080";
-	public static String getSRC() {
-		return SRC;
+	public String IP;
+
+	public StocoinStrings() {
+		try {
+			IP = InetAddress.getLocalHost().getHostAddress() + ":8080";
+		} catch (Exception e) {
+			// TODO: handle exception
+			IP = "";
+		}
 	}
-	public static String getIP() {
+
+	public void setIP(String IP) {
+		this.IP = IP;
+	}
+
+	public String getIP() {
 		return IP;
 	}
+
 }

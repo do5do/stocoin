@@ -198,13 +198,12 @@ public class BoardController {
 	@RequestMapping("/board/boardReplyWrite")
 	public String boardReplyWrite(Reply reply, Model model, HttpSession session) {
 		String id = (String) session.getAttribute("id");
-		
-		if (id.equals("admin")) {
+		if(id.equals("admin") ) {
 			reply.setMno(0);
-		} else {
+		} else { 
 			Member member = ms.select(id);
 			// mno setting
-			reply.setMno(member.getMno());			
+			reply.setMno(member.getMno());
 		}
 		
 		rs.insert(reply);

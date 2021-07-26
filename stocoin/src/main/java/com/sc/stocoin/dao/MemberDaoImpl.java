@@ -49,6 +49,13 @@ public class MemberDaoImpl implements MemberDao	{
 		return sst.selectList("memberns.adminPage");
 	}
 
+	@Override
+	public Member selectNick(String nick) {
+		return sst.selectOne("memberns.nickChk", nick);
+	}
+
+
+
 
 
 }
