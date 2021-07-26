@@ -5,6 +5,7 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/stocoin/resources/css/coinList.css">
+<link rel="stylesheet" type="text/css" href="/stocoin/resources/css/stock.css">
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script type="text/javascript">
 	// 정렬 default
@@ -72,7 +73,6 @@
 		</div>
 
 		<div id="content_right" class="col-xl-9 col-lg-8 col-md-7 col-7">
-			<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 		</div>
 	</div>
 </body>

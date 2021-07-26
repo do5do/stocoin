@@ -4,26 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <h3>${name}</h3>
 <div id="chart">
-	<div class="tradingview-widget-container">
-		<div id="tradingview_a2c70"></div>
-		<script type="text/javascript">
-			new TradingView.widget({
-				"width" : "100%",
-				"height" : "100%",
-				"symbol" :  "${name}KRW",
-				"interval" : "D",
-				"timezone" : "Asia/Seoul",
-				"theme" : "light",
-				"style" : "1",
-				"locale" : "en",
-				"toolbar_bg" : "#f1f3f6",
-				"enable_publishing" : false,
-				"allow_symbol_change" : true,
-				"container_id" : "tradingview_a2c70",
-				"disabled_features": ["header_symbol_search"],
-			});
-		</script>
-	</div>
+	
 </div>
 <div id="coinInfo" class="col-5">
 	<c:if test="${coinInfo.get('fluctate_rate_24H') + 0 >= 0 }">
