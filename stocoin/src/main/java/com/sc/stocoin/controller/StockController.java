@@ -5,12 +5,13 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.sc.stocoin.service.CoinService;
 import com.sc.stocoin.service.StockService;
 
 @Controller
@@ -31,11 +32,12 @@ public class StockController {
 		
 		return "exclude2/stockListReload";
 	}
-	@RequestMapping("/stock/stockChart")
-	public String stockChart(Model model) throws IOException, ParseException {
-		
-		
-		return "";
+	@RequestMapping("/exclude2/stockChart")
+	public String stockChart(Model model, HttpServletRequest request) throws IOException, ParseException {
+		String name = (String) request.getAttribute("name");
+		String chartData = ss.getChart(name);
+		model.addAttribute("stockChart", chartData);
+		return "/exclude2/stockChart";
 	}
 	
 }

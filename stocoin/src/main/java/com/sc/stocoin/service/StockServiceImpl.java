@@ -69,16 +69,14 @@ public class StockServiceImpl implements StockService {
 		conn.disconnect();
 
 		String result = sb.toString();
-
-		System.out.println(result);
 		return null;
 	}
 
 	@Override
 	public String getChart(String name) throws IOException {
 		// 연결 URL 설정
-		String requestURL = "bld=dbms/MDC/STAT/standard/MDCSTAT02106&ddTp=1W&tboxisuCd_finder_stkisu0_0=005930%2F%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90&isuCd=KR7005930003"
-				+ "&isuCd2=&codeNmisuCd_finder_stkisu0_0=%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90&param1isuCd_finder_stkisu0_0=ALL&csvxls_isNo=false";;
+		String requestURL = "bld=dbms/MDC/STAT/standard/MDCSTAT02106&ddTp=1M&tboxisuCd_finder_stkisu0_0=005930%2F%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90&isuCd=KR7005930003"
+				+ "&isuCd2=&codeNmisuCd_finder_stkisu0_0=%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90&param1isuCd_finder_stkisu0_0=ALL&csvxls_isNo=false";
 		URL otpURL = new URL("http://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd");
 
 		// 연결 설정
