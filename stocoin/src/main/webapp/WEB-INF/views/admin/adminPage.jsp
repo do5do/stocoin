@@ -46,7 +46,7 @@
 				<a class="tab" href="/stocoin/admin/adminPage">회원 관리</a>
 			</li>
 			<li id="2">
-				<a class="tab" href="/stocoin/board/boardList?types=2">게시판 관리</a>
+				<a class="tab" href="#">게시판 관리</a>
 			</li>		
 			<li>
 				<a class="tab" href="">주식 관리</a>

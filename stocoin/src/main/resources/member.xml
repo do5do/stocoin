@@ -32,5 +32,8 @@
 	<select id="getTotal" resultType="integer">
 		select count(*) from member
 	</select>
-	
+	   
+	<select id="nickChk" parameterType="string" resultType="member">
+      select * from member where nick=#{nick}
+   </select>
 </mapper>

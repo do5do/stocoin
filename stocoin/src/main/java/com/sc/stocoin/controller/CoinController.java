@@ -22,15 +22,6 @@ public class CoinController {
 	
 	@RequestMapping("/coin/coinList")
 	public String coinList(Model model) throws IOException, ParseException {
-		
-		String IP = null;
-		try {
-			IP = InetAddress.getLocalHost().getHostAddress() + ":8080";
-		} catch (Exception e) {
-			// TODO: handle exception
-			IP = "";
-		}
-		StocoinStrings.setIP(IP);
 		return "coin/coinList";
 	}
 

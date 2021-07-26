@@ -34,12 +34,14 @@ public class MemberServiceImpl implements MemberService {
 		conn.setRequestMethod("POST");
 		conn.setDoOutput(true);
 
+		StocoinStrings ss = new StocoinStrings();
+		
 		// POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 		StringBuilder sb = new StringBuilder();
 		sb.append("grant_type=authorization_code");
 		sb.append("&client_id=8d7498ce8ee97c514f96feb042750e1e"); // 본인이 발급받은 key
-		sb.append("&redirect_uri=http://" + StocoinStrings.IP + "/stocoin/login"); // 본인이 설정해 놓은 경로
+		sb.append("&redirect_uri=http://" + ss.IP + "/stocoin/login"); // 본인이 설정해 놓은 경로
 		sb.append("&code=" + authorize_code);
 		bw.write(sb.toString());
 		bw.flush();
@@ -140,6 +142,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<Member> adminPage() {
 		return md.adminPage();
+	}
+
+	@Override
+	public Member selectNick(String nick) {
+		return md.selectNick(nick);
 	}
 
 }

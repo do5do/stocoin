@@ -119,6 +119,7 @@ header {
 
 header .container {
 	display: flex;
+	position: relative;
 	align-items: center;
 	width: 100%;
 	padding-top: 2%;
@@ -129,6 +130,14 @@ header .container {
 
 .logo a img {
 	width: 180px;
+}
+
+.welcome {
+	position: absolute;
+    right: 97px;
+    top: 14px;
+    font-size: 15px;
+    color: #adafae !important;
 }
 
 nav {

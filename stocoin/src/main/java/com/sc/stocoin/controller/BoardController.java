@@ -198,10 +198,14 @@ public class BoardController {
 	@RequestMapping("/board/boardReplyWrite")
 	public String boardReplyWrite(Reply reply, Model model, HttpSession session) {
 		String id = (String) session.getAttribute("id");
-		Member member = ms.select(id);
-
-		// mno setting
-		reply.setMno(member.getMno());
+		if(id.equals("admin") ) {
+			reply.setMno(0);
+		} else { 
+			Member member = ms.select(id);
+			// mno setting
+			reply.setMno(member.getMno());
+		}
+		
 		rs.insert(reply);
 
 		return "redirect:/exclude2/boardReplyList/bno/" + reply.getBno(); // controller내의 redirect 메소드 호출

@@ -1,7 +1,6 @@
 package com.sc.stocoin.controller;
 
 import java.io.IOException;
-
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -37,19 +36,20 @@ public class MemberController{
     	HashMap<String, Object> userInfo = ms.getUserInfo(access_Token);
     	// 아이디 설정
     	String id = (String) userInfo.get("id");
-    	// 닉네임 설정
-    	String nick = (String) userInfo.get("nick");
     	// 회원가입 유무 판별
     	Member member = ms.select(id);
     	int mno = -1;
     	if (member == null) { // 처음 회원 가입 일 때
     		ms.insert(userInfo);
+//    		return "redirect:/member/updateForm";
     	} else {
     		if (member.getDel().equals("y")) { // 두 번째(이상) 회원 가입 일 때
     			ms.updateDel(userInfo);
+//    		return "redirect:/member/updateForm";
     		}
     		mno = member.getMno();
     	} 
+    	String nick = member.getNick();
     	
     	session.setAttribute("mno", mno);
     	session.setAttribute("id", id);
@@ -87,9 +87,25 @@ public class MemberController{
     }
 
     @RequestMapping("/member/update")
-    public String update(Member member, Model model) {
+    public String update(Member member, Model model, HttpSession session) {
+    	session.removeAttribute("nick");
     	int result = ms.update(member);
+    	Member member2 = ms.select(member.getId());
+    	session.setAttribute("nick", member2.getNick());
+
     	model.addAttribute("result", result);
     	return "member/update";
+    }
+    @RequestMapping(value = "/member/nickChk2", produces = "text/html;charset=utf-8")
+    @ResponseBody 
+    public String nickChk2(String nick) {
+       String msg = "";
+       Member member = ms.selectNick(nick);
+       if (member == null) {
+          msg = "사용가능한 닉네임입니다.";
+       } else {
+          msg = "이미 사용중인 닉네임입니다.";
+       }
+       return msg;
     }
 }

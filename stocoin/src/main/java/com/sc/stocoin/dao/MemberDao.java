@@ -22,6 +22,8 @@ public interface MemberDao {
 	public int getTotal(Member member);
 
 	public List<Member> adminPage();
-	
 
+	public Member selectNick(String nick);
+
+	
 }

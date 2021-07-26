@@ -37,7 +37,6 @@ public class AdminController {
 			result = 1;
 			session.setAttribute("id", admin.getId());
 		}
-		
 		model.addAttribute("result", result);
 		return "admin/adminLogin"; 
 	}
