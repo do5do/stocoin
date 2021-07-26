@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript">
 	$(function() {
 		// 수량 감소
@@ -7,8 +9,6 @@
 			e.preventDefault();
 			var stat = $(this).siblings("span").text();
 			var num = parseInt(stat);
-			var fee = $(this).parent().siblings(".fee").text();
-			var sliceFee = fee.split("원");
 			
 			num -= 1;
 
@@ -19,6 +19,7 @@
 			
 			$(this).siblings("span").text(num);
 			$(this).siblings("input").val(num);
+			$(this).parent().siblings(".fee").text(num+"주");
 		});
 		
 		// 수량 증가
@@ -26,8 +27,6 @@
 			e.preventDefault();
 			var stat = $(this).siblings("span").text();
 			var num = parseInt(stat);
-			var fee = $(this).parent().siblings(".fee").text();
-			var sliceFee = fee.split("원");
 
 			num += 1;
 			
@@ -38,6 +37,7 @@
 			
 			$(this).siblings("span").text(num);
 			$(this).siblings("input").val(num);
+			$(this).parent().siblings(".fee").text(num+"주");
 		});
 	})
 	
@@ -52,6 +52,94 @@
 		}
 	}
 </script>
+<div id="coinInfo" class="col-5">
+	<c:if test="${stockInfo.get('FLUC_RT') + 0 >= 0 }">
+		<h4 class="color_red">
+			${stockInfo.get('TDD_CLSPRC')}
+			<span class="text-sm color_red">+${stockInfo.get('FLUC_RT')}%</span>
+		</h4>
+	</c:if>
+	<c:if test="${stockInfo.get('FLUC_RT') + 0 < 0 }">
+		<h4 class="color_blue">
+			${stockInfo.get('TDD_CLSPRC')}
+			<span class="text-sm color_blue">${stockInfo.get('FLUC_RT')}%</span>
+		</h4>
+	</c:if>
+	<table>
+		<tr>
+			<td class="col-3">거래량(24H)</td>
+			<td class="col-3">${stockInfo.get('ACC_TRDVOL')}</td>
+			<td class="col-3">고가(당일)</td>
+			<td class="col-3">${stockInfo.get('TDD_HGPRC')}</td>
+		</tr>
+		<tr>
+			<td>거래금액(24H)</td>
+			<td>
+				${stockInfo.get('ACC_TRDVAL')}
+<!-- 				<span class="color_gray">백만</span> -->
+			</td>
+			<td>저가(당일)</td>
+			<td>${stockInfo.get('TDD_LWPRC')}</td>
+		</tr>
+		<tr>
+			<td>전일종가</td>
+			<td>${stockInfo.get('TDD_CLSPRC')}</td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<div id="chart_sm"></div>
+	<script type="text/javascript">
+	 var options = {
+     		series: [{
+	            name: 'price',
+	            data: [31, 40, 28, 51, 42, 109, 100]
+	        }],
+	        chart: {
+	            height: 130,
+	            type: 'area',
+	       	    toolbar: {
+	      	        show: false
+	       	    },
+	       	 	zoom: {
+	            	enabled: false
+	           }
+	        },
+	        dataLabels: {
+	            enabled: false
+	        },
+	        stroke: {
+	            curve: 'smooth',
+	            colors: ['#19f'],
+	            width: 1
+	        },
+	        xaxis: {
+        	    type: 'datetime',
+	            categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"],
+	        	tooltip: {
+	            	enabled: false
+	        	}
+	        },
+        	yaxis: {
+        	    show: false
+        	},
+	        tooltip: {
+	          x: {
+	            format: 'dd/MM/yy HH:mm'
+	          },
+	          marker: {
+	              show: false
+	          }
+	        },
+	        grid: {
+	            show: false
+	        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart_sm"), options);
+        chart.render();
+	</script>
+</div>
 <div class="trade_box col-7">
 	<ul class="trade_tab">
 		<li class="red" id="buy" onclick="tab('buy')">매수</li>
@@ -66,9 +154,9 @@
 		</div>
 		<div class="right">
 			<p>0원</p>
-			<p>${stockInfo.get("ACC_TRDVOL") }원</p>
+			<p>${stockInfo.get("ACC_TRDVOL")}원</p>
 			<div class="fee_box">
-				<p class="fee">0원</p>
+				<p class="fee">0주</p>
 				<div class="cnt_box">
 					<div class="line_box minus">
 						<div class="line"></div>
