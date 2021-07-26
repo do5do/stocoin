@@ -7,15 +7,91 @@
 <link rel="stylesheet" type="text/css" href="/stocoin/resources/css/coinList.css">
 <link rel="stylesheet" type="text/css" href="/stocoin/resources/css/stock.css">
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script type="text/javascript" src="/stocoin/resources/js/dayjs.min.js"></script>
+<style type="text/css">
+	.group-3uonVBsm:first-child {
+		display: none !important;
+	}
+</style>
 <script type="text/javascript">
 	// 정렬 default
 	var kinds = "trade_value";
 	var sorts = "desc";
 
+	var selected = "BTC";
+	
+	
+	//차트 생성 옵션
+	var chart;
+	var options = {
+			series : [],
+			noData : {
+				text : 'Loading...'
+			},
+			chart : {
+				height : 600,
+				type : 'candlestick',
+				foreColor : '#909090'
+			},
+			title : {
+				text : 'CandleStick Chart - Category X-axis',
+				align : 'left'
+			},
+			annotations : {
+				xaxis : [ {
+					x : '날짜',
+					borderColor : '#00E396',
+					label : {
+						borderColor : '#00E396',
+						style : {
+							fontSize : '12px',
+							color : '#fff',
+							background : '#00E396'
+						},
+						orientation : 'horizontal',
+						offsetY : 7,
+						text : 'Annotation Test'
+					}
+				} ]
+			},
+			tooltip : {
+				enabled : true,
+			},
+			xaxis : {
+				type : 'category',
+				labels : {
+					formatter : function(val) {
+						return dayjs(val).format('MM월 DD HH:mm')
+					}
+				}
+			},
+			yaxis : {
+				tooltip : {
+					enabled : true
+				}
+			},
+			plotOptions : {
+				candlestick : {
+					colors : {
+						upward : '#f40',
+						downward : '#19f'
+					},
+					 wick: {
+					      useFillColor: true,
+					    }
+				}
+			}
+		};
+	
 	// 페이지 로딩 시 코인 리스트, 차트 로드
 	$(function() {
 		$('#table_wrapper').load("/stocoin/exclude2/coinListReload?kind=" + kinds + "&sort=" + sorts);
+		
 		$('#content_right').load("/stocoin/exclude2/coinInfo");
+		// 차트 생성
+		chart = new ApexCharts(document.querySelector("#chart"), options);
+		chart.render();
+		chartChange(selected);
 	});
 	
 	// 정렬
@@ -39,20 +115,28 @@
 	setInterval(myTimer, 5000);
 	function myTimer() {
 		$('#table_wrapper').load("/stocoin/exclude2/coinListReload?kind=" + kinds + "&sort=" + sorts);
+		chartChange(selected);
 	}
 	
-	function chartChange(name) {
-		$('#content_right').load("/stocoin/exclude2/coinInfo?name=" + name);
-	}
-	
-	function tab(item) {
-		if (item == 'sell') {
-			$('#sell').addClass('blue');
-			$('#buy').removeClass('red');
-		} else {
-			$('#buy').addClass('red');
-			$('#sell').removeClass('blue');
-		}
+	function chartChange(name, time = '5m') {
+		selected = name;
+		var url = 'https://api.bithumb.com/public/candlestick/' + name + '_KRW/' + time;
+		chart.updateOptions({
+			title : {
+				text : name,
+				align : 'left'
+			}
+		});
+		$.getJSON(url, function(response) {
+			// 최근 100개, 거래량 빼고 복사
+			var obj = response.data.slice(0,100).map(v => v.slice(0,5));
+			// OCHL -> OHLC (Opening Closing High Low)
+			obj.map(v => v.splice(0,5, v[0], v[1], v[3], v[4], v[2]));
+		  chart.updateSeries([{
+		    name: 'Sales',
+		    data: obj
+		  }])
+		});
 	}
 </script>
 </head>
@@ -73,6 +157,8 @@
 		</div>
 
 		<div id="content_right" class="col-xl-9 col-lg-8 col-md-7 col-7">
+			<div id="chart">
+			</div>
 		</div>
 	</div>
 </body>

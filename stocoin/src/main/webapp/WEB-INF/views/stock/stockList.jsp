@@ -7,6 +7,7 @@
 <link rel="stylesheet" type="text/css" href="/stocoin/resources/css/coinList.css">
 <link rel="stylesheet" type="text/css" href="/stocoin/resources/css/stock.css">
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script type="text/javascript" src="/stocoin/resources/js/dayjs.min.js"></script>
 <script type="text/javascript">
 	var kinds = "ACC_TRDVOL";
 	var sorts = "desc";
@@ -14,6 +15,7 @@
 	// 주식 리스트 로드, info 로드
 	$(function() {
 		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts);
+		$('#chart').load("/stocoin/exclude2/stockChart");
 		$('#content_right').load("/stocoin/exclude2/stockInfo");
 	});
 	
@@ -38,11 +40,10 @@
 		$('#trade').load('/stocoin/exclude2/stockInfo?name='+name);
 	}
 
-// 	setInterval(myTimer, 3000);
-// 	function myTimer() {
-// 		$('#table_wrapper').load("/stocoin/exclude2/stockListReload");
-// 	}
 	
+	function chartChange(name) {
+		$('#chart').load("/stocoin/exclude2/stockChart?name=" + name);
+	}
 </script>
 </head>
 <body>
