@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <h3>${name}</h3>
-<div id="chart">
-	
-</div>
 <div id="coinInfo" class="col-5">
 	<c:if test="${coinInfo.get('fluctate_rate_24H') + 0 >= 0 }">
 		<h4 class="color_red">
@@ -22,74 +19,81 @@
 	<table>
 		<tr>
 			<td class="col-3">거래량(24H)</td>
-			<td class="col-3"><fmt:formatNumber value="${coinInfo.get('units_traded_24H')}"></fmt:formatNumber></td>
+			<td class="col-3"><fmt:formatNumber
+					value="${coinInfo.get('units_traded_24H')}"></fmt:formatNumber></td>
 			<td class="col-3">고가(당일)</td>
-			<td class="col-3"><fmt:formatNumber value="${coinInfo.get('max_price')}"></fmt:formatNumber></td>
+			<td class="col-3"><fmt:formatNumber
+					value="${coinInfo.get('max_price')}"></fmt:formatNumber></td>
 		</tr>
 		<tr>
 			<td>거래금액(24H)</td>
-			<td><fmt:formatNumber value="${coinInfo.get('acc_trade_value_24H') / 1000000}" pattern="#,###"></fmt:formatNumber>
-				<span class="color_gray">백만</span></td>
+			<td><fmt:formatNumber
+					value="${coinInfo.get('acc_trade_value_24H') / 1000000}"
+					pattern="#,###"></fmt:formatNumber> <span class="color_gray">백만</span></td>
 			<td>저가(당일)</td>
 			<td><fmt:formatNumber value="${coinInfo.get('min_price')}"></fmt:formatNumber></td>
 		</tr>
 		<tr>
 			<td>전일종가</td>
-			<td><fmt:formatNumber value="${coinInfo.get('prev_closing_price')}"></fmt:formatNumber></td>
+			<td><fmt:formatNumber
+					value="${coinInfo.get('prev_closing_price')}"></fmt:formatNumber></td>
 			<td></td>
 			<td></td>
 		</tr>
 	</table>
 	<div id="chart_sm"></div>
 	<script type="text/javascript">
-	 var options = {
-     		series: [{
-	            name: 'price',
-	            data: [31, 40, 28, 51, 42, 109, 100]
-	        }],
-	        chart: {
-	            height: 130,
-	            type: 'area',
-	       	    toolbar: {
-	      	        show: false
-	       	    },
-	       	 	zoom: {
-	            	enabled: false
-	           }
-	        },
-	        dataLabels: {
-	            enabled: false
-	        },
-	        stroke: {
-	            curve: 'smooth',
-	            colors: ['#19f'],
-	            width: 1
-	        },
-	        xaxis: {
-        	    type: 'datetime',
-	            categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"],
-	        	tooltip: {
-	            	enabled: false
-	        	}
-	        },
-        	yaxis: {
-        	    show: false
-        	},
-	        tooltip: {
-	          x: {
-	            format: 'dd/MM/yy HH:mm'
-	          },
-	          marker: {
-	              show: false
-	          }
-	        },
-	        grid: {
-	            show: false
-	        }
-        };
+		var options2 = {
+			series : [ {
+				name : 'price',
+				data : [ 31, 40, 28, 51, 42, 109, 100 ]
+			} ],
+			chart : {
+				height : 130,
+				type : 'area',
+				toolbar : {
+					show : false
+				},
+				zoom : {
+					enabled : false
+				}
+			},
+			dataLabels : {
+				enabled : false
+			},
+			stroke : {
+				curve : 'smooth',
+				colors : [ '#19f' ],
+				width : 1
+			},
+			xaxis : {
+				type : 'datetime',
+				categories : [ "2018-09-19T00:00:00.000Z",
+						"2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z",
+						"2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z",
+						"2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z" ],
+				tooltip : {
+					enabled : false
+				}
+			},
+			yaxis : {
+				show : false
+			},
+			tooltip : {
+				x : {
+					format : 'dd/MM/yy HH:mm'
+				},
+				marker : {
+					show : false
+				}
+			},
+			grid : {
+				show : false
+			}
+		};
 
-        var chart = new ApexCharts(document.querySelector("#chart_sm"), options);
-        chart.render();
+		var chart2 = new ApexCharts(document.querySelector("#chart_sm"), options2);
+		chart2.render();
 	</script>
 </div>
 <div class="trade_box col-7">
@@ -115,7 +119,9 @@
 					</div>
 					<span>0</span>
 					<div class="line_box plus">
-						<div class="line"><div class="line vertical"></div></div>
+						<div class="line">
+							<div class="line vertical"></div>
+						</div>
 					</div>
 					<input type="hidden" name="cnt" class="input_hidden" value="0">
 				</div>

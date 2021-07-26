@@ -16,11 +16,6 @@
 	font-size: 16px; 
 }
 
-#content {
-    height: 850px;
-    overflow: hidden;
-}
-
 #content_left {
 	float: left;
 	padding-right: 10px;

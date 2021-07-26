@@ -16,7 +16,7 @@
 	$(function() {
 		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts);
 		$('#chart').load("/stocoin/exclude2/stockChart");
-		$('#content_right').load("/stocoin/exclude2/stockInfo");
+		$('#info').load("/stocoin/exclude2/stockInfo");
 	});
 	
 	// sort
@@ -37,7 +37,7 @@
 	}
 	
 	function stockInfo(name) {
-		$('#trade').load('/stocoin/exclude2/stockInfo?name='+name);
+		$('#info').load('/stocoin/exclude2/stockInfo?name='+name);
 	}
 
 	
@@ -80,8 +80,10 @@
 				</table>
 			</div>
 		</div>
-
-		<div id="content_right" class="col-xl-9 col-lg-8 col-md-7 col-7"></div>
+		<div id="content_right" class="col-xl-9 col-lg-8 col-md-7 col-7">
+			<div id="chart"></div>
+			<div id="info"></div>
+		</div>
 	</div>
 </body>
 </html>

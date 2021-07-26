@@ -90,7 +90,7 @@
 	</table>
 	<div id="chart_sm"></div>
 	<script type="text/javascript">
-	 var options = {
+	 var options2 = {
      		series: [{
 	            name: 'price',
 	            data: [31, 40, 28, 51, 42, 109, 100]
@@ -136,8 +136,8 @@
 	        }
         };
 
-        var chart = new ApexCharts(document.querySelector("#chart_sm"), options);
-        chart.render();
+        var chart2 = new ApexCharts(document.querySelector("#chart_sm"), options2);
+        chart2.render();
 	</script>
 </div>
 <div class="trade_box col-7">

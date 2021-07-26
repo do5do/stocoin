@@ -157,28 +157,4 @@ public class CoinServiceImpl implements CoinService {
 				
 		return coinInfo;
 	}
-
-//	 차트 가져올때 사용할 메서드
-	/*
-	 * @Override public List<String> getChartList(List<Map<String, String>>
-	 * coinList) throws IOException { // 가져올 api 주소 연결 String reqURL =
-	 * "https://api.bithumb.com/public/candlestick/" + coinList + "_KRW/5m"; URL url
-	 * = new URL(reqURL); HttpURLConnection conn = (HttpURLConnection)
-	 * url.openConnection(); conn.setRequestMethod("POST");
-	 * 
-	 * // 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기 BufferedReader br = new
-	 * BufferedReader(new InputStreamReader(conn.getInputStream())); String line =
-	 * ""; String result = "";
-	 * 
-	 * while ((line = br.readLine()) != null) { result += line; }
-	 * 
-	 * // JSON파싱 객체 생성 JsonParser parser = new JsonParser();
-	 * 
-	 * JsonElement element = parser.parse(result); // data 키에 들어있는 코인 정보 JsonObject
-	 * data = (JsonObject) element.getAsJsonObject().get("data");
-	 * 
-	 * List<String> list = new ArrayList<String>();
-	 * 
-	 * return list; }
-	 */
 }

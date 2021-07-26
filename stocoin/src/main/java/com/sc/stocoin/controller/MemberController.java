@@ -39,8 +39,10 @@ public class MemberController{
     	// 회원가입 유무 판별
     	Member member = ms.select(id);
     	int mno = -1;
+    	String nick = "";
     	if (member == null) { // 처음 회원 가입 일 때
     		ms.insert(userInfo);
+    		nick = (String) userInfo.get("nick");
 //    		return "redirect:/member/updateForm";
     	} else {
     		if (member.getDel().equals("y")) { // 두 번째(이상) 회원 가입 일 때
@@ -48,8 +50,8 @@ public class MemberController{
 //    		return "redirect:/member/updateForm";
     		}
     		mno = member.getMno();
+    		nick = member.getNick();
     	} 
-    	String nick = member.getNick();
     	
     	session.setAttribute("mno", mno);
     	session.setAttribute("id", id);
