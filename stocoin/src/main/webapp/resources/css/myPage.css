@@ -1,0 +1,188 @@
+@charset "UTF-8";
+.body {
+    width: 100%;
+    max-width: 1920px;
+}
+.Container {
+    position: relative;
+    margin: 0 auto;
+    width: 1500px;
+}
+.Container header {
+    border-bottom: 1px solid #ccc;
+    padding: 25px 0;
+    text-align: left;
+}
+.Container header span {
+    font-size: 20px;
+    font-weight: 600;
+}
+.Container header select {
+    float: right;
+    color: gray;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+}
+.Container header select.clearfix {
+    content: '';
+    clear: both;
+    display: block;
+}
+.Container .Navigator {
+    position: relative;
+    margin: 60px auto 0;
+    border-bottom: 1px solid #efefef;
+}
+.Container .Navigator nav ul {
+    list-style: none;
+    display: flex;
+}
+.Container .Navigator nav ul li.item {
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 15px 20px;
+    text-align: center;
+}
+.Container .Navigator nav ul li.item > a {
+    color: #ccc;
+    text-decoration: none;
+}
+.Container .Navigator nav ul li.item.on {
+    border-bottom: 4px solid #000;
+}
+.Container .Navigator nav ul li.item.on > a {
+    color: #000;
+}
+.Container .InfoBox {
+    margin: 20px 0;
+    padding: 20px 0;
+}
+.InfoBox select,
+.InfoBox input {
+    padding: 15px;
+    color: gray;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+.InfoBox input::placeholder {
+    color: #777;
+}
+.InfoBox input.date-lookup {
+    color: #777;
+    text-align: left;
+}
+.InfoBox input.date-lookup::placeholder {
+    color: gray;
+}
+.InfoBox button {
+    padding: 15px 25px;
+    margin-right: 20px;
+    color: #fff;
+    background-color: #777;
+    font-size: 15px;
+    font-weight: 600;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+.InfoBox button.btn-download {
+    float: right;
+    padding: 15px 10px 15px 40px;
+    margin-right: 20px;
+    color: #777;
+    background-color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    background: url("./excel.png") no-repeat center left;
+    background-size: 30%;
+}
+.transaction {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.transaction th {
+    color: gray;
+    font-weight: 600;
+    padding: 20px 5px;
+    border-bottom: 1px solid #ccc;
+    background-color: #f5f5f5;
+}
+.transaction td {
+    padding: 30px 5px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+
+
+
+/* page2 */
+.Container .TotalBox {
+    width: 100%;
+    margin-top: 30px;
+    background-color: #efefef;
+    border-radius: 15px;
+}
+.Container .TotalBox .Total-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.Container .TotalBox .Total-table td {
+    padding: 25px 5px 25px 100px;
+    text-align: left;
+}
+.Container .TotalBox .Total-table td.num {
+    padding-left: 0;
+}
+.Container .TotalBox .Total-table td.fir-td {
+    font-size: 20px;
+    text-align: left;
+    padding-left: 50px;
+    vertical-align: middle;
+}
+.Container .TotalBox .Total-table td.fir-td small {
+    font-size: 20px;
+}
+.Container .TotalBox .Total-table td.fir-td p:first-child  {
+    color: #818181;
+    font-size: 17px;
+    font-weight: 600;
+    padding-bottom: 10px;
+    letter-spacing: -1.5px;
+}
+.Container .TotalBox .Total-table td.fir-td p:last-child  {
+    color: #000;
+    font-size: 30px;
+    font-weight: 600;
+
+}
+.Container .asset {
+    margin-top: 50px;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.Container .asset th {
+    color: gray;
+    font-weight: 600;
+    padding: 20px 5px;
+    border-bottom: 1px solid #ccc;
+    background-color: #f5f5f5;
+}
+.Container .asset td {
+    padding: 30px 5px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
