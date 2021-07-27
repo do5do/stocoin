@@ -5,9 +5,17 @@
 <head>
 </head>
 <body>
-	<script type="text/javascript">
-		alert("환영합니다!");
-		location.href = "${prevUrl}";
-	</script>
+	<c:if test="${result == 0}">
+		<script type="text/javascript">	
+			alert("환영합니다!");
+			location.href = "${prevUrl}";
+		</script>
+	</c:if>
+	
+	<c:if test="${result == 1}">
+		<script type="text/javascript">	
+			location.href = "/stocoin/member/updateForm";
+		</script>
+	</c:if>
 </body>
 </html>
