@@ -3,6 +3,7 @@ package com.sc.stocoin.controller;
 import java.io.IOException;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,21 +37,22 @@ public class MemberController{
     	HashMap<String, Object> userInfo = ms.getUserInfo(access_Token);
     	// 아이디 설정
     	String id = (String) userInfo.get("id");
+    	String nick = (String) userInfo.get("nick");
     	// 회원가입 유무 판별
     	Member member = ms.select(id);
     	int mno = -1;
-    	String nick = "";
+    	int result = 1;
+    
     	if (member == null) { // 처음 회원 가입 일 때
     		ms.insert(userInfo);
-    		nick = (String) userInfo.get("nick");
-//    		return "redirect:/member/updateForm";
     	} else {
     		if (member.getDel().equals("y")) { // 두 번째(이상) 회원 가입 일 때
     			ms.updateDel(userInfo);
-//    		return "redirect:/member/updateForm";
+    		} else { // 그냥 로그인 일 때
+    			nick = member.getNick();
+    			result = 0;
     		}
     		mno = member.getMno();
-    		nick = member.getNick();
     	} 
     	
     	session.setAttribute("mno", mno);
@@ -61,6 +63,7 @@ public class MemberController{
     	// 이전 주소 가져오기
     	String prevUrl = url;
     	model.addAttribute("prevUrl", prevUrl);
+    	model.addAttribute("result", result);
     	
         return "member/login";
     }
@@ -81,23 +84,34 @@ public class MemberController{
     }
     
     @RequestMapping("/member/updateForm")
-    public String updateForm(HttpSession session, Model model) {
+    public String updateForm(HttpSession session, Model model, HttpServletRequest request) {
     	String id = (String) session.getAttribute("id");
     	Member member = ms.select(id);
+    	String prevUrl2 = request.getHeader("referer").substring(21);
+    	model.addAttribute("prevUrl2", prevUrl2);
     	model.addAttribute("member", member);
     	return "member/updateForm";
     }
 
     @RequestMapping("/member/update")
-    public String update(Member member, Model model, HttpSession session) {
+    public String update(Member member, String prevUrl2, Model model, HttpSession session) {
+    	int result = 0;
+    	String prevUrl = url;
     	session.removeAttribute("nick");
-    	int result = ms.update(member);
-    	Member member2 = ms.select(member.getId());
-    	session.setAttribute("nick", member2.getNick());
 
+    	Member member2 = ms.select(member.getId());
+    	if (!member2.getNick().equals(member.getNick())) {
+    		result = ms.update(member);
+    	}
+    	member2 = ms.select(member.getId());
+    	
+    	session.setAttribute("nick", member2.getNick());
+    	model.addAttribute("prevUrl", prevUrl);
+    	model.addAttribute("prevUrl2", prevUrl2);
     	model.addAttribute("result", result);
     	return "member/update";
     }
+    
     @RequestMapping(value = "/member/nickChk2", produces = "text/html;charset=utf-8")
     @ResponseBody 
     public String nickChk2(String nick) {

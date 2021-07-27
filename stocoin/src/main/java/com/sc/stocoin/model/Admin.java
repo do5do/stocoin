@@ -6,4 +6,5 @@ import lombok.Data;
 public class Admin {
 	private String id;
 	private String pwd;
+	private String nick;
 }

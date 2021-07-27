@@ -8,11 +8,6 @@
 <link rel="stylesheet" type="text/css" href="/stocoin/resources/css/stock.css">
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script type="text/javascript" src="/stocoin/resources/js/dayjs.min.js"></script>
-<style type="text/css">
-	.group-3uonVBsm:first-child {
-		display: none !important;
-	}
-</style>
 <script type="text/javascript">
 	// 정렬 default
 	var kinds = "trade_value";
@@ -26,7 +21,7 @@
 			text : 'Loading...'
 		},
 		chart : {
-			height : 600,
+			height : 500,
 			type : 'candlestick',
 			foreColor : '#909090'
 		},

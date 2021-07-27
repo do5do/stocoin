@@ -10,14 +10,17 @@
 <body>
 	<c:if test="${result > 0  }">
 		<script type="text/javascript">
-			alert("닉네임 수정 성공");
-			location.href="/stocoin/myPage/myCoinList";
+			if ("${prevUrl2}" == "/stocoin/myPage/myCoinList") {
+				location.href="${prevUrl2}"				
+			} else {
+				location.href="${prevUrl}";
+			}
 		</script>
 	</c:if>
 	
 	<c:if test="${result == 0  }">
 		<script type="text/javascript">
-			alert("닉네임 수정 실패");
+			alert("닉네임 중복체크를 해주세요");
 			history.go(-1);
 		</script>
 	</c:if>

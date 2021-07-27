@@ -6,7 +6,7 @@
 		<selectKey order="BEFORE" keyProperty="mno" resultType="integer">
 			select nvl(max(mno), 0) + 1 mno from member
 		</selectKey>
-		insert into member values(#{mno}, #{id}, #{nick}, sysdate, 'n')
+		insert into member values (#{mno}, #{id}, '.', sysdate, 3000000, 3000000, 'n')
 	</insert>
 	
 	<select id="select" parameterType="string" resultType="member">
@@ -18,7 +18,7 @@
 	</update>
 	
 	<update id="updateDel" parameterType="hashmap">
-		update member set del='n', nick=#{nick} where id=#{id}
+		update member set del='n', nick='.' where id=#{id}
 	</update>
 	
 	<update id="update" parameterType="string">
