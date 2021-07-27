@@ -106,7 +106,7 @@
 	}
 	
 	// 5초 간격으로 코인 리스트 로드
-	setInterval(myTimer, 5000);
+	//setInterval(myTimer, 5000);
 	function myTimer() {
 		$('#table_wrapper').load("/stocoin/exclude2/coinListReload?kind=" + kinds + "&sort=" + sorts);
 		chartChange(selected);
@@ -114,6 +114,8 @@
 	
 	function chartChange(name, time = '5m') {
 		$('#info').load("/stocoin/exclude2/coinInfo?name=" + name);
+		$(".list").removeClass('active');
+		$('#'+name).addClass('active');
 		selected = name;
 		var url = 'https://api.bithumb.com/public/candlestick/' + name + '_KRW/' + time;
 		chart.updateOptions({
@@ -137,7 +139,7 @@
 </head>
 <body>
 	<div id="content" class="">
-		<div id="content_left" class="col-xl-3 col-lg-4 col-md-5 col-5">
+		<div id="content_left">
 			<div id="search">
 				<input type="text" name="search" placeholder="검색어를 입력하세요"> <a
 					href="#">검색</a>
@@ -151,7 +153,7 @@
 			<div id="table_wrapper"></div>
 		</div>
 		
-		<div id="content_right" class="col-xl-9 col-lg-8 col-md-7 col-7">
+		<div id="content_right">
 			<div id="chart"></div>
 			<div id="info"></div>
 		</div>

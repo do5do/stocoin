@@ -23,7 +23,6 @@ public class StockController {
 	@RequestMapping("/stock/stockList")
 	public String stockList(Model model) throws IOException, ParseException {
 		List<Map<String, Object>> stockList = ss.getStockList();
-		
 		return "stock/stockList";
 	}
 
@@ -35,14 +34,15 @@ public class StockController {
 	}
 
 	@RequestMapping("/exclude2/stockInfo")
-	public String stockInfo(String name, Model model) {
-		if (name == null) {
-			name = "삼성전자";
+	public String stockInfo(String code, Model model) {
+		if (code == null) {
+			code = "005930"; // 삼성전자
 		}
-		Map<String, Object> stockInfo = ss.getStockInfo(name);
+		Map<String, Object> stockInfo = ss.getStockInfo(code);
 		model.addAttribute("stockInfo", stockInfo);
 		return "exclude2/stockInfo";
 	}
+	
 	@RequestMapping("/exclude2/stockChart")
 	public String stockChart(Model model, HttpServletRequest request) throws IOException, ParseException {
 		String name = (String) request.getAttribute("name");

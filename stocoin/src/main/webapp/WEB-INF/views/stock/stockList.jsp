@@ -36,8 +36,11 @@
 		}
 	}
 	
-	function stockInfo(name) {
-		$('#info').load('/stocoin/exclude2/stockInfo?name='+name);
+	function stockInfo(code) {
+		$('#info').load('/stocoin/exclude2/stockInfo?code='+code);
+		
+		$(".list").removeClass('active');
+		$('#'+code).addClass('active');
 	}
 
 	
@@ -48,7 +51,7 @@
 </head>
 <body>
 	<div id="content" class="">
-		<div id="content_left" class="col-xl-3 col-lg-4 col-md-5 col-5">
+		<div id="content_left">
 			<div id="search">
 				<input type="text" name="search" placeholder="검색어를 입력하세요"> <a href="#">검색</a>
 			</div>
@@ -58,29 +61,10 @@
 				<li class="col-3" onclick="sort('FLUC_RT')">등락률 <span id="FLUC_RT" class="sort"></span></li>
 				<li class="col-3" onclick="sort('ACC_TRDVOL')">거래량 <span id="ACC_TRDVOL" class="sort">↓</span></li>
 			</ul>
-			<!-- stock list -->
-			<div id="table_wrapper">
-				<table class="table table-hover">
-					<tbody>
-						<c:forEach var="stock" items="${stockList}">
-							<tr onclick="stockInfo('${stock.get('ISU_ABBRV')}')">
-								<td class="col-4"><span class="coinName">${stock.get("ISU_ABBRV")}</span></td>
-								<c:if test="${stock.get('FLUC_RT') + 0 >= 0 }">
-									<td class="col-4 color_red">${stock.get("TDD_CLSPRC")}</td>
-									<td class="col-4 color_red">+${stock.get("FLUC_RT")}%</td>
-								</c:if>
-								<c:if test="${stock.get('FLUC_RT') + 0 < 0 }">
-									<td class="col-4 color_blue">${stock.get("TDD_CLSPRC")}</td>
-									<td class="col-4 color_blue">${stock.get("FLUC_RT")}%</td>
-								</c:if>
-								<td class="col-4">${stock.get("ACC_TRDVOL")}</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
+			<div id="table_wrapper"></div>
 		</div>
-		<div id="content_right" class="col-xl-9 col-lg-8 col-md-7 col-7">
+		
+		<div id="content_right">
 			<div id="chart"></div>
 			<div id="info"></div>
 		</div>

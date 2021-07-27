@@ -10,6 +10,7 @@ public interface StockService {
 
 	List<Map<String, Object>> stockListSort(String kind, String sort);
 
-	Map<String, Object> getStockInfo(String name);
+	Map<String, Object> getStockInfo(String code);
+	
 	String getChart(String name) throws IOException;
 }
