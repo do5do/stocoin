@@ -14,9 +14,9 @@
 		$('#insertReply').on('click', function() {
 			var sendData = $('#frm').serialize(); // form속 data 담기
 			$.post('/stocoin/board/boardReplyWrite', sendData, function(data) {
-				alert("댓글이 작성되었습니다.");
 				$('#replyLoad').html(data);
 				$('#frm textarea').val("");
+				//alert("댓글이 작성되었습니다.");
 			})
 		})
 	})

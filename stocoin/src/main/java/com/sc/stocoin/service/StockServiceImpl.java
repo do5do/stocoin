@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -109,28 +108,28 @@ public class StockServiceImpl implements StockService {
 			@Override
 			public int compare(Map<String, Object> o1, Map<String, Object> o2) {
 				if (sort.equals("asc")) {
-					if (kind.equals("FLUC_RT")) {
-						Float name1 = Float.parseFloat((String) o1.get(kind));
-						Float name2 = Float.parseFloat((String) o2.get(kind));
-						return name1.compareTo(name2);
-
-					} else {
+					if (kind.equals("ISU_ABBRV")) { // 종목명
 						String name1 = (String) o1.get(kind);
 						String name2 = (String) o2.get(kind);
 						return name1.compareTo(name2);
-						
+					} else {
+						String str = o1.get(kind).toString().replaceAll(",", "");
+						String str2 = o2.get(kind).toString().replaceAll(",", "");
+						Float name1 = Float.parseFloat(str);
+						Float name2 = Float.parseFloat(str2);
+						return name1.compareTo(name2);
 					}
 				} else {
-					if (kind.equals("FLUC_RT")) {
-						Float name1 = Float.parseFloat((String) o1.get(kind));
-						Float name2 = Float.parseFloat((String) o2.get(kind));
-						return name2.compareTo(name1);
-
-					} else {
+					if (kind.equals("ISU_ABBRV")) {
 						String name1 = (String) o1.get(kind);
 						String name2 = (String) o2.get(kind);
 						return name2.compareTo(name1);
-						
+					} else {
+						String str = o1.get(kind).toString().replaceAll(",", "");
+						String str2 = o2.get(kind).toString().replaceAll(",", "");
+						Float name1 = Float.parseFloat(str);
+						Float name2 = Float.parseFloat(str2);
+						return name2.compareTo(name1);
 					}
 				}
 			}
@@ -139,15 +138,20 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public Map<String, Object> getStockInfo(String name) {
+	public Map<String, Object> getStockInfo(String code) {
 		// 해당 이름에 대한 stock 정보를 담을 map 생성
 		Map<String, Object> stockInfo = new HashMap<>();
+		
 		for (int i = 0; i < stockLists.size(); i++) {
-			String names = (String) stockLists.get(i).get("ISU_ABBRV");
+			String codes = (String) stockLists.get(i).get("ISU_SRT_CD");
 			
-			// 해당 이름이 있는 map을 찾음
-			if (names.equals(name)) {
+			// 해당 코드가 있는 map을 찾음
+			if (codes.equals(code)) {
+				String trade_price = ((String) stockLists.get(i).get("ACC_TRDVAL")).replaceAll(",", "");
 				stockInfo = stockLists.get(i);
+				// 거래 금액 콤마 제거하여 담기
+				stockInfo.put("trade_price", trade_price);
+				break;
 			}
 		}
 		
@@ -197,6 +201,5 @@ public class StockServiceImpl implements StockService {
 		return result;
 	}
 
-		
 	
 }

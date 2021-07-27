@@ -1,8 +1,11 @@
 @charset "UTF-8";
 
-.trade_box {
-	float: right;
-	padding-left: 30px;
+#info {
+	display: flex;
+}
+
+.trade {
+	padding-left: 36px;
 }
 
 .trade_tab {
