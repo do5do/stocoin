@@ -27,14 +27,17 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sc.stocoin.dao.StockDao;
+import com.sc.stocoin.model.StocoinStrings;
 
 @Service
 public class StockServiceImpl implements StockService {
 	@Autowired
 	private StockDao cd;
-	
-	private List<Map<String, Object>> stockLists;
 
+	private List<Map<String, Object>> stockLists;
+	private List<Map<String, Object>> stockCodes;
+	private Map<String, String> corpCodes;
+	
 	@Override
 	public List<Map<String, Object>> getStockList() throws IOException, ParseException {
 		// 연결 URL 설정
@@ -74,7 +77,7 @@ public class StockServiceImpl implements StockService {
 		conn.disconnect();
 
 		String result = sb.toString();
-		
+
 		// JSON 파싱
 		JsonParser parser = new JsonParser();
 		JsonElement element = parser.parse(result);
@@ -82,23 +85,88 @@ public class StockServiceImpl implements StockService {
 		JsonObject object = element.getAsJsonObject();
 		// JSONArray에 담기
 		JsonArray array = (JsonArray) object.get("OutBlock_1");
-		
+
 		// 형식 지정 : map으로 쓰겠다
-		Type mapTokenType = new TypeToken<Map<String, Object>>(){}.getType();
-		
+		Type mapTokenType = new TypeToken<Map<String, Object>>() {
+		}.getType();
+
 		// stock list
 		List<Map<String, Object>> stockList = new ArrayList<>();
-		
+
 		for (int i = 0; i < array.size(); i++) {
 			JsonObject object2 = (JsonObject) array.get(i);
-			
+
 			// object2에 있는 모든 요소를 한번에 담기
 			Map<String, Object> map = new Gson().fromJson(object2, mapTokenType);
 			stockList.add(map);
 		}
 		
 		this.stockLists = stockList;
+
 		
+		
+		// 종목 코드 받아오기
+		requestURL = "bld=dbms/MDC/STAT/standard/MDCSTAT01901&mktId=ALL&share=1&csvxls_isNo=false";
+		// 연결 설정
+		conn = (HttpURLConnection) otpURL.openConnection();
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("referer",
+				"http://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd?menuId=MDC0201020101");
+		conn.setDoOutput(true);
+		// 연결
+		ps = new PrintStream(conn.getOutputStream());
+		ps.print(requestURL);
+		ps.close();
+		// 데이터 수신
+		br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+		sb = new StringBuffer();
+		inputLine = "";
+
+		while ((inputLine = br.readLine()) != null) {
+			sb.append(inputLine);
+		}
+		br.close();
+		conn.disconnect();
+
+		result = sb.toString();
+		// JSON 파싱
+		parser = new JsonParser();
+		element = parser.parse(result);
+		// JSONObject에 담기
+		object = element.getAsJsonObject();
+		// JSONArray에 담기
+		array = (JsonArray) object.get("OutBlock_1");
+
+		// stockCode
+		List<Map<String, Object>> stockCode = new ArrayList<>();
+
+		for (int i = 0; i < array.size(); i++) {
+			JsonObject object2 = (JsonObject) array.get(i);
+
+			// object2에 있는 모든 요소를 한번에 담기
+			Map<String, Object> map = new Gson().fromJson(object2, mapTokenType);
+			stockCode.add(map);
+		}
+		this.stockCodes = stockCode;
+		// 종목코드 종료
+
+		
+		
+		// 종목코드 - 회사코드
+		corpCodes = new HashMap<String, String>();
+		StocoinStrings ss = new StocoinStrings();
+		String corpCode = ss.getCORPCODE();
+		
+		parser = new JsonParser();
+		element = parser.parse(corpCode);
+		object = element.getAsJsonObject();
+		
+		array = (JsonArray) object.get("list");
+		for(int i = 0; i < array.size(); i++) {
+			JsonObject object2 = (JsonObject) array.get(i);
+			corpCodes.put(object2.get("stock_code").getAsString(), object2.get("corp_code").getAsString());
+		}
+		// 종목코드 - 회사코드 종료
 		return stockList;
 	}
 
@@ -139,19 +207,21 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public Map<String, Object> getStockInfo(String code) {
+	public Map<String, Object> getStockInfo(String code){
 		// 해당 이름에 대한 stock 정보를 담을 map 생성
 		Map<String, Object> stockInfo = new HashMap<>();
-		
+
 		for (int i = 0; i < stockLists.size(); i++) {
 			String codes = (String) stockLists.get(i).get("ISU_SRT_CD");
-			
+
 			// 해당 코드가 있는 map을 찾음
 			if (codes.equals(code)) {
 				String trade_price = ((String) stockLists.get(i).get("ACC_TRDVAL")).replaceAll(",", "");
 				stockInfo = stockLists.get(i);
 				// 거래 금액 콤마 제거하여 담기
 				stockInfo.put("trade_price", trade_price);
+				// 회사 코드 찾아서 넣기
+				stockInfo.put("corp_code", corpCodes.get(codes));
 				break;
 			}
 		}
@@ -159,10 +229,21 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public String getChart(String name) throws IOException {
+	public String getChart(String code) throws IOException {
+		// 종목 코드 검색
+		String isuCode = "";
+		for (int i = 0; i < stockCodes.size(); i++) {
+			String codes = (String) stockCodes.get(i).get("ISU_SRT_CD");
+
+			// 해당 코드가 있는 map을 찾음
+			if (codes.equals(code)) {
+				isuCode = (String) stockCodes.get(i).get("ISU_CD");
+				break;
+			}
+		}
 		// 연결 URL 설정
-		String requestURL = "bld=dbms/MDC/STAT/standard/MDCSTAT02106&ddTp=1M&tboxisuCd_finder_stkisu0_0=005930%2F%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90&isuCd=KR7005930003"
-				+ "&isuCd2=&codeNmisuCd_finder_stkisu0_0=%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90&param1isuCd_finder_stkisu0_0=ALL&csvxls_isNo=false";
+		String requestURL = "bld=dbms/MDC/STAT/standard/MDCSTAT02106&ddTp=1M&isuCd=" + isuCode
+				+ "&isuCd2=&param1isuCd_finder_stkisu0_0=ALL&csvxls_isNo=false";
 		URL otpURL = new URL("http://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd");
 
 		// 연결 설정
@@ -201,5 +282,4 @@ public class StockServiceImpl implements StockService {
 		return result;
 	}
 
-	
 }

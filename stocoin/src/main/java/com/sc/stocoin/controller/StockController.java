@@ -87,9 +87,11 @@ public class StockController {
 	}
 	
 	@RequestMapping("/exclude2/stockChart")
-	public String stockChart(Model model, HttpServletRequest request) throws IOException, ParseException {
-		String name = (String) request.getAttribute("name");
-		String chartData = ss.getChart(name);
+	public String stockChart(String code, Model model) throws IOException, ParseException {
+		if (code == null) {
+			code = "005930"; // 삼성전자
+		}
+		String chartData = ss.getChart(code);
 		model.addAttribute("stockChart", chartData);
 		return "/exclude2/stockChart";
 	}

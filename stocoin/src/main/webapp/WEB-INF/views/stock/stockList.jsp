@@ -47,6 +47,7 @@
 	
 	function stockInfo(code) {
 		$('.dp_flex').load('/stocoin/exclude2/stockInfo?code='+code);
+		$('#chart').load("/stocoin/exclude2/stockChart?code=" + code);
 		
 		// 선택한 리스트 표시
 		$(".list").removeClass('active');
@@ -54,7 +55,7 @@
 	}
 
 	function chartChange(name) {
-		$('#chart').load("/stocoin/exclude2/stockChart?name=" + name);
+		$('#chart').load("/stocoin/exclude2/stockChart?code=" + code);
 	}
 </script>
 </head>
