@@ -122,6 +122,10 @@ $(function() {
 	chart2.render();
 	change_chart(selected);
 	$('.trade').load('/stocoin/exclude2/coinTrade?name=' + selected);
+	
+	// content left, right height 맞추기
+	var layoutHeight = $('#content_right').height();
+	$('#table_wrapper').height(layoutHeight - 102);
 });
 
 // 정렬
