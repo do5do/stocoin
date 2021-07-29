@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="shortcut icon" href="/stocoin/resources/images/favicon.ico">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initialscale=1">
 <title><tiles:insertAttribute name="title"></tiles:insertAttribute></title>
