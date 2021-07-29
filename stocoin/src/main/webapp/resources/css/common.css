@@ -30,6 +30,11 @@ a {
 	margin: 180px auto;
 }
 
+.container.middle {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
 body {
 	display: flex;
 	flex-direction: column;

@@ -16,6 +16,10 @@
 			$('#tab1').addClass('active');
 			var curUrl = window.location.href;
 			var sliceUrl = curUrl.split("?")[1].split("&")[0].split("=")[1];
+			$('#tab2').addClass('active');
+			var curUrl = window.location.href;
+			var sliceUrl = curUrl.split("?")[1].split("&")[0].split("=")[1];
+
 
 			if (sliceUrl == null || sliceUrl == 1) {
 				$('#tab' + sliceUrl).addClass("active");
@@ -36,49 +40,49 @@
 	</div>	
 	<ul class="tabs">
 		<li id="tab1">
-			<a class="tab" href="/stocoin/myPage/myCoinList">거래내역</a>
+			<a class="tab" href="/stocoin/myPage/myStockList">채결/미채결</a>
 		</li>
 		<li id="tab2">
-			<a class="tab" href="/stocoin/myPage/coinTradeList">보유현황</a>
+			<a class="tab" href="/stocoin/myPage/stockTradeList">주식잔고</a>
 		</li>		
 	</ul>
 	<div class="Container">
 	        <table class="transaction">
 	            <thead>
 	              <tr>
-	                <th>거래일시</th>
-	                <th>자산</th>
-	                <th>거래구분</th>
-	                <th>거래수량</th>
+	                <th>주문정보</th>
+	                <th>주문수량</th>
+	                <th>주문가격</th>
+	                <th>채결수량</th>
 	                <th>체결가격</th>
-	                <th>거래금액</th>
-	                <th>수수료</th>
-	                <th>정산금액</th>
-	                <th>상태</th>
+	                <th>원 주문번호</th>
+	                <th>가격 구분</th>
+	                <th>정정수량</th>
+	                <th>취소수량</th>
 	              </tr>
 	            </thead>
 	            <tbody>
 	              <tr>
-	                <td>2021-07-01 17:05:04</td>
-	                <td>리플 XRP/KRW</td>
-	                <td>매수</td>
-	                <td>3.8876 XRP</td>
-	                <td>769.5</td>
-	                <td>2.992 KRW</td>
-	                <td>7.48</td>
-	                <td>-2.999 KRW</td>
-	                <td></td>
+	                <td><span>매도</span><br>서울식품</td>
+	                <td>1주</td>
+	                <td>414원</td>
+	                <td>1주</td>
+	                <td>414원</td>
+	                <td>-</td>
+	                <td>시간외단일가</td>
+	                <td>0</td>
+	                <td>0</td>
 	              </tr>
 	              <tr>
-	                <td>2021-07-01 17:05:04</td>
-	                <td>리플 XRP/KRW</td>
-	                <td>매수</td>
-	                <td>3.8876 XRP</td>
-	                <td>769.5</td>
-	                <td>2.992 KRW</td>
-	                <td>7.48</td>
-	                <td>-2.999 KRW</td>
-	                <td></td>
+	                <td><span>매도</span><br>삼성</td>
+	                <td>1주</td>
+	                <td>72900원</td>
+	                <td>1주</td>
+	                <td>72900원</td>
+	                <td>-</td>
+	                <td>보통</td>
+	                <td>0</td>
+	                <td>0</td>
 	              </tr>
 	            </tbody>
 	        </table>
