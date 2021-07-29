@@ -149,4 +149,9 @@ public class MemberServiceImpl implements MemberService {
 		return md.selectNick(nick);
 	}
 
+	@Override
+	public void updateStockMoney(Member member) {
+		md.updateStockMoney(member);
+	}
+
 }

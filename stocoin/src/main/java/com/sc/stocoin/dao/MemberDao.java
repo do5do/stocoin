@@ -25,5 +25,7 @@ public interface MemberDao {
 
 	public Member selectNick(String nick);
 
+	public void updateStockMoney(Member member);
+
 	
 }

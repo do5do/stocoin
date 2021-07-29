@@ -10,6 +10,6 @@
 		<selectKey order="BEFORE" keyProperty="qr_no" resultType="integer">
 			select nvl(max(qr_no), 0) + 1 qr_no from qnaReply
 		</selectKey>
-		insert into qnaReply values(#{qr_no}, #{qno}, #{content}, sysdate)
+		insert into qnaReply values(#{qr_no}, #{content}, sysdate, #{qno})
 	</insert>
 </mapper>

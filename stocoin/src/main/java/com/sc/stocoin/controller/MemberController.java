@@ -45,6 +45,8 @@ public class MemberController{
     
     	if (member == null) { // 처음 회원 가입 일 때
     		ms.insert(userInfo);
+    		Member member2 = ms.select(id);
+    		mno = member2.getMno();
     	} else {
     		if (member.getDel().equals("y")) { // 두 번째(이상) 회원 가입 일 때
     			ms.updateDel(userInfo);

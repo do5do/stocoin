@@ -28,4 +28,6 @@ public interface MemberService {
 	public List<Member> adminPage();
 
 	public Member selectNick(String nick);
+
+	public void updateStockMoney(Member member);
 }

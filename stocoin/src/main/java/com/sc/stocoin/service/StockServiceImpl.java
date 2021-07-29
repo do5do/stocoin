@@ -96,6 +96,7 @@ public class StockServiceImpl implements StockService {
 			Map<String, Object> map = new Gson().fromJson(object2, mapTokenType);
 			stockList.add(map);
 		}
+		
 		this.stockLists = stockList;
 		
 		return stockList;
@@ -154,7 +155,6 @@ public class StockServiceImpl implements StockService {
 				break;
 			}
 		}
-		
 		return stockInfo;
 	}
 

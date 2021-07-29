@@ -14,9 +14,18 @@
 
 	// 주식 리스트 로드, info 로드
 	$(function() {
-		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts);
+		if (${empty code}) {
+			$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts);
+			$('.dp_flex').load("/stocoin/exclude2/stockInfo");
+		} else { // 체결한 주식 선택
+			$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&code=${code}");
+			$('.dp_flex').load('/stocoin/exclude2/stockInfo?code=${code}');
+		}
 		$('#chart').load("/stocoin/exclude2/stockChart");
-		$('#info').load("/stocoin/exclude2/stockInfo");
+		
+		// content left, right height 맞추기
+		var layoutHeight = $('#content_right').height();
+		$('#table_wrapper').height(layoutHeight - 102);
 	});
 	
 	// sort
@@ -37,13 +46,13 @@
 	}
 	
 	function stockInfo(code) {
-		$('#info').load('/stocoin/exclude2/stockInfo?code='+code);
+		$('.dp_flex').load('/stocoin/exclude2/stockInfo?code='+code);
 		
+		// 선택한 리스트 표시
 		$(".list").removeClass('active');
 		$('#'+code).addClass('active');
 	}
 
-	
 	function chartChange(name) {
 		$('#chart').load("/stocoin/exclude2/stockChart?name=" + name);
 	}
@@ -66,7 +75,7 @@
 		
 		<div id="content_right">
 			<div id="chart"></div>
-			<div id="info"></div>
+			<div class="dp_flex"></div>
 		</div>
 	</div>
 </body>
