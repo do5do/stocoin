@@ -1,9 +1,5 @@
 @charset "UTF-8";
 
-#info {
-	display: flex;
-}
-
 .trade {
 	padding-left: 36px;
 }
@@ -13,11 +9,16 @@
 	border-bottom: 1px solid #404040;
 }
 
+.white .trade_tab {
+	border-bottom: 1px solid #e6e6e6;
+}
+
 .trade_tab li {
 	width: 50%;
 	text-align: center;
 	height: 45px;
 	line-height: 45px;
+	cursor: pointer;
 }
 
 .trade_tab li.red {
@@ -103,3 +104,41 @@ p.fee {
 }
 /* 수량 박스 : end */
 
+/* 수량 range */
+.coin.trade .right input {
+	width: calc(100% - 50px);
+	height: 56px;
+	padding: 0;
+	margin: 0;
+	border: none;
+}
+
+#cnt>input[name=cnt] {
+	height: 30px;
+}
+
+input[type=range] {
+	-webkit-appearance: none;
+	display: inline-block;
+	height: 5px !important;
+	outline: 0;
+	border-radius: 18px;
+	vertical-align: middle;
+	transition: background .15s ease-in-out;
+	background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, from(rgb(17, 153, 255)), from(rgb(70, 70, 70)));
+}
+
+.white input[type=range] {
+	background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, from(rgb(17, 153, 255)), from(rgb(231,231,231)));
+}
+
+input[type=range]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 10px;
+	height: 10px;
+	border: none;
+	outline: 0;
+	border-radius: 50%;
+	background: var(--point-color);
+	transition: background .15s ease-in-out;
+}

@@ -8,6 +8,8 @@ public class Member {
 	private String id;
 	private String nick;
 	private Date reg_date;
+	private int coin_money;
+	private int stock_money;
 	private String del;
 	//paging
 	private int startRow; 
