@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tradestockns">
+	<insert id="insert" parameterType="tradeStock">
+		<selectKey order="BEFORE" keyProperty="ts_no" resultType="integer">
+			select nvl(max(ts_no), 0) + 1 ts_no from tradeStock where mno = #{mno}
+		</selectKey>
+		insert into tradeStock values
+		(#{mno}, #{ts_no}, #{sname}, #{types}, sysdate, #{cnt}, #{contract})
+	</insert>
+</mapper>

@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+/* stock list */
+.market_name {
+	font-size: 12px;
+	color: #707071;
+}
+
 .trade {
 	padding-left: 36px;
 }
@@ -59,8 +65,10 @@ p.fee {
 	align-items: center;
 }
 
-.fee_box .fee {
-	font-weight: 600;
+.fee_box input {
+	margin-bottom: 0;
+	margin-right: 16px;
+	height: 56px;
 }
 
 /* 수량 박스 */
@@ -76,7 +84,7 @@ p.fee {
 }
 
 .line_box {
-	padding: 20px 10px;
+	padding: 16px 10px;
 	cursor: pointer;
 }
 

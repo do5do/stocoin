@@ -34,6 +34,10 @@
 	</select>
 	   
 	<select id="nickChk" parameterType="string" resultType="member">
-      select * from member where nick=#{nick}
-   </select>
+		select * from member where nick=#{nick}
+	</select>
+   
+	<update id="updateStockMoney" parameterType="member">
+		update member set stock_money = #{stock_money} where id = #{id}
+	</update>
 </mapper>

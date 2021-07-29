@@ -84,8 +84,8 @@ public class BoardController {
 	}
 
 	@RequestMapping("/exclude/summernoteForm")
-	public String summernoteForm(int types, Model model) {
-		if (bno != null) {			
+	public String summernoteForm(int types, Integer bno, Model model) {
+		if (bno != null) {		
 			Board board = bs.select(bno);
 			model.addAttribute("board", board);
 		}
@@ -115,12 +115,11 @@ public class BoardController {
 	
 	@RequestMapping("/board/boardUpdate/bno/{bno}")
 	public String boardUpdate(@PathVariable int bno, Model model) {
-		this.bno = bno;
 		Board board = bs.select(bno);
 		int types = board.getTypes();
 		
 		model.addAttribute("types", types);
-		model.addAttribute("board", board);
+		model.addAttribute("bno", board.getBno());
 		return "board/boardUpdate";
 	}
 	

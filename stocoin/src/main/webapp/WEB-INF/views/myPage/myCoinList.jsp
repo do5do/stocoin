@@ -3,28 +3,27 @@
 <jsp:useBean id="ss" class="com.sc.stocoin.model.StocoinStrings"
 	scope="page" />
 <script type="text/javascript">
-	$(
-			function() {
-				function logOut() {
-					location.href = "https://kauth.kakao.com/oauth/logout?client_id=8d7498ce8ee97c514f96feb042750e1e&logout_redirect_uri=http://"
-							+ "${ss.getIP()}" + "/stocoin/logout";
-				}
+	$(function() {
+		// tab active control
+		$('#tab1').addClass('active');
+		var curUrl = window.location.href;
+		var sliceUrl = curUrl.split("?")[1].split("&")[0].split("=")[1];
 
-				// tab active control
-				$('#tab1').addClass('active');
-				var curUrl = window.location.href;
-				var sliceUrl = curUrl.split("?")[1].split("&")[0].split("=")[1];
-
-				if (sliceUrl == null || sliceUrl == 1) {
-					$('#tab' + sliceUrl).addClass("active");
-				} else if (sliceUrl == 2) {
-					$('.tabs li').removeClass('active');
-					$('#tab' + sliceUrl).addClass("active");
-				} else {
-					$('.tabs li').removeClass('active');
-					$('#tab' + sliceUrl).addClass("active");
-				}
-			})
+		if (sliceUrl == null || sliceUrl == 1) {
+			$('#tab' + sliceUrl).addClass("active");
+		} else if (sliceUrl == 2) {
+			$('.tabs li').removeClass('active');
+			$('#tab' + sliceUrl).addClass("active");
+		} else {
+			$('.tabs li').removeClass('active');
+			$('#tab' + sliceUrl).addClass("active");
+		}
+	})
+	
+	function logOut() {
+		location.href = "https://kauth.kakao.com/oauth/logout?client_id=8d7498ce8ee97c514f96feb042750e1e&logout_redirect_uri=http://"
+				+ "${ss.getIP()}" + "/stocoin/logout";
+	}
 </script>
 <style>
 
@@ -413,7 +412,7 @@ body {
 	</div>
 	<div class="input_box center">
 		<input class="btn btn-outline-primary col-3" value="정보수정"
-			onclick="location.href='/stocoin/member/updateForm'" /> <input
+			onclick="location.href='/stocoin/member/updateForm'" /> <input type="button"
 			id="logout" class="btn btn-outline-primary col-3" value="로그아웃"
 			onclick="logOut()" />
 	</div>

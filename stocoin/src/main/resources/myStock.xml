@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mystockns">
+	<insert id="insert" parameterType="myStock">
+		<selectKey order="BEFORE" keyProperty="ms_no" resultType="integer">
+			select nvl(max(ms_no), 0) + 1 ms_no from myStock where mno = #{mno}
+		</selectKey>
+		insert into myStock values
+		(#{mno}, #{ms_no}, #{sname}, #{cnt}, #{purchase})
+	</insert>
+	
+	<select id="select" parameterType="string" resultType="myStock">
+		select * from myStock where sname = #{sname} and mno = #{mno}
+	</select>
+	
+	<update id="update" parameterType="myStock">
+		update myStock set cnt = cnt + #{cnt}, purchase = purchase + #{purchase}
+		where sname = #{sname} and mno = #{mno}
+	</update>
+	
+	<update id="updateSell" parameterType="myStock">
+		update myStock set cnt = cnt - #{cnt}, purchase = purchase - #{purchase}
+		where sname = #{sname} and mno = #{mno}
+	</update>
+	
+	<select id="selectCnt" parameterType="hashmap" resultType="myStock">
+		select * from myStock where sname = #{sname} and mno = #{mno}
+	</select>
+</mapper>

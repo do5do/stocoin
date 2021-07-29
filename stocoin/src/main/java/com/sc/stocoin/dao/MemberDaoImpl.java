@@ -54,8 +54,10 @@ public class MemberDaoImpl implements MemberDao	{
 		return sst.selectOne("memberns.nickChk", nick);
 	}
 
-
-
+	@Override
+	public void updateStockMoney(Member member) {
+		sst.update("memberns.updateStockMoney", member);
+	}
 
 
 }

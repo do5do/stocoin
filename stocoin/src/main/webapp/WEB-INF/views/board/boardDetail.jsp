@@ -45,7 +45,7 @@
 </head>
 <body>
 	<div class="container col-8 board">
-		<h2 class="title" align="center">뉴스 게시글 상세</h2>
+		<h2 class="title" align="center">${board.title }</h2>
 		<p>${board.content }</p>
 		<div class="input_box right">
 			<button class="btn btn-outline-primary col-3" onclick="location.href='/stocoin/board/boardList?types=${types}'">목록</button>

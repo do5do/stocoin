@@ -9,7 +9,6 @@ drop table qnaReply;
 drop table chat;
 drop table coin;
 drop table myCoin;
-drop table tradeList;
 drop table tradeCoin;
 drop table favoriteCoin;
 drop table stock;
@@ -48,7 +47,10 @@ CREATE TABLE Member
 
 ALTER TABLE Member
  ADD CONSTRAINT member_mno_PK PRIMARY KEY ( mno );
-  
+ 
+select * from member;
+update member set stock_money = 3000000;
+ 
 -- 관리자
 CREATE TABLE admin
 (
@@ -237,22 +239,23 @@ CREATE TABLE MyStock
 (
     mno    NUMBER NOT NULL,
     ms_no    NUMBER NOT NULL,
-    sno    NUMBER NOT NULL,
+    sname    VARCHAR2(20) NOT NULL,
     cnt    NUMBER NOT NULL,
-    contract    FLOAT NOT NULL
+    purchase    NUMBER NOT NULL
 );
 
 ALTER TABLE MyStock
  ADD CONSTRAINT mystock_ms_no_PK PRIMARY KEY ( ms_no,mno );
 
 select * from myStock;
+delete from myStock;
  
 -- 주식거래내역
 CREATE TABLE TradeStock
 (
     mno    NUMBER NOT NULL,
     ts_no    NUMBER NOT NULL,
-    sno    NUMBER NOT NULL,
+    sname    VARCHAR2(20) NOT NULL,
     types    NUMBER NOT NULL,
     dates    DATE NOT NULL,
     cnt    NUMBER NOT NULL,
@@ -263,3 +266,4 @@ ALTER TABLE TradeStock
  ADD CONSTRAINT tradestock_ts_no_PK PRIMARY KEY ( ts_no,mno );
  
 select * from tradeStock;
+delete from tradeStock;
