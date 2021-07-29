@@ -38,6 +38,7 @@
 	
 	function stockInfo(code) {
 		$('#info').load('/stocoin/exclude2/stockInfo?code='+code);
+		$('#chart').load("/stocoin/exclude2/stockChart?code=" + code);
 		
 		$(".list").removeClass('active');
 		$('#'+code).addClass('active');
@@ -45,7 +46,7 @@
 
 	
 	function chartChange(name) {
-		$('#chart').load("/stocoin/exclude2/stockChart?name=" + name);
+		$('#chart').load("/stocoin/exclude2/stockChart?code=" + code);
 	}
 </script>
 </head>

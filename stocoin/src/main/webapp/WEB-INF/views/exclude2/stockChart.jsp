@@ -3,7 +3,7 @@
 <h4>${name}</h4>
 <div class="chart-widget">
 	<script type="text/javascript">
-		var selected = "삼전";
+		var selected = "${stockInfo.get('ISU_ABBRV')}";
 
 		//차트 생성 옵션
 		var chart;
@@ -78,7 +78,6 @@
 			selected = name;
 			var jsonData = JSON.parse('${stockChart}');
 			let jsonArray = [];
-			console.log(jsonData);
 			jsonData.output.forEach((item)=>{
 			  jsonArray.push([
 				  Date.parse(item.TRD_DD), 

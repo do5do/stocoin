@@ -51,6 +51,12 @@
 			$('#sell').removeClass('blue');
 		}
 	}
+	
+	// 재무제표
+	function fState(corp_code) {
+		var link = "https://opendart.fss.or.kr/api/fnlttSinglAcntAll.json?crtfc_key=a248d130cedcab6227310f848b1b5bb297bc4ed1&corp_code=" + corp_code +"&bsns_year=2020&reprt_code=11011&fs_div=OFS";
+		window.open(link, "fState", "width=500,height=600");
+	}
 </script>
 <div id="coinInfo" class="col-5">
 	<c:if test="${stockInfo.get('FLUC_RT') + 0 >= 0 }">
@@ -84,8 +90,8 @@
 		<tr>
 			<td>전일종가</td>
 			<td>${stockInfo.get('TDD_CLSPRC')}</td>
-			<td></td>
-			<td></td>
+			<td colspan="2"><button class="btn btn-primary"onclick="fState('${stockInfo.get('corp_code')}')">재무제표</button></td>
+			<!-- <td></td> -->
 		</tr>
 	</table>
 	<div id="chart_sm"></div>
