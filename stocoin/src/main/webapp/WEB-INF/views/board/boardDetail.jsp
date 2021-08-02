@@ -49,8 +49,8 @@
 		<p>${board.content }</p>
 		<div class="input_box right">
 			<button class="btn btn-outline-primary col-3" onclick="location.href='/stocoin/board/boardList?types=${types}'">목록</button>
-			<button class="btn btn-outline-primary col-3" onclick="location.href='/stocoin/board/boardUpdate/bno/${board.bno}'">임시 수정 버튼</button>
-			<button class="btn btn-outline-primary col-3" onclick="boardDel()">임시 삭제 버튼</button>
+			<button class="btn btn-outline-primary col-3" onclick="location.href='/stocoin/board/boardUpdate/bno/${board.bno}'">수정</button>
+			<button class="btn btn-outline-primary col-3" onclick="boardDel()">삭제</button>
 		</div>
 		
 		<section class="reply">

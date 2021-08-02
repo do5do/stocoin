@@ -1,7 +1,5 @@
 package com.sc.stocoin.model;
 
-import java.net.InetAddress;
-
 public class StocoinStrings {
 	public String IP;
 	public StocoinStrings() {

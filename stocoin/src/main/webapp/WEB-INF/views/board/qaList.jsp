@@ -42,9 +42,13 @@
 	
 	function secret(mno, qno) {
 		if (${not empty id}) {			
-			if (${mno == mno}) {
+			if (${mno} == mno) {
 				location.href='/stocoin/board/qaDetail?qno='+qno;
-			}
+			} else if (${id == "admin"}) {
+				location.href='/stocoin/board/qaDetail?qno='+qno;
+			} else {
+				alert('비밀글입니다.');
+			} 
 		} else {
 			alert('확인하려면 로그인이 필요합니다.');
 		}
