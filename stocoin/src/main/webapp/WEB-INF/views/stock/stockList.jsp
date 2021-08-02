@@ -11,7 +11,7 @@
 <script type="text/javascript">
 	var kinds = "ACC_TRDVOL";
 	var sorts = "desc";
-
+	var selected = "삼성전자";
 	// 주식 리스트 로드, info 로드
 	$(function() {
 		if (${empty code}) {
@@ -45,18 +45,17 @@
 		}
 	}
 	
-	function stockInfo(code) {
+	function stockInfo(code, name) {
 		$('.dp_flex').load('/stocoin/exclude2/stockInfo?code='+code);
 		$('#chart').load("/stocoin/exclude2/stockChart?code=" + code);
-		
+		selected = name;
 		// 선택한 리스트 표시
 		$(".list").removeClass('active');
 		$('#'+code).addClass('active');
+		document.getElementById("name").innerHTML = selected;
+		
 	}
 
-	function chartChange(name) {
-		$('#chart').load("/stocoin/exclude2/stockChart?code=" + code);
-	}
 </script>
 </head>
 <body>
@@ -75,6 +74,7 @@
 		</div>
 		
 		<div id="content_right">
+			<h4 id="name">삼성전자</h4>
 			<div id="chart"></div>
 			<div class="dp_flex"></div>
 		</div>

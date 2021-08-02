@@ -10,6 +10,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -54,8 +55,22 @@ public class StockServiceImpl implements StockService {
 		// 오늘 연월일 : today
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
 		Date time = new Date();
+		// 24시 부터 09시까지는 전날로 계산
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(time);
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		if(hour < 9)
+			cal.add(Calendar.DATE, -1);
+		// 주말은 금요일로 계산
+		int week = cal.get(Calendar.DAY_OF_WEEK);
+		if(week == 1) // 일요일
+			cal.add(Calendar.DATE, -2);
+		else if (week == 7) // 토요일
+			cal.add(Calendar.DATE, -1);
+		
+		time = cal.getTime();
 		String today = format1.format(time);
-
+		
 		// 연결
 		PrintStream ps = new PrintStream(conn.getOutputStream());
 		ps.print(requestURL + today);
@@ -253,14 +268,9 @@ public class StockServiceImpl implements StockService {
 				"http://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd?menuId=MDC0201020101");
 		conn.setDoOutput(true);
 
-		// 오늘 연월일 : today
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
-		Date time = new Date();
-		String today = format1.format(time);
-
 		// 연결
 		PrintStream ps = new PrintStream(conn.getOutputStream());
-		ps.print(requestURL + today);
+		ps.print(requestURL);
 		ps.close();
 
 //				 응답코드

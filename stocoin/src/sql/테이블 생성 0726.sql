@@ -142,7 +142,7 @@ select * from qnaReply;
 CREATE TABLE Chat
 (
     cno    NUMBER NOT NULL,
-    mno    NUMBER NOT NULL,
+    nick    VARCHAR2(40) NOT NULL,
     content    VARCHAR2(500) NOT NULL,
     dates    DATE NOT NULL
 );

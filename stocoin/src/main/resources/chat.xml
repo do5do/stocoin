@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chatns">
+	<!-- chat insert-->
+	<insert id="insert" parameterType="chat">
+		<selectKey order="BEFORE" keyProperty="cno" resultType="integer">
+			select nvl(max(cno), 0) + 1 cno from chat
+		</selectKey>
+		insert into chat values(#{cno}, #{nick}, #{content}, sysdate)
+	</insert>
+	
+	<!-- chat history -->
+	<select id="chatHistory" resultType="chat">
+		select * from (select * from chat order by rownum desc) where rownum between 1 and 20 order by cno
+	</select>
+	
+</mapper>

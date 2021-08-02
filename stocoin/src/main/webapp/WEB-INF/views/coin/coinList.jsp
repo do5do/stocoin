@@ -28,6 +28,11 @@
 		</div>
 		
 		<div id="content_right">
+			<button class="btn btn-primary" onclick="change_time('1m')">1m</button>
+			<button class="btn btn-primary" onclick="change_time('5m')">5m</button>
+			<button class="btn btn-primary" onclick="change_time('10m')">10m</button>
+			<button class="btn btn-primary" onclick="change_time('1h')">1h</button>
+			<button class="btn btn-primary" onclick="change_time('24h')">1d</button>
 			<div id="chart"></div>
 			<div class="dp_flex">
 				<div id="info" class="col-5">

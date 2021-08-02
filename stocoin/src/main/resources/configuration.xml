@@ -13,6 +13,7 @@
 		<typeAlias alias="qnaReply" type="com.sc.stocoin.model.QnaReply"/>
 		<typeAlias alias="tradeStock" type="com.sc.stocoin.model.TradeStock"/>
 		<typeAlias alias="myStock" type="com.sc.stocoin.model.MyStock"/>
+		<typeAlias alias="chat" type="com.sc.stocoin.model.Chat"/>
 	</typeAliases>
 	<!-- 매퍼정보 설정 -->
 	<mappers>
@@ -26,5 +27,6 @@
 		<mapper resource="qnaReply.xml" />
 		<mapper resource="tradeStock.xml" />
 		<mapper resource="myStock.xml" />
+		<mapper resource="chat.xml" />
 	</mappers>
 </configuration>
