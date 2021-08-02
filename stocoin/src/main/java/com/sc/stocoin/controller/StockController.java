@@ -81,11 +81,13 @@ public class StockController {
 	}
 	
 	@RequestMapping("/exclude2/stockChart")
-	public String stockChart(String code, Model model) throws IOException, ParseException {
-		if (code == null) {
+	public String stockChart(String code, String time, Model model) throws IOException, ParseException {
+		if (code == null) 
 			code = "005930"; // 삼성전자
-		}
-		String chartData = ss.getChart(code);
+		
+		if (time == null)
+			time = "1d";
+		String chartData = ss.getChart(code, time);
 		model.addAttribute("stockChart", chartData);
 		return "/exclude2/stockChart";
 	}

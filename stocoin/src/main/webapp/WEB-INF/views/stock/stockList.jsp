@@ -12,6 +12,8 @@
 	var kinds = "ACC_TRDVOL";
 	var sorts = "desc";
 	var selected = "삼성전자";
+	var code = "005930";
+	var time = "1d";
 	// 주식 리스트 로드, info 로드
 	$(function() {
 		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts);
@@ -40,15 +42,21 @@
 		}
 	}
 	
-	function stockInfo(code, name) {
+	function stockInfo(inputCode, name) {
+		code = inputCode;
 		$('.dp_flex').load('/stocoin/exclude2/stockInfo?code='+code);
-		$('#chart').load("/stocoin/exclude2/stockChart?code=" + code);
+		$('#chart').load("/stocoin/exclude2/stockChart?code=" + code + "&time=" + time);
 		selected = name;
 		// 선택한 리스트 표시
 		$(".list").removeClass('active');
 		$('#'+code).addClass('active');
 		document.getElementById("name").innerHTML = selected;
-		
+	}
+	
+	// 주식 차트 간격 수정
+	function change_time(inputTime) {
+		time = inputTime;
+		$('#chart').load("/stocoin/exclude2/stockChart?code=" + code + "&time=" + time);
 	}
 </script>
 </head>
@@ -69,6 +77,8 @@
 		
 		<div id="content_right">
 			<h4 id="name">삼성전자</h4>
+			<button class="btn btn-primary" onclick="change_time('5m')">5m</button>
+			<button class="btn btn-primary" onclick="change_time('1d')">1d</button>
 			<div id="chart"></div>
 			<div class="dp_flex"></div>
 		</div>

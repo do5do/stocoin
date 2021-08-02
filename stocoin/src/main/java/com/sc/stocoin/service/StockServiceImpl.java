@@ -243,7 +243,7 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public String getChart(String code) throws IOException {
+	public String getChart(String code, String time) throws IOException {
 		// 종목 코드 검색
 		String isuCode = "";
 		for (int i = 0; i < stockCodes.size(); i++) {
@@ -256,8 +256,15 @@ public class StockServiceImpl implements StockService {
 			}
 		}
 		// 연결 URL 설정
-		String requestURL = "bld=dbms/MDC/STAT/standard/MDCSTAT02106&ddTp=1M&isuCd=" + isuCode
+		String requestURL;
+		// 일간 차트
+		if(time.equals("1d"))
+			requestURL = "bld=dbms/MDC/STAT/standard/MDCSTAT02106&ddTp=1M&isuCd=" + isuCode
 				+ "&isuCd2=&param1isuCd_finder_stkisu0_0=ALL&csvxls_isNo=false";
+		// 일일 차트
+		else
+			requestURL = "bld=dbms/MDC/STAT/standard/MDCSTAT02105&isuCd=" + isuCode
+			+ "&isuCd2=&param1isuCd_finder_stkisu0_0=ALL&csvxls_isNo=false";
 		URL otpURL = new URL("http://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd");
 
 		// 연결 설정

@@ -12,5 +12,5 @@ public interface StockService {
 
 	Map<String, Object> getStockInfo(String code);
 	
-	String getChart(String name) throws IOException;
+	String getChart(String code, String time) throws IOException;
 }

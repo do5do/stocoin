@@ -113,18 +113,33 @@
 			chartLoad();
 		});
 		
-		function chartLoad(time = '5m') {
+		function chartLoad() {
 			var jsonData = JSON.parse('${stockChart}');
 			let jsonArray = [];
-			jsonData.output.forEach((item)=>{
-			  jsonArray.push([
-				  Date.parse(item.TRD_DD), 
-				  parseFloat(item.TDD_OPNPRC.replace(",", "")),
-				  parseFloat(item.TDD_HGPRC.replace(",", "")),
-				  parseFloat(item.TDD_LWPRC.replace(",", "")),
-				  parseFloat(item.TDD_CLSPRC.replace(",", ""))
-				  ]);
-			});
+			if(time == "1d") {
+				jsonData.output.forEach((item)=>{
+					jsonArray.push([
+						Date.parse(item.TRD_DD), 
+						parseFloat(item.TDD_OPNPRC.replace(",", "")),
+						parseFloat(item.TDD_HGPRC.replace(",", "")),
+						parseFloat(item.TDD_LWPRC.replace(",", "")),
+						parseFloat(item.TDD_CLSPRC.replace(",", ""))
+					]);
+				});
+			}
+			else {
+				var date = jsonData.CURRENT_DATETIME.substring(0, 11);
+				for(var i = 0; i < jsonData.output.length; i += 5) {
+					jsonArray.push([
+						Date.parse(date + jsonData.output[i].TRD_DD), 
+						parseFloat(jsonData.output[i].TDD_OPNPRC.replace(",", "")),
+						parseFloat(jsonData.output[i].TDD_HGPRC.replace(",", "")),
+						parseFloat(jsonData.output[i].TDD_LWPRC.replace(",", "")),
+						parseFloat(jsonData.output[i].TDD_CLSPRC.replace(",", ""))
+					]);
+				}
+			}
+			console.log(jsonArray);
 			chart.updateOptions({
 				title : {
 					text : name,
