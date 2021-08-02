@@ -199,7 +199,7 @@ CREATE TABLE TradeCoin
     types    NUMBER NOT NULL,
     dates    DATE NOT NULL,
     cnt    FLOAT NOT NULL,
-    contract    NUMBER NOT NULL
+    contract    FLOAT NOT NULL
 );
 
 ALTER TABLE TradeCoin

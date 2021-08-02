@@ -12,5 +12,5 @@ public class TradeCoin {
 	private int types;
 	private Date dates;
 	private float cnt;
-	private int contract; // 체결 가격
+	private float contract; // 체결 가격
 }
