@@ -7,7 +7,7 @@
 			select nvl(max(ms_no), 0) + 1 ms_no from myStock where mno = #{mno}
 		</selectKey>
 		insert into myStock values
-		(#{mno}, #{ms_no}, #{sname}, #{cnt}, #{purchase})
+		(#{mno}, #{ms_no}, #{sname}, lpad(${code}, 6, 0), #{cnt}, #{purchase})
 	</insert>
 	
 	<select id="select" parameterType="string" resultType="myStock">
@@ -25,6 +25,10 @@
 	</update>
 	
 	<select id="selectCnt" parameterType="hashmap" resultType="myStock">
-		select * from myStock where sname = #{sname} and mno = #{mno}
+		select * from myStock where mno = #{mno} and sname = #{sname}
+	</select>
+	
+	<select id="selectMy" parameterType="integer" resultType="myStock">
+		select * from myStock where mno = #{mno} and cnt != 0 order by ms_no desc
 	</select>
 </mapper>

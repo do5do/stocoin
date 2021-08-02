@@ -148,7 +148,7 @@ header .container {
 .welcome {
 	position: absolute;
     right: 97px;
-    top: 14px;
+    top: 26px;
     font-size: 15px;
     color: #adafae !important;
 }
@@ -289,4 +289,13 @@ footer p {
 .tabs li a {
 	font-size: 20px;
 	cursor: pointer;
+}
+
+/* change color */
+.color_blue {
+	color: #19f !important;
+}
+
+.color_red {
+	color: #f40 !important;
 }

@@ -8,6 +8,7 @@ public class TradeStock {
 	private int mno;
 	private int ts_no;
 	private String sname;
+	private String code;
 	private int types;
 	private Date dates;
 	private int cnt;

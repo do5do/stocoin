@@ -1,6 +1,7 @@
 package com.sc.stocoin.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,10 @@ public class MyStockDaoImpl implements MyStockDao {
 		hm.put("sname", sname);
 		hm.put("mno", mno);
 		return sst.selectOne("mystockns.selectCnt", hm);
+	}
+
+	@Override
+	public List<MyStock> selectMy(int mno) {
+		return sst.selectList("mystockns.selectMy", mno);
 	}
 }

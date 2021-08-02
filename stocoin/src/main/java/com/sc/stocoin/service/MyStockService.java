@@ -1,5 +1,7 @@
 package com.sc.stocoin.service;
 
+import java.util.List;
+
 import com.sc.stocoin.model.MyStock;
 
 public interface MyStockService {
@@ -13,6 +15,8 @@ public interface MyStockService {
 	int updateSell(MyStock myStock);
 
 	MyStock selectCnt(String sname, int mno);
+
+	List<MyStock> selectMy(int mno);
 
 	
 }

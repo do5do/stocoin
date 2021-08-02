@@ -10,6 +10,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -50,11 +51,25 @@ public class StockServiceImpl implements StockService {
 		conn.setRequestProperty("referer",
 				"http://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd?menuId=MDC0201020101");
 		conn.setDoOutput(true);
-
+		
 		// 오늘 연월일 : today
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
-		Date time = new Date();
-		String today = format1.format(time);
+	    SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+	    Date time = new Date();
+	    // 24시 부터 09시까지는 전날로 계산
+	    Calendar cal = Calendar.getInstance();
+	    cal.setTime(time);
+	    int hour = cal.get(Calendar.HOUR_OF_DAY);
+	    if(hour < 9)
+	    	cal.add(Calendar.DATE, -1);
+	    // 주말은 금요일로 계산
+	    int week = cal.get(Calendar.DAY_OF_WEEK);
+	    if(week == 1) // 일요일
+	    	cal.add(Calendar.DATE, -2);
+	    else if (week == 7) // 토요일
+	    	cal.add(Calendar.DATE, -1);
+	      
+	    time = cal.getTime();
+	    String today = format1.format(time);
 
 		// 연결
 		PrintStream ps = new PrintStream(conn.getOutputStream());
@@ -87,8 +102,7 @@ public class StockServiceImpl implements StockService {
 		JsonArray array = (JsonArray) object.get("OutBlock_1");
 
 		// 형식 지정 : map으로 쓰겠다
-		Type mapTokenType = new TypeToken<Map<String, Object>>() {
-		}.getType();
+		Type mapTokenType = new TypeToken<Map<String, Object>>() {}.getType();
 
 		// stock list
 		List<Map<String, Object>> stockList = new ArrayList<>();
@@ -100,7 +114,6 @@ public class StockServiceImpl implements StockService {
 			Map<String, Object> map = new Gson().fromJson(object2, mapTokenType);
 			stockList.add(map);
 		}
-		
 		this.stockLists = stockList;
 
 		
@@ -129,6 +142,7 @@ public class StockServiceImpl implements StockService {
 		conn.disconnect();
 
 		result = sb.toString();
+		
 		// JSON 파싱
 		parser = new JsonParser();
 		element = parser.parse(result);
@@ -210,7 +224,7 @@ public class StockServiceImpl implements StockService {
 	public Map<String, Object> getStockInfo(String code){
 		// 해당 이름에 대한 stock 정보를 담을 map 생성
 		Map<String, Object> stockInfo = new HashMap<>();
-
+		
 		for (int i = 0; i < stockLists.size(); i++) {
 			String codes = (String) stockLists.get(i).get("ISU_SRT_CD");
 

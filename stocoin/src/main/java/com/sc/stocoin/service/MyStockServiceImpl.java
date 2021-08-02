@@ -1,5 +1,7 @@
 package com.sc.stocoin.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,11 @@ public class MyStockServiceImpl implements MyStockService {
 	@Override
 	public MyStock selectCnt(String sname, int mno) {
 		return msd.selectCnt(sname, mno);
+	}
+
+	@Override
+	public List<MyStock> selectMy(int mno) {
+		return msd.selectMy(mno);
 	}
 
 	

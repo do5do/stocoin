@@ -7,6 +7,14 @@
 			select nvl(max(ts_no), 0) + 1 ts_no from tradeStock where mno = #{mno}
 		</selectKey>
 		insert into tradeStock values
-		(#{mno}, #{ts_no}, #{sname}, #{types}, sysdate, #{cnt}, #{contract})
+		(#{mno}, #{ts_no}, #{sname}, lpad(${code}, 6, 0), #{types}, sysdate, #{cnt}, #{contract})
 	</insert>
+	
+	<select id="avgContract" parameterType="string" resultType="integer">
+		select avg(contract) from tradeStock where sname = #{sname} and types = 1
+	</select>
+	
+	<select id="tradeList" parameterType="integer" resultType="tradeStock">
+		select * from tradeStock where mno = #{mno} order by ts_no desc
+	</select>
 </mapper>
