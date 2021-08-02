@@ -10,13 +10,32 @@
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script type="text/javascript" src="/stocoin/resources/js/dayjs.min.js"></script>
 <script type="text/javascript" src="/stocoin/resources/js/coin.js"></script>
+<script type="text/javascript">
+	var tab = "all";
+	function coin_tab() {
+		tab = event.target.id;
+		if (${empty id} && tab != "all") {
+			alert('로그인이 필요합니다.');
+			return false;
+		}
+		$('#coin_tab p').removeClass('blue');
+		$('#' + tab).addClass('blue');
+		$('#table_wrapper').load('/stocoin/exclude2/coinListReload', 'val=' + val 
+				+ '&kind=' + kinds + '&sort=' + sorts + '&name=' + selected + '&coin_tab=' + tab);
+	}
+</script>
 </head>
 <body>
 	<div id="content">
 		<div id="content_left">
+			<div id="coin_tab">
+				<p class="blue" onclick="return coin_tab()" id="all">전체</p>
+				<p onclick="return coin_tab()" id="my">보유</p>
+				<p onclick="return coin_tab()" id="favorite">관심</p>
+			</div>
 			<div id="search">
-				<input type="text" name="search" placeholder="검색어를 입력하세요">
-				<a href="#">검색</a>
+				<input type="text" name="search" id="search_coin" placeholder="검색어를 입력하세요" onkeyUp="search_coin();">
+				<span class="fas fa-search" id="search_del" onclick="search_del()"></span>
 			</div>
 			<ul>
 				<li class="col-3" onclick="sort('name')">코인명 <span id="name" class="sort"></span></li>
@@ -28,6 +47,7 @@
 		</div>
 		
 		<div id="content_right">
+			<h4 id="coinName">BTC</h4>
 			<div id="chart"></div>
 			<div class="dp_flex">
 				<div id="info" class="col-5">

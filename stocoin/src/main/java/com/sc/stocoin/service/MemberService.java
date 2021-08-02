@@ -30,4 +30,6 @@ public interface MemberService {
 	public Member selectNick(String nick);
 
 	public void updateStockMoney(Member member);
+
+	public void updateCoinMoney(Member member);
 }

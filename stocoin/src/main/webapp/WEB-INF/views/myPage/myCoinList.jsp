@@ -6,12 +6,11 @@
 <head>
 	<link rel="stylesheet" href="/stocoin/resources/css/myPage.css">
 	<script type="text/javascript">
+		function logOut() {
+			location.href = "https://kauth.kakao.com/oauth/logout?client_id=8d7498ce8ee97c514f96feb042750e1e&logout_redirect_uri=http://"
+					+ "${ss.getIP()}" + "/stocoin/logout";
+		}
 		$(function() {
-			function logOut() {
-				location.href = "https://kauth.kakao.com/oauth/logout?client_id=8d7498ce8ee97c514f96feb042750e1e&logout_redirect_uri=http://"
-						+ "${ss.getIP()}" + "/stocoin/logout";
-			}
-
 			// tab active control
 			$('#tab1').addClass('active');
 			var curUrl = window.location.href;
@@ -84,8 +83,8 @@
 	        </table>
 	    </div>
 		<div class="input_box center">
-			<input class="btn btn-outline-primary col-3" value="정보수정" onclick="location.href='/stocoin/member/updateForm'" />
-			<input id="logout" class="btn btn-outline-primary col-3" value="로그아웃" onclick="logOut()" />
+			<input type="button" class="btn btn-outline-primary col-3" value="정보수정" onclick="location.href='/stocoin/member/updateForm'" />
+			<input type="button" id="logout" class="btn btn-outline-primary col-3" value="로그아웃" onclick="logOut()" />
 		</div>
 </body>
 </html>

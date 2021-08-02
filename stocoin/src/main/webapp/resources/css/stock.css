@@ -27,13 +27,13 @@
 	cursor: pointer;
 }
 
-.trade_tab li.red {
-	color: var(--point-red);
+.red {
+	color: var(--point-red) !important;
 	border-bottom: 2px solid var(--point-red);
 }
 
-.trade_tab li.blue {
-	color: var(--point-color);
+.blue {
+	color: var(--point-color) !important;
 	border-bottom: 2px solid var(--point-color);
 }
 

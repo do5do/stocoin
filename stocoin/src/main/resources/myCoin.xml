@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myCoinns">
+	
+	<select id="select" parameterType="hashmap" resultType="myCoin">
+		select * from myCoin where mno = #{mno} and cname = #{cname}
+	</select>
+	
+	<insert id="insert" parameterType="myCoin">
+		<selectKey order="BEFORE" keyProperty="mc_no" resultType="integer">
+			select nvl(max(mc_no), 0) + 1 mc_no from myCoin where mno = #{mno}
+		</selectKey>
+		insert into myCoin values
+		(#{mno}, #{mc_no}, #{cname}, #{cnt}, #{purchase})
+	</insert>
+	
+	<update id="updateBuy" parameterType="myCoin">
+		update myCoin set cnt = cnt + #{cnt}, purchase = purchase + #{purchase}
+		where cname = #{cname} and mno = #{mno}
+	</update>
+	
+	<update id="updateSell" parameterType="myCoin">
+		update myCoin set cnt = cnt - #{cnt}, purchase = purchase - #{purchase}
+		where cname = #{cname} and mno = #{mno}
+	</update>
+	
+	<select id="myCoinName" parameterType="integer" resultType="string">
+		select cname from myCoin where mno = #{mno} and cnt > 0
+	</select>
+	
+	<delete id="delete" parameterType="integer">
+		delete from myCoin where mno = #{mno}
+	</delete>
+	
+</mapper>

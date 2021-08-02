@@ -14,7 +14,7 @@
 	</select>
 	
 	<update id="delete" parameterType="string">
-		update member set del='y' where id=#{id}
+		update member set del='y', coin_money=3000000, stock_money=3000000 where id=#{id}
 	</update>
 	
 	<update id="updateDel" parameterType="hashmap">
@@ -39,5 +39,9 @@
    
 	<update id="updateStockMoney" parameterType="member">
 		update member set stock_money = #{stock_money} where id = #{id}
+	</update>
+
+	<update id="updateCoinMoney" parameterType="member">
+		update member set coin_money = #{coin_money} where id = #{id}
 	</update>
 </mapper>

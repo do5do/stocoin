@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.sc.stocoin.service.TradeService;
+import com.sc.stocoin.service.TradeCoinService;
 @Controller
 public class TradeController {
 	@Autowired
-	private TradeService ts;
+	private TradeCoinService ts;
 	
 	@RequestMapping("/myPage/myCoinList")
 	public String coinList() {

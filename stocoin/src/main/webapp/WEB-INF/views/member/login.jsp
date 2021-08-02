@@ -14,7 +14,7 @@
 	
 	<c:if test="${result == 1}">
 		<script type="text/javascript">	
-			location.href = "/stocoin/member/updateForm";
+			location.href = "/stocoin/member/joinForm";
 		</script>
 	</c:if>
 </body>

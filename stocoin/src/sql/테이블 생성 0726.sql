@@ -50,6 +50,7 @@ ALTER TABLE Member
  
 select * from member;
 update member set stock_money = 3000000;
+update member set coin_money = 3000000;
  
 -- 관리자
 CREATE TABLE admin
@@ -168,12 +169,8 @@ select * from coin;
 CREATE TABLE FavoriteCoin
 (
     mno    NUMBER NOT NULL,
-    fc_no    NUMBER NOT NULL,
-    cno    NUMBER NOT NULL
+    cname    VARCHAR(20) NOT NULL
 );
-
-ALTER TABLE FavoriteCoin
- ADD CONSTRAINT favoritecoin_fc_no_PK PRIMARY KEY ( fc_no,mno ); 
 
 select * from favoriteCoin;
  
@@ -182,22 +179,23 @@ CREATE TABLE MyCoin
 (
     mno    NUMBER NOT NULL,
     mc_no    NUMBER NOT NULL,
-    cno    NUMBER NOT NULL,
+    cname    VARCHAR(20) NOT NULL,
     cnt    FLOAT NOT NULL,
-    contract    NUMBER NOT NULL
+    purchase    NUMBER NOT NULL
 );
 
 ALTER TABLE MyCoin
  ADD CONSTRAINT mycoin_mc_no_PK PRIMARY KEY ( mc_no,mno );
 
 select * from MyCoin;
+delete from mycoin;
 
 -- 코인거래내역
 CREATE TABLE TradeCoin
 (
     mno    NUMBER NOT NULL,
     tc_no    NUMBER NOT NULL,
-    cno    NUMBER NOT NULL,
+    cname    VARCHAR(20) NOT NULL,
     types    NUMBER NOT NULL,
     dates    DATE NOT NULL,
     cnt    FLOAT NOT NULL,
@@ -208,6 +206,7 @@ ALTER TABLE TradeCoin
  ADD CONSTRAINT tradecoin_tc_no_PK PRIMARY KEY ( tc_no,mno );
 
 select * from tradeCoin;
+delete from tradecoin;
  
 -- 주식 ------------------------------------------------------
 CREATE TABLE Stock

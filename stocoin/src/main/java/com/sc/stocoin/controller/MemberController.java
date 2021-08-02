@@ -14,12 +14,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sc.stocoin.model.Member;
+import com.sc.stocoin.service.FavoriteCoinService;
 import com.sc.stocoin.service.MemberService;
+import com.sc.stocoin.service.MyStockService;
+import com.sc.stocoin.service.TradeCoinService;
+import com.sc.stocoin.service.TradeStockService;
 
 @Controller
 public class MemberController{
     @Autowired
     private MemberService ms;
+    
+    @Autowired
+    private TradeCoinService tcs;
+    
+	@Autowired
+	private FavoriteCoinService fcs;
+    
+    @Autowired
+    private TradeStockService tss;
+    
+    @Autowired
+    private MyStockService mss;
+ 
     
     private String url;
     
@@ -74,7 +91,13 @@ public class MemberController{
     public String logout(HttpSession session) throws IOException {
     	String access_Token = (String) session.getAttribute("access_Token");
     	String id = (String) session.getAttribute("id");
+    	int mno = (int) session.getAttribute("mno");
         ms.delete(access_Token, id);
+        tcs.tradeDelete(mno);
+        tcs.myDelete(mno);
+        fcs.deleteMno(mno);
+//        tss.delete(mno);
+//        mss.delete(mno);
         session.invalidate();
         return "member/delete";
     }
@@ -89,16 +112,21 @@ public class MemberController{
     public String updateForm(HttpSession session, Model model, HttpServletRequest request) {
     	String id = (String) session.getAttribute("id");
     	Member member = ms.select(id);
-    	String prevUrl2 = request.getHeader("referer").substring(21);
-    	model.addAttribute("prevUrl2", prevUrl2);
     	model.addAttribute("member", member);
     	return "member/updateForm";
     }
+    
+    @RequestMapping("/member/joinForm")
+    public String joinForm(HttpSession session, Model model, HttpServletRequest request) {
+    	String id = (String) session.getAttribute("id");
+    	Member member = ms.select(id);
+    	model.addAttribute("member", member);
+    	return "member/joinForm";
+    }
 
     @RequestMapping("/member/update")
-    public String update(Member member, String prevUrl2, Model model, HttpSession session) {
+    public String update(Member member, Model model, HttpSession session) {
     	int result = 0;
-    	String prevUrl = url;
     	session.removeAttribute("nick");
 
     	Member member2 = ms.select(member.getId());
@@ -108,15 +136,13 @@ public class MemberController{
     	member2 = ms.select(member.getId());
     	
     	session.setAttribute("nick", member2.getNick());
-    	model.addAttribute("prevUrl", prevUrl);
-    	model.addAttribute("prevUrl2", prevUrl2);
     	model.addAttribute("result", result);
     	return "member/update";
     }
     
-    @RequestMapping(value = "/member/nickChk2", produces = "text/html;charset=utf-8")
+    @RequestMapping(value = "/member/nickChk", produces = "text/html;charset=utf-8")
     @ResponseBody 
-    public String nickChk2(String nick) {
+    public String nickChk(String nick) {
        String msg = "";
        Member member = ms.selectNick(nick);
        if (member == null) {

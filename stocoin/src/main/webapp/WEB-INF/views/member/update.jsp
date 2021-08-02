@@ -10,11 +10,12 @@
 <body>
 	<c:if test="${result > 0  }">
 		<script type="text/javascript">
-			if ("${prevUrl2}" == "/stocoin/myPage/myCoinList") {
-				location.href="${prevUrl2}"				
+			var referrer = document.referrer.slice(21);
+			if (referrer == "/stocoin/member/updateForm") {
+				location.href="/stocoin/myPage/myCoinList";
 			} else {
-				location.href="${prevUrl}";
-			}
+				location.href="/stocoin/coin/coinList";
+			} 
 		</script>
 	</c:if>
 	

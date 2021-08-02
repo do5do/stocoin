@@ -25,10 +25,6 @@
 	}
 </style>
 <script type="text/javascript">
-	function del() {
-		location.href = "https://kauth.kakao.com/oauth/authorize?client_id=8d7498ce8ee97c514f96feb042750e1e&redirect_uri=http://${ss.getIP()}/stocoin/delete&response_type=code";
-	}
-	
 	function nickChk() {
 		if (frm.nick.value == "") {
 			alert("닉네임을 입력하세요")
@@ -46,7 +42,7 @@
 <body>
 	<div class="container col-5 update">
 		<div class="row align-items-center">
-			<h2 class="title" align="center">회원 정보 수정</h2>
+			<h2 class="title" align="center">닉네임 입력</h2>
 		</div>
 		<form action="/stocoin/member/update" method="post" name="frm">
 			<input type="hidden" name="id" value="${member.id}">
@@ -57,9 +53,7 @@
 			</div>
 			<div id="nickChk" class="err text-warning"></div>
 			<div class="input_box center">
-				<input class="btn btn-primary col-3" type="submit" value="수정">
-				<input class="btn btn-outline-primary col-3" type="button" onclick="history.back()" value="취소">
-				<input class="btn btn-outline-primary col-3" type="button" onclick="del()" value="탈퇴">
+				<input class="btn btn-primary col-3" type="submit" value="확인">
 			</div>
 		</form>
 	</div>

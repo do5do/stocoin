@@ -27,5 +27,7 @@ public interface MemberDao {
 
 	public void updateStockMoney(Member member);
 
+	public void updateCoinMoney(Member member);
+
 	
 }

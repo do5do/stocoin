@@ -9,10 +9,6 @@ var options = {
 		type : 'candlestick',
 		foreColor : '#909090'
 	},
-	title : {
-		text : 'CandleStick Chart - Category X-axis',
-		align : 'left'
-	},
 	annotations : {
 		xaxis : [ {
 			x : '날짜',
@@ -113,6 +109,7 @@ var options2 = {
 var kinds = "trade_value";
 var sorts = "desc";
 var selected = "BTC";
+var val = "";
 
 // coinList, coinInfo, chart load
 $(function() {
@@ -120,28 +117,38 @@ $(function() {
 	chart.render();
 	chart2 = new ApexCharts(document.querySelector('#chart_sm'), options2);
 	chart2.render();
-	change_chart(selected);
 	$('.trade').load('/stocoin/exclude2/coinTrade?name=' + selected);
-	
-	// content left, right height 맞추기
-	var layoutHeight = $('#content_right').height();
-	$('#table_wrapper').height(layoutHeight - 102);
+	change_chart(selected);
+//	var className = document.getElementsByClassName('click_td');
+//	for (var i = 0; i < className.length; i++) {
+//		var selected_coin = className[i].parentElement.id;
+//		className[i].addEventListener('click', change_info(selected_coin));
+//	}
 });
 
-// 정렬
-function sort(kind) {
-	if ($('#' + kind).text() == '↓') {
-		kinds = kind;
-		sorts = 'asc';
-		$('.sort').text('');
-		$('#' + kind).text('↑');
-		$('#table_wrapper').load('/stocoin/exclude2/coinListReload?kind=' + kinds + '&sort=' + sorts + '&name=' + selected)
+// 검색
+function search_coin() {
+	val = document.getElementById('search_coin').value;
+	$('#table_wrapper').load('/stocoin/exclude2/coinListReload', 'val=' + val 
+			+ '&kind=' + kinds + '&sort=' + sorts + '&name=' + selected + '&coin_tab=' + tab);
+	if (val == null || val == "") {
+		$('#search_del').removeClass('fa-times').addClass('fa-search');
+		$('#search_del').css('cursor', 'default');
 	} else {
-		kinds = kind;
-		sorts = 'desc';
-		$('.sort').text('');
-		$('#' + kind).text('↓');
-		$('#table_wrapper').load('/stocoin/exclude2/coinListReload?kind=' + kinds + '&sort=' + sorts + '&name=' + selected)
+		$('#search_del').removeClass('fa-search').addClass('fa-times');
+		$('#search_del').css('cursor', 'pointer');
+	}
+}
+
+// 검색어 삭제
+function search_del() {
+	if ($('#search_del').hasClass('fa-times')) {
+		val = "";
+		$('#search_coin').val('');
+		$('#search_del').css('cursor', 'default');
+		$('#search_del').removeClass('fa-times').addClass('fa-search');
+		$('#table_wrapper').load('/stocoin/exclude2/coinListReload', 'val=' + val 
+				+ '&kind=' + kinds + '&sort=' + sorts + '&name=' + selected + '&coin_tab=' + tab);
 	}
 }
 
@@ -151,25 +158,39 @@ function myTimer() {
 	change_chart(selected); 
 }
 
+// 정렬
+function sort(kind) {
+	if ($('#' + kind).text() == '↓') {
+		kinds = kind;
+		sorts = 'asc';
+		$('.sort').text('');
+		$('#' + kind).text('↑');
+	} else {
+		kinds = kind;
+		sorts = 'desc';
+		$('.sort').text('');
+		$('#' + kind).text('↓');
+	}
+	$('#table_wrapper').load('/stocoin/exclude2/coinListReload', 'val=' + val 
+			+ '&kind=' + kinds + '&sort=' + sorts + '&name=' + selected + '&coin_tab=' + tab);
+}
+
 // 코인 클릭 시 해당 코인 active & trade load
 function change_info(name) {
+	$('#coinName').text(name);
 	$(".list").removeClass('active');
 	$('#'+name).addClass('active');
 	$('.trade').load('/stocoin/exclude2/coinTrade?name=' + name);
+	change_chart(name);
 }
 
 // coinList, coinInfo, chart change
 function change_chart(name, time = '5m') {
 	selected = name;
-	$('#table_wrapper').load('/stocoin/exclude2/coinListReload?kind=' + kinds + '&sort=' + sorts + '&name=' + selected);
+	$('#table_wrapper').load('/stocoin/exclude2/coinListReload', 'val=' + val 
+			+ '&kind=' + kinds + '&sort=' + sorts + '&name=' + selected + '&coin_tab=' + tab);
 	$('#coinInfo').load('/stocoin/exclude2/coinInfo?name=' + selected);
 	var url = 'https://api.bithumb.com/public/candlestick/' + selected + '_KRW/' + time;
-	chart.updateOptions({
-		title : {
-			text : selected,
-			align : 'left'
-		}
-	});
 	$.getJSON(url, function(response) {
 		// 최근 100개, 거래량 빼고 복사
 		var obj = response.data.slice(-100).map(v => v.slice(0,5));
@@ -191,29 +212,59 @@ function change_chart(name, time = '5m') {
 
 // 매수/매도 : 수량 자동 변경
 function change_cnt(type) {
-	if (type == 'range') {
+	var cnt_txt = 0;
+	// range 변경 시 수량 자동 변경
+	if (type == 'range') { 
 		if ($('#range').val() == 0) {
-			$('#cnt_txt').val('0');
+			cnt_txt = 0;
 		} else {
 			var percent = $('#range').val()/100;
-			var money_percent = coin_money*percent;
-			var cnt = money_percent/closing_price;
-			var cnt_txt = Math.floor(cnt * 10000)/10000;
+			if (types == 1) { // 매수
+				var money_percent = coin_money*percent;
+				var cnt = money_percent/closing_price;
+				cnt_txt = Math.floor(cnt * 10000)/10000;
+				if (cnt_txt < 0.001) {
+					alert("주문 가능 금액을 초과하였습니다");
+					$('#range').val('0');
+					change_range();
+					cnt_txt = 0;
+				}
+			} else { // 매도
+				if (count == 0) {
+					alert("주문 가능한 수량이 없습니다");
+					$('#range').val('0');
+					change_range();
+					cnt_txt = 0;
+				} else { 
+					cnt_txt = Math.floor(count*percent * 10000)/10000;
+				}
+			}
 			$('#cnt_txt').val(cnt_txt);
+			change_op();
 		}
 		
-	} else if (type == 'purchase') {
-		var cnt_txt = Math.floor($('#purchase').val() / closing_price * 10000) / 10000;
-		if ($('#purchase').val() > max_price) {
+	// 주문금액 입력 시 수량 자동 변경
+	} else if (type == 'purchase') { 
+		cnt_txt = Math.floor($('#purchase').val() / closing_price * 10000) / 10000;
+		// 매수
+		if (types == 1 && $('#purchase').val() > max_price) {
 			alert("주문 가능 금액을 초과하였습니다");
 			$('#cnt_txt').val(max_cnt);
 			change_op();
-		} else 
-			$('#cnt_txt').val(cnt_txt);
+		// 매도
+		} else if (types == 2) {
+			max_price = Math.floor(count * closing_price);
+			if ($('#purchase').val() > max_price) {
+				alert("주문 가능 수량을 초과하였습니다");
+				$('#cnt_txt').val(count);
+				change_op();
+			}
+		}
+		$('#cnt_txt').val(cnt_txt);
 	}
 }
 
-//매수/매도 : 퍼센트 자동 변경
+//매수/매도 : range 변경 시 퍼센트 자동 변경
 function change_range() {
 	var val = $('#range').val() / 100;
 	if ($('body').hasClass('white')) {
@@ -235,10 +286,13 @@ function change_range() {
 }
 
 //매수/매도 : 주문금액 자동 변경
-function change_op(type) {
-	if ($('#cnt_txt').val() > max_cnt) {
+function change_op() {
+	if (types == 1 && $('#cnt_txt').val() > max_cnt) {
 		alert("주문 가능 금액을 초과하였습니다");
 		$('#cnt_txt').val(max_cnt);
+	} else if (types == 2 && $('#cnt_txt').val() > count) {
+		alert("주문 가능 수량을 초과하였습니다");
+		$('#cnt_txt').val(count);
 	}
 	var purchase = Math.floor($('#cnt_txt').val() * closing_price);
 	$('#purchase').val(purchase);

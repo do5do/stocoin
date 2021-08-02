@@ -16,6 +16,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,15 +26,22 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sc.stocoin.dao.CoinDao;
+import com.sc.stocoin.dao.FavoriteCoinDao;
+import com.sc.stocoin.dao.TradeCoinDao;
+import com.sc.stocoin.model.FavoriteCoin;
+import com.sc.stocoin.model.MyCoin;
 
 @Service
 public class CoinServiceImpl implements CoinService {
 	@Autowired
-	private CoinDao cd;
+	private TradeCoinDao tcd;
 
+	@Autowired
+	private FavoriteCoinDao fcd;
+	
 	@Override
-	public List<Map<String, Object>> getCoinList(String kind, String sort) throws IOException, ParseException {
+	public List<Map<String, Object>> getCoinList(String kind, String sort, String coin_tab,
+								String val, HttpSession session) throws IOException, ParseException {
 		// 가져올 api 주소 연결
 		String reqURL = "https://api.bithumb.com/public/ticker/ALL";
 		URL url = new URL(reqURL);
@@ -63,7 +72,45 @@ public class CoinServiceImpl implements CoinService {
 
 		// map에 data entry 담기
 		for (Map.Entry<String, JsonElement> entry : entrySet) {
-			attributes.put(entry.getKey(), data.get(entry.getKey()));
+			if (coin_tab.equals("all")) {
+				if (val == null || val.equals(""))
+					attributes.put(entry.getKey(), data.get(entry.getKey()));
+				else {
+					if (entry.getKey().contains(val.toUpperCase())) {
+						attributes.put(entry.getKey(), data.get(entry.getKey()));
+					}
+				}
+			
+			} else if (coin_tab.equals("my")) {
+				int mno = (int) session.getAttribute("mno");
+				List<MyCoin> myCoinName = tcd.myCoinName(mno);
+				for (int i = 0; i < myCoinName.size(); i ++) {
+					if (entry.getKey().equals(myCoinName.get(i))) {
+						if (val == null || val.equals(""))
+							attributes.put(entry.getKey(), data.get(entry.getKey()));
+						else {
+							if (entry.getKey().contains(val.toUpperCase())) {
+								attributes.put(entry.getKey(), data.get(entry.getKey()));
+							}
+						}
+					}
+				}
+		
+			} else if (coin_tab.equals("favorite")) {
+				int mno = (int) session.getAttribute("mno");
+				List<FavoriteCoin> favoriteCoinName = fcd.favoriteCoinName(mno);
+				for (int i = 0; i < favoriteCoinName.size(); i ++) {
+					if (entry.getKey().equals(favoriteCoinName.get(i))) {
+						if (val == null || val.equals(""))
+							attributes.put(entry.getKey(), data.get(entry.getKey()));
+						else {
+							if (entry.getKey().contains(val.toUpperCase())) {
+								attributes.put(entry.getKey(), data.get(entry.getKey()));
+							}
+						}
+					}
+				}
+			}
 		}
 
 		// date는 string이어서 not object 에러남 => 제거
@@ -72,6 +119,8 @@ public class CoinServiceImpl implements CoinService {
 		// 코인 정보 담을 list 세팅
 		List<Map<String, Object>> coinList = new ArrayList<Map<String, Object>>();
 
+		String id = (String) session.getAttribute("id");
+		
 		// map에 있는 key이름을 list에 담기
 		for (Map.Entry<String, Object> att : attributes.entrySet()) {
 			Map<String, Object> coin = new HashMap<String, Object>();
@@ -80,7 +129,18 @@ public class CoinServiceImpl implements CoinService {
 					.getAsFloat();
 			float trade_value = data.getAsJsonObject().get(att.getKey()).getAsJsonObject().get("acc_trade_value_24H")
 					.getAsFloat();
-
+			String star = "☆";
+			if (id != null) {
+				int mno = (int) session.getAttribute("mno");
+				List<FavoriteCoin> favoriteCoinName = fcd.favoriteCoinName(mno);
+				for (int i = 0; i < favoriteCoinName.size(); i ++) {
+					if (att.getKey().equals(favoriteCoinName.get(i))) {
+						star = "★";
+					}
+				}
+			}
+			
+			coin.put("star", star);
 			coin.put("trade_value", trade_value / 1000000);
 			coin.put("fluctuation_rate", fluctuation_rate);
 			coin.put("price", price);
@@ -122,7 +182,6 @@ public class CoinServiceImpl implements CoinService {
 		br.close();
 
 		return coinList;
-
 	}
 
 	@Override
