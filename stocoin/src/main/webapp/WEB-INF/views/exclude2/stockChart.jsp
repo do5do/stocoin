@@ -143,6 +143,7 @@
 			  name: 'Sales',
 			  data: jsonArray
 			}]);
+			
 			chart2.updateSeries([{
 			  name: 'price',
 			  data: jsonArray
