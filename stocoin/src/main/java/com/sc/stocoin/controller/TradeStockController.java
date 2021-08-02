@@ -1,5 +1,10 @@
 package com.sc.stocoin.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +17,7 @@ import com.sc.stocoin.model.MyStock;
 import com.sc.stocoin.model.TradeStock;
 import com.sc.stocoin.service.MemberService;
 import com.sc.stocoin.service.MyStockService;
+import com.sc.stocoin.service.StockService;
 import com.sc.stocoin.service.TradeStockService;
 
 @Controller
@@ -25,6 +31,9 @@ public class TradeStockController {
 	@Autowired
 	private MyStockService mss;
 	
+	@Autowired
+	private StockService ss;
+	
 	@RequestMapping("/stock/tradeStock")
 	public String tradeStock(TradeStock ts, MyStock myStock, int types, int contract, String code, Model model, HttpSession session) {
 		int mno = (int) session.getAttribute("mno");
@@ -34,19 +43,21 @@ public class TradeStockController {
 		ts.setMno(mno);
 		ts.setTypes(types);
 		ts.setContract(contract); // 체결 가격
+		ts.setCode(code);
 		myStock.setMno(mno);
 		myStock.setPurchase(contract * ts.getCnt()); // 매입 금액
+		myStock.setCode(code);
 		
 		// 거래내역 insert
 		int result = tss.insert(ts);
 		
-		// 매수 매도 확인
 		Member member = ms.select(id);
 		int stockMoney = member.getStock_money();
 		
 		// 해당 주 보유현황 확인
 		MyStock myStock2 = mss.select(myStock);
 		
+		// 매수 매도 확인
 		if (types == 1) { // 매수
 			if (myStock2 == null) { // 첫 번째 매수일 때				
 				// 보유현황 insert
@@ -71,7 +82,54 @@ public class TradeStockController {
 		ms.updateStockMoney(member);
 		
 		model.addAttribute("result", result);
-		model.addAttribute("code", code);
 		return "stock/tradeStock";
+	}
+	
+	@RequestMapping("/myPage/myStockList")
+	public String myStock(HttpSession session, Model model) {
+		int mno = (int) session.getAttribute("mno");
+		String id = (String) session.getAttribute("id");
+		
+		Member member = ms.select(id);
+		int stockMoney = member.getStock_money();
+		
+		// 보유현황 리스트
+		List<MyStock> myStockList = mss.selectMy(mno);
+		
+		// 보유현황 + 매매단가 + 실데이터 담을 리스트
+		List<Map<String, Object>> totalList = new ArrayList<>();
+		
+		for (MyStock list : myStockList) {
+			Map<String, Object> map = new HashMap<>();
+			
+			// 매매단가 조회
+			int contractAvg = tss.avgContract(list.getSname());
+			// 실 데이터 조회
+			Map<String, Object> stockInfo = ss.getStockInfo(list.getCode());
+			
+			map.put("contractAvg", contractAvg);
+			map.put("sname", list.getSname());
+			map.put("cnt", list.getCnt());
+			map.put("purchase", list.getPurchase());
+			map.put("fluc_rt", stockInfo.get("FLUC_RT")); // 등락률
+			map.put("recentPrice", ((String)stockInfo.get("TDD_CLSPRC")).replaceAll(",", "")); // 현재가 콤마 제거하여 담기
+			
+			totalList.add(map);
+		}
+		
+		model.addAttribute("stockMoney", stockMoney);
+		model.addAttribute("list", totalList);
+		return "myPage/myStockList";
+	}
+	
+	@RequestMapping("/exclude2/stockTradeList")
+	public String stockList(HttpSession session, Model model) {
+		int mno = (int) session.getAttribute("mno");
+		
+		// 거래내역 list
+		List<TradeStock> list = tss.tradeList(mno);
+		
+		model.addAttribute("list", list);
+		return "exclude2/stockTradeList";
 	}
 }

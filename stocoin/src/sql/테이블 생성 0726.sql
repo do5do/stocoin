@@ -239,6 +239,7 @@ CREATE TABLE MyStock
     mno    NUMBER NOT NULL,
     ms_no    NUMBER NOT NULL,
     sname    VARCHAR2(20) NOT NULL,
+    code    VARCHAR2(10) NOT NULL,
     cnt    NUMBER NOT NULL,
     purchase    NUMBER NOT NULL
 );
@@ -255,6 +256,7 @@ CREATE TABLE TradeStock
     mno    NUMBER NOT NULL,
     ts_no    NUMBER NOT NULL,
     sname    VARCHAR2(20) NOT NULL,
+    code    VARCHAR2(10) NOT NULL,
     types    NUMBER NOT NULL,
     dates    DATE NOT NULL,
     cnt    NUMBER NOT NULL,

@@ -10,81 +10,84 @@
 			location.href = "https://kauth.kakao.com/oauth/logout?client_id=8d7498ce8ee97c514f96feb042750e1e&logout_redirect_uri=http://"
 					+ "${ss.getIP()}" + "/stocoin/logout";
 		}
-		$(function() {
-			// tab active control
-			$('#tab1').addClass('active');
-			var curUrl = window.location.href;
-			var sliceUrl = curUrl.split("?")[1].split("&")[0].split("=")[1];
-
-			if (sliceUrl == null || sliceUrl == 1) {
-				$('#tab' + sliceUrl).addClass("active");
-			} else if (sliceUrl == 2) {
-				$('.tabs li').removeClass('active');
-				$('#tab' + sliceUrl).addClass("active");
-			} else {
-				$('.tabs li').removeClass('active');
-				$('#tab' + sliceUrl).addClass("active");
-			}
-		})
+		
+		function tab() {
+			$('.disp').load('/stocoin/exclude2/coinTradeList');
+			$('.tabs li').removeClass('active');
+			$('.tradeList').addClass('active');
+		}
 	</script>
 </head>
 <body>
-	<div class="my_assets">
-			<a class="assets_name" href="/stocoin/myPage/myCoinList">코인</a>
-			<a class="assets_name" href="/stocoin/myPage/myStockList">주식</a>
-	</div>	
-	<ul class="tabs">
-		<li id="tab1">
-			<a class="tab" href="/stocoin/myPage/myCoinList">거래내역</a>
+	<ul class="myPage_tabs">
+		<li class="active">
+			<a href="/stocoin/myPage/myCoinList">코인</a>
 		</li>
-		<li id="tab2">
-			<a class="tab" href="/stocoin/myPage/coinTradeList">보유현황</a>
+		<li>
+			<a href="/stocoin/myPage/myStockList">주식</a>
+		</li>
+	</ul>
+	<ul class="tabs">
+		<li class="myList active">
+			<a href="/stocoin/myPage/myCoinList">보유현황</a>
+		</li>
+		<li class="tradeList">
+			<a onclick="tab()">거래내역</a>
 		</li>		
 	</ul>
-	<div class="Container">
-	        <table class="transaction">
-	            <thead>
-	              <tr>
-	                <th>거래일시</th>
-	                <th>자산</th>
-	                <th>거래구분</th>
-	                <th>거래수량</th>
-	                <th>체결가격</th>
-	                <th>거래금액</th>
-	                <th>수수료</th>
-	                <th>정산금액</th>
-	                <th>상태</th>
-	              </tr>
-	            </thead>
-	            <tbody>
-	              <tr>
-	                <td>2021-07-01 17:05:04</td>
-	                <td>리플 XRP/KRW</td>
-	                <td>매수</td>
-	                <td>3.8876 XRP</td>
-	                <td>769.5</td>
-	                <td>2.992 KRW</td>
-	                <td>7.48</td>
-	                <td>-2.999 KRW</td>
-	                <td></td>
-	              </tr>
-	              <tr>
-	                <td>2021-07-01 17:05:04</td>
-	                <td>리플 XRP/KRW</td>
-	                <td>매수</td>
-	                <td>3.8876 XRP</td>
-	                <td>769.5</td>
-	                <td>2.992 KRW</td>
-	                <td>7.48</td>
-	                <td>-2.999 KRW</td>
-	                <td></td>
-	              </tr>
-	            </tbody>
-	        </table>
-	    </div>
-		<div class="input_box center">
-			<input type="button" class="btn btn-outline-primary col-3" value="정보수정" onclick="location.href='/stocoin/member/updateForm'" />
-			<input type="button" id="logout" class="btn btn-outline-primary col-3" value="로그아웃" onclick="logOut()" />
+	<section class="disp">
+		<div class="container col-8 middle">
+			<div class="total_box">
+				<div class="total_top">
+					<p class="money_text">총 보유자산</p>
+					<p class="total_money">2,980<span> 원</span></p>
+				</div>
+				<div class="total_bottom display_flex">
+					<div class="left">
+						<p>총 수익률</p>
+						<p>총 매수금액</p>
+					</div>
+					<div class="right">
+						<p>+3.6%</p>
+						<p>2,980원</p>
+					</div>
+				</div>
+			</div>
+			<ul class="card_list">
+				<li class="card_item">
+					<div class="content display_flex">
+						<p class="name">도지 (DOGE)</p>
+						<div class="right">
+							<p class="end_price">832 원</p>
+							<span class="time">전일대비</span> 
+							<span class="color_blue">-4.16%</span>
+						</div>
+					</div>
+					<div class="content_body display_flex">
+						<div class="left">
+							<p>평가손익</p>
+							<p>수익률</p>
+							<p>보유잔고</p>
+							<p>평균금액</p>
+							<p>매수금액</p>
+							<p>평가금액</p>
+						</div>
+						<div class="right">
+							<p>-168원</p>
+							<p>+1.28%</p>
+							<p>3.592 <span>DOGE</span></p>
+							<p>834원</p>
+							<p>834원</p>
+							<p>832원</p>
+						</div>
+					</div>
+				</li>
+			</ul>
 		</div>
+    </section>
+	<div class="input_box center">
+		<input type="button" class="btn btn-outline-primary col-2" value="정보수정" onclick="location.href='/stocoin/member/updateForm'" />
+		<input type="button" id="logout" class="btn btn-outline-primary col-2" value="로그아웃" onclick="logOut()" />
+	</div>
 </body>
 </html>

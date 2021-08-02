@@ -33,28 +33,19 @@ public class StockController {
 	private List<Map<String, Object>> stockLists;
 	
 	@RequestMapping("/stock/stockList")
-	public String stockList(Model model, String code) throws IOException, ParseException {
+	public String stockList(Model model) throws IOException, ParseException {
 		// 첫 실행때만 실제 리스트 로딩
 		if (stockLists == null) {
 			List<Map<String, Object>> stockList = ss.getStockList();			
 			this.stockLists = stockList;
 		}
-		// 체결 후 체결한 주식 코드 값 전달
-		if (code != null) {			
-			model.addAttribute("code", code);
-		}
 		return "stock/stockList";
 	}
 
 	@RequestMapping("/exclude2/stockListReload")
-	public String stockListReload(Model model, String kind, String sort, String code) throws IOException, ParseException {
+	public String stockListReload(Model model, String kind, String sort) throws IOException, ParseException {
 		List<Map<String, Object>> stockListTemp = ss.stockListSort(kind, sort);
 		model.addAttribute("stockList", stockListTemp);
-		
-		// 체결 후 체결한 주식 코드 값 전달
-		if (code != null) {			
-			model.addAttribute("code", code);
-		}
 		return "exclude2/stockListReload";
 	}
 
@@ -78,8 +69,11 @@ public class StockController {
 			
 			// 회원이 해당 주식을 보유했으면
 			MyStock myStock = mss.selectCnt(sname, member.getMno());
+			
 			if (myStock != null) {
 				model.addAttribute("cnt", myStock.getCnt());	
+			} else {
+				model.addAttribute("cnt", 0);
 			}
 		}
 		model.addAttribute("stockInfo", stockInfo);

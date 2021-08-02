@@ -1,5 +1,7 @@
 package com.sc.stocoin.dao;
 
+import java.util.List;
+
 import com.sc.stocoin.model.MyStock;
 
 public interface MyStockDao {
@@ -13,5 +15,7 @@ public interface MyStockDao {
 	int updateSell(MyStock myStock);
 
 	MyStock selectCnt(String sname, int mno);
+
+	List<MyStock> selectMy(int mno);
 
 }

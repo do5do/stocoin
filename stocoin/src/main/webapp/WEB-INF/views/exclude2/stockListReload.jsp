@@ -26,10 +26,6 @@
 </table>
 <script>
    $(function() {
-	   if (${empty code}) {
-		   $('#005930').addClass('active');   
-	   } else {
-		   $('#${code}').addClass('active');
-	   }
+	   $('#005930').addClass('active');
    })
 </script>

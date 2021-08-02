@@ -14,16 +14,10 @@ public class TradeController {
 	public String coinList() {
 		return "myPage/myCoinList";
 	}
-	@RequestMapping("/myPage/coinTradeList")
+	@RequestMapping("/exclude2/coinTradeList")
 	public String tradeList() {
-		return "myPage/coinTradeList";
+		return "exclude2/coinTradeList";
 	}
-	@RequestMapping("/myPage/stockTradeList")
-	public String stockList() {
-		return "myPage/stockTradeList";
-	}
-	@RequestMapping("/myPage/myStockList")
-	public String myStock() {
-		return "myPage/myStockList";
-	}
+	
+	
 }

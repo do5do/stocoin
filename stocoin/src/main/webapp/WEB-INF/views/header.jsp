@@ -73,7 +73,7 @@
 			<a href="/stocoin/coin/coinList"><img alt="로고" src='/stocoin/resources/images/logo.png'></a>
 		</div>
 		<c:if test="${not empty id}">
-			<p class="welcome">${nick}님 환영합니다</p>
+			<span class="welcome">${nick}님 환영합니다</span>
 		</c:if>
 		<nav>
 			<ul>

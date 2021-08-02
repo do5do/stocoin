@@ -14,18 +14,13 @@
 
 	// 주식 리스트 로드, info 로드
 	$(function() {
-		if (${empty code}) {
-			$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts);
-			$('.dp_flex').load("/stocoin/exclude2/stockInfo");
-		} else { // 체결한 주식 선택
-			$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&code=${code}");
-			$('.dp_flex').load('/stocoin/exclude2/stockInfo?code=${code}');
-		}
+		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts);
 		$('#chart').load("/stocoin/exclude2/stockChart");
+		$('.dp_flex').load("/stocoin/exclude2/stockInfo");
 		
 		// content left, right height 맞추기
 		var layoutHeight = $('#content_right').height();
-		$('#table_wrapper').height(layoutHeight - 102);
+		$('#table_wrapper').height(layoutHeight - 108);
 	});
 	
 	// sort
@@ -46,16 +41,12 @@
 	}
 	
 	function stockInfo(code) {
-		$('.dp_flex').load('/stocoin/exclude2/stockInfo?code='+code);
 		$('#chart').load("/stocoin/exclude2/stockChart?code=" + code);
+		$('.dp_flex').load('/stocoin/exclude2/stockInfo?code='+code);
 		
 		// 선택한 리스트 표시
 		$(".list").removeClass('active');
 		$('#'+code).addClass('active');
-	}
-
-	function chartChange(name) {
-		$('#chart').load("/stocoin/exclude2/stockChart?code=" + code);
 	}
 </script>
 </head>

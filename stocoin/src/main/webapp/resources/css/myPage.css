@@ -1,216 +1,133 @@
 @charset "UTF-8";
 
-.Navigator {
-    position: relative;
-    margin: 60px auto 0;
-    border-bottom: 1px solid #efefef;
+/* myPage tab */
+.myPage_tabs {
+	display: flex;
 }
-.Navigator nav ul {
-    list-style: none;
-    display: flex;
-}
-.Navigator nav ul li.item {
-    color: #000;
-    font-size: 20px;
-    font-weight: 600;
-    padding: 15px 20px;
-    text-align: center;
-}
-.Navigator nav ul li.item > a {
-    color: #ccc;
-    text-decoration: none;
-}
-.Navigator nav ul li.item.on {
-    border-bottom: 4px solid #000;
-}
-.Navigator nav ul li.item.on > a {
-    color: #000;
-}
-.InfoBox {
-    margin: 20px 0;
-    padding: 20px 0;
-}
-.InfoBox select,
-.InfoBox input {
-    padding: 15px;
-    color: gray;
+
+.myPage_tabs li {
+	padding: 5px 16px 3px 16px;
     font-size: 16px;
-    font-weight: 500;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-}
-.InfoBox input::placeholder {
-    color: #777;
-}
-.InfoBox input.date-lookup {
-    color: #777;
-    text-align: left;
-}
-.InfoBox input.date-lookup::placeholder {
-    color: gray;
-}
-.InfoBox button {
-    padding: 15px 25px;
-    margin-right: 20px;
-    color: #fff;
-    background-color: #777;
-    font-size: 15px;
-    font-weight: 600;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-    cursor: pointer;
-}
-.InfoBox button.btn-download {
-    float: right;
-    padding: 15px 10px 15px 40px;
-    margin-right: 20px;
-    color: #777;
-    background-color: #fff;
-    font-size: 15px;
-    font-weight: 600;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-    cursor: pointer;
-    background: url("./excel.png") no-repeat center left;
-    background-size: 30%;
-}
-.transaction {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-.transaction th {
-    color: gray;
-    font-weight: 600;
-    padding: 20px 5px;
-    border-bottom: 1px solid #ccc;
-    background-color: #f5f5f5;
-    text-align: center;
-}
-.transaction td {
-    padding: 30px 5px;
-    text-align: center;
-    border-bottom: 1px solid #ccc;
 }
 
-.transaction th:nth-child(1) {
-	width: 10%;
+.myPage_tabs li.active {
+	background: var(--point-color);
+	border-radius: 30px;
 }
 
-.transaction th:nth-child(2) {
-	width: 5%;
-}
-
-/* page2 */
-.TotalBox {
-    width: 100%;
-    margin-top: 30px;
-    background-color: #efefef;
-    border-radius: 15px;
-}
-.TotalBox .Total-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-.TotalBox .Total-table td {
-    padding: 25px -1px 25px 100px;
-    text-align: left;
-}
-.TotalBox .Total-table td.num {
-    padding-left: 0;
-}
-.TotalBox .Total-table td.fir-td {
-    font-size: 20px;
-    text-align: left;
-    padding-left: 50px;
-    vertical-align: middle;
-}
-.TotalBox .Total-table td.fir-td small {
-    font-size: 20px;
-}
-.TotalBox .Total-table td.fir-td p:first-child  {
-    color: #818181;
-    font-size: 17px;
-    font-weight: 600;
-    padding-bottom: 10px;
-    letter-spacing: -1.5px;
-}
-.TotalBox .Total-table td.fir-td p:last-child  {
-    color: #000;
-    font-size: 20px;
-    font-weight: 600;
-
-}
-.total-number {
-}
-.asset {
-    margin-top: 50px;
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-.asset th {
-    color: gray;
-    font-weight: 600;
-    padding: 20px 5px;
-    border-bottom: 1px solid #ccc;
-    background-color: #f5f5f5;
-}
-.asset td {
-    padding: 30px 5px;
-    text-align: center;
-    border-bottom: 1px solid #ccc;
-}
+/* 공통 */
 .display_flex {
 	display: flex;
 }
+
 .right {
 	margin-left: auto;
-	padding-right:50px;
+	text-align: right;
 }
 
-.left p {
-	color: black;
-	padding-left: 50px;
+p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
 
+.disp {
+	margin-bottom: 24px;
+	margin-top: 16px;
 }
-.right p {
-	text-align:right;
-	color: black;
+
+/* 보유현황 */
+.total_box {
+    width: 100%;
+    background-color: #232323;
+    padding: 24px;
 }
-.coin_name {
-	padding-left: 50px;
+
+.white .total_box {
+	background-color: #efefef;
 }
-.assets_coin_time {
-	color: black;
+
+.total_top {
+	border-bottom: 1px solid #383838;
+	color: #fff;
 }
-.assets_coin_percent_color {
-	color: blue;
+
+.total_top .totalMoney {
+	display: inline-block;
+	font-size: 28px;
+	margin-bottom: 10px;
 }
-td {
-	font-color: black;
+
+.total_top span {
+	font-size: 18px;
+	vertical-align: text-bottom;
 }
-.Total-table tr td { 
-	color: black;
+
+.total_bottom {
+	padding-top: 12px;
 }
-.my_assets {
-	text-align: center;
-	padding-right: 30px;
+
+.total_bottom .left p {
+	margin-top: 8px;
+	color: #888 !important;
 }
-.assets_name {
-	font-size: 25px;
-	padding-right: 30px;
+
+.total_bottom .right p {
+	margin-top: 8px;
+	color: #fff;
 }
-#tab2 {
-	margin-right: 83px;
+
+/* 보유현황 리스트 */
+.card_list {
+	margin-top: 36px;
+	color: #fff;
 }
-.asset {
-	margin-top: 0px;
+
+.card_item {
+	padding: 24px;
+	border-bottom: 1px solid #232323;
+	margin-bottom: 24px;
 }
-.stock_name {
-	padding-left: 50px;
-	padding-top: 13px;
+
+.content {
+	border-bottom: 1px solid #383838;
+	padding-bottom: 8px;
 }
+
+.name {
+	font-size: 24px;
+}
+
+.end_price {
+	font-size: 20px;
+}
+
+.time {
+	color: #888 !important;
+	padding-right: 4px;
+	font-size: 14px;
+}
+
+.content_body {
+	padding-top: 16px;
+}
+
+.content_body p {
+	margin-bottom: 8px;
+}
+
+.content_body .left {
+	color: #888 !important;
+}
+
+/* 거래내역 */
+tr {
+	height: 56px;
+	vertical-align: middle;
+}
+
+th:first-child, td:first-child {
+	padding-left: 24px;
+}
+
+.table > :not(:last-child) > :last-child > * {
+    border-bottom-color: #555 !important;

@@ -9,7 +9,7 @@
 	<c:if test="${result > 0 }">
 		<script type="text/javascript">
 			alert('체결 성공!');
-			location.href='/stocoin/stock/stockList?code=${code}';
+			location.href='/stocoin/stock/stockList';
 		</script>
 	</c:if>
 	<c:if test="${result == 0 }">

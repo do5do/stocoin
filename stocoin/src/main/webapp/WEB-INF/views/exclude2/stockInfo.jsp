@@ -5,7 +5,7 @@
 <script type="text/javascript">
 	// 종가
 	var endPrice = '${stockInfo.get("TDD_CLSPRC")}';
-	var intEndPrice = endPrice.replace(",", "");
+	var intEndPrice = endPrice.replace(/,/g, ""); // 천단위 마다 콤마 삭제
 	// 현재 가진 돈
 	var myMoney = parseInt("${member.stock_money }");
 	// 최대 수량
@@ -36,11 +36,21 @@
 				// 주문 금액
 				var payPrice = intEndPrice * num;
 				
-				if (payPrice >= myMoney) {
-					num = maxNum;
-					payPrice = intEndPrice * num;
-					alert('최고 수량입니다.');
+				if (types == 1) {
+					if (payPrice >= myMoney) {
+						num = maxNum;
+						payPrice = intEndPrice * num;
+						alert('최고 수량입니다.');
+					}
+				} else { // 매도
+					var myCnt = parseInt($('.myMoney').text().split('주')[0]);
+					if (num > myCnt) {
+						num = myCnt;
+						payPrice = intEndPrice * num;
+						alert('최고 수량입니다.');
+					}
 				}
+				
 			}
 			// 천단위 콤마 추가
 			var replacePayPrice = payPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원";
@@ -61,19 +71,35 @@
 			var num = parseInt($('.fee').val());
 			var payPrice = num * intEndPrice;
 			
-			if (num > maxNum) {
-				num = maxNum;
-				payPrice = num * intEndPrice;
-				$(".fee").val(num);
-				alert('거래 가능한 최대 수량을 초과하였습니다.');
+			if (types == 1) {
+				if (num > maxNum) {
+					num = maxNum;
+					payPrice = num * intEndPrice;
+					$(".fee").val(num);
+					alert('거래 가능한 최대 수량을 초과하였습니다.');
+				}
+			} else {
+				var myCnt = parseInt($('.myMoney').text().split('주')[0]);
+				if (num > myCnt) {
+					num = myCnt;
+					payPrice = intEndPrice * num;
+					alert('최고 수량입니다.');
+				}
 			}
+			
 			// 천단위 콤마 추가
 			var replacePayPrice = payPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원";
 			
-			$(".cnt_box span").text(num);
-			$("input[name='cnt']").val(num);
-			$(".fee").val(num+"주");
-			$(".pay_price").text(replacePayPrice);
+			if ($(".fee").val() == "") {
+				$(".cnt_box span").text(0);
+				$("input[name='cnt']").val(0);
+				$(".pay_price").text('0원');
+			} else {				
+				$(".cnt_box span").text(num);
+				$("input[name='cnt']").val(num);
+				$(".fee").val(num+"주");
+				$(".pay_price").text(replacePayPrice);
+			}
 		}
 	}
 	
@@ -85,11 +111,7 @@
 			$('#buy').removeClass('red');
 			
 			if (${not empty id}) {
-				if (${empty cnt}) {
-					$('.myMoney').text('0주');
-				} else {					
-					$('.myMoney').text('${cnt}주');
-				}
+				$('.myMoney').text('${cnt}주');
 			}
 		} else {
 			types = 1;
@@ -160,60 +182,10 @@
 			<tr>
 				<td>전일종가</td>
 				<td>${stockInfo.get('TDD_CLSPRC')}</td>
-				<td colspan="2"><button class="btn btn-primary"onclick="fState('${stockInfo.get('corp_code')}')">재무제표</button></td>
+				<td colspan="2"><button class="btn btn-primary btn-sm"onclick="fState('${stockInfo.get('corp_code')}')">재무제표</button></td>
 			</tr>
 		</table>
 		<div id="chart_sm"></div>
-		<script type="text/javascript">
-		 var options2 = {
-	     		series: [{
-		            name: 'price',
-		            data: [31, 40, 28, 51, 42, 109, 100]
-		        }],
-		        chart: {
-		            height: 180,
-		            type: 'area',
-		       	    toolbar: {
-		      	        show: false
-		       	    },
-		       	 	zoom: {
-		            	enabled: false
-		           }
-		        },
-		        dataLabels: {
-		            enabled: false
-		        },
-		        stroke: {
-		            curve: 'smooth',
-		            colors: ['#19f'],
-		            width: 1
-		        },
-		        xaxis: {
-	        	    type: 'datetime',
-		            categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"],
-		        	tooltip: {
-		            	enabled: false
-		        	}
-		        },
-	        	yaxis: {
-	        	    show: false
-	        	},
-		        tooltip: {
-		          x: {
-		            format: 'dd/MM/yy HH:mm'
-		          },
-		          marker: {
-		              show: false
-		          }
-		        },
-		        grid: {
-		            show: false
-		        }
-	        };
-	
-	        var chart2 = new ApexCharts(document.querySelector("#chart_sm"), options2);
-	        chart2.render();
-		</script>
 	</div>
 </section>
 <!-- 매수, 매도 -->
