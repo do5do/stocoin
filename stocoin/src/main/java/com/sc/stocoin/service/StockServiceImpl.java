@@ -267,14 +267,9 @@ public class StockServiceImpl implements StockService {
 				"http://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd?menuId=MDC0201020101");
 		conn.setDoOutput(true);
 
-		// 오늘 연월일 : today
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
-		Date time = new Date();
-		String today = format1.format(time);
-
 		// 연결
 		PrintStream ps = new PrintStream(conn.getOutputStream());
-		ps.print(requestURL + today);
+		ps.print(requestURL);
 		ps.close();
 
 //				 응답코드

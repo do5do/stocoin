@@ -40,6 +40,9 @@ var options = {
 	yaxis : {
 		tooltip : {
 			enabled : true
+		},
+		labels: {
+			minWidth: 60
 		}
 	},
 	plotOptions : {
@@ -110,6 +113,7 @@ var kinds = "trade_value";
 var sorts = "desc";
 var selected = "BTC";
 var val = "";
+var time = "5m";
 
 // coinList, coinInfo, chart load
 $(function() {
@@ -185,7 +189,7 @@ function change_info(name) {
 }
 
 // coinList, coinInfo, chart change
-function change_chart(name, time = '5m') {
+function change_chart(name = selected) {
 	selected = name;
 	$('#table_wrapper').load('/stocoin/exclude2/coinListReload', 'val=' + val 
 			+ '&kind=' + kinds + '&sort=' + sorts + '&name=' + selected + '&coin_tab=' + tab);
@@ -208,6 +212,12 @@ function change_chart(name, time = '5m') {
 			data: obj2
 	  	}]);
 	});
+}
+
+// 코인 차트 간격 수정
+function change_time(inputTime) {
+	time = inputTime;
+	change_chart();
 }
 
 // 매수/매도 : 수량 자동 변경
@@ -297,3 +307,4 @@ function change_op() {
 	var purchase = Math.floor($('#cnt_txt').val() * closing_price);
 	$('#purchase').val(purchase);
 }
+

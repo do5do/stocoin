@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<h4>${name}</h4>
 <div class="chart-widget">
 	<script type="text/javascript">
-		var selected = "${stockInfo.get('ISU_ABBRV')}";
-
 		//차트 생성 옵션
 		var chart;
 		var options = {
@@ -13,13 +10,9 @@
 				text : 'Loading...'
 			},
 			chart : {
-				height : 600,
+				height : 500,
 				type : 'candlestick',
 				foreColor : '#909090'
-			},
-			title : {
-				text : 'CandleStick Chart - Category X-axis',
-				align : 'left'
 			},
 			annotations : {
 				xaxis : [ {
@@ -117,11 +110,10 @@
 			chart.render();
 			chart2 = new ApexCharts(document.querySelector("#chart_sm"), options2);
 	        chart2.render();
-			chartLoad(selected);
+			chartLoad();
 		});
 		
-		function chartLoad(name, time = '5m') {
-			selected = name;
+		function chartLoad(time = '5m') {
 			var jsonData = JSON.parse('${stockChart}');
 			let jsonArray = [];
 			jsonData.output.forEach((item)=>{

@@ -15,6 +15,7 @@
 		<typeAlias alias="myCoin" type="com.sc.stocoin.model.MyCoin"/>
 		<typeAlias alias="myStock" type="com.sc.stocoin.model.MyStock"/>
 		<typeAlias alias="favoriteCoin" type="com.sc.stocoin.model.FavoriteCoin"/>
+		<typeAlias alias="chat" type="com.sc.stocoin.model.Chat"/>
 	</typeAliases>
 	<!-- 매퍼정보 설정 -->
 	<mappers>
@@ -30,5 +31,6 @@
 		<mapper resource="myCoin.xml" />
 		<mapper resource="myStock.xml" />
 		<mapper resource="favoriteCoin.xml" />
+		<mapper resource="chat.xml" />
 	</mappers>
 </configuration>
