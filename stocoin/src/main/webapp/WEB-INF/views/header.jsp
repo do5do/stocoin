@@ -74,10 +74,10 @@
 		</div>
 		<c:if test="${not empty id}">
 			<c:if test="${id == 'admin' }">
-				<p class="welcome">관리자님 환영합니다</p>
+				<span class="welcome">관리자님 환영합니다</span>
 			</c:if>
 			<c:if test="${id != 'admin' }">
-				<p class="welcome">${nick}님 환영합니다</p>
+				<span class="welcome">${nick}님 환영합니다</span>
 			</c:if>	
 		</c:if>
 		<nav>

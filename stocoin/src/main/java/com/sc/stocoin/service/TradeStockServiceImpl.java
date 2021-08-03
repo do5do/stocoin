@@ -19,8 +19,8 @@ public class TradeStockServiceImpl implements TradeStockService {
 	}
 
 	@Override
-	public int avgContract(String sname) {
-		return tsd.avgContract(sname);
+	public int avgContract(String sname, int mno) {
+		return tsd.avgContract(sname, mno);
 	}
 
 	@Override

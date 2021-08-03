@@ -135,8 +135,8 @@ header .container {
 	position: relative;
 	align-items: center;
 	width: 100%;
-	padding-top: 2%;
-	padding-bottom: 2%;
+	padding-top: 32px;
+	padding-bottom: 32px;
 	margin-top: 0;
 	margin-bottom: 0;
 }
@@ -148,7 +148,7 @@ header .container {
 .welcome {
 	position: absolute;
     right: 97px;
-    top: 26px;
+    top: 35px;
     font-size: 15px;
     color: #adafae !important;
 }
@@ -298,4 +298,8 @@ footer p {
 
 .color_red {
 	color: #f40 !important;
+}
+
+.color_gray {
+	color: #888 !important;
 }

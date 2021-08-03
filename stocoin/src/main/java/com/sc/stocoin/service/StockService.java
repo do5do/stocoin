@@ -8,9 +8,12 @@ import java.util.Map;
 public interface StockService {
 	List<Map<String, Object>> getStockList() throws IOException, ParseException;
 
-	List<Map<String, Object>> stockListSort(String kind, String sort);
+	List<Map<String, Object>> stockListSort(String kind, String sort, List<Map<String, Object>> stockList);
 
-	Map<String, Object> getStockInfo(String code);
+	Map<String, Object> getStockInfo(String code) throws IOException, ParseException;
 	
 	String getChart(String name) throws IOException;
+
+	List<Map<String, Object>> getStockSearch(String search, List<Map<String, Object>> stockList);
+	
 }

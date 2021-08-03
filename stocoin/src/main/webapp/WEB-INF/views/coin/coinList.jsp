@@ -18,8 +18,8 @@
 			alert('로그인이 필요합니다.');
 			return false;
 		}
-		$('#coin_tab p').removeClass('blue');
-		$('#' + tab).addClass('blue');
+		$('#main_tab p').removeClass('active');
+		$('#' + tab).addClass('active');
 		$('#table_wrapper').load('/stocoin/exclude2/coinListReload', 'val=' + val 
 				+ '&kind=' + kinds + '&sort=' + sorts + '&name=' + selected + '&coin_tab=' + tab);
 	}
@@ -28,8 +28,8 @@
 <body>
 	<div id="content">
 		<div id="content_left">
-			<div id="coin_tab">
-				<p class="blue" onclick="return coin_tab()" id="all">전체</p>
+			<div id="main_tab">
+				<p class="active" onclick="return coin_tab()" id="all">전체</p>
 				<p onclick="return coin_tab()" id="my">보유</p>
 				<p onclick="return coin_tab()" id="favorite">관심</p>
 			</div>

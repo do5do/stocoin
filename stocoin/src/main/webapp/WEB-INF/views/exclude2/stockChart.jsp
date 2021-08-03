@@ -131,11 +131,16 @@
 					align : 'left'
 				}
 			});
+			chart2.updateOptions({
+				title : {
+					text : name,
+					align : 'left'
+				}
+			});
 			chart.updateSeries([{
 			  name: 'Sales',
 			  data: jsonArray
 			}]);
-			
 			chart2.updateSeries([{
 			  name: 'price',
 			  data: jsonArray

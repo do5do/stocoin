@@ -1,5 +1,7 @@
 package com.sc.stocoin.controller;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -86,7 +88,7 @@ public class TradeStockController {
 	}
 	
 	@RequestMapping("/myPage/myStockList")
-	public String myStock(HttpSession session, Model model) {
+	public String myStock(HttpSession session, Model model) throws IOException, ParseException {
 		int mno = (int) session.getAttribute("mno");
 		String id = (String) session.getAttribute("id");
 		
@@ -103,7 +105,7 @@ public class TradeStockController {
 			Map<String, Object> map = new HashMap<>();
 			
 			// 매매단가 조회
-			int contractAvg = tss.avgContract(list.getSname());
+			int contractAvg = tss.avgContract(list.getSname(), list.getMno());
 			// 실 데이터 조회
 			Map<String, Object> stockInfo = ss.getStockInfo(list.getCode());
 			

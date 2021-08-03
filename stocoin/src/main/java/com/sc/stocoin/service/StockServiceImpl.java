@@ -185,9 +185,9 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public List<Map<String, Object>> stockListSort(String kind, String sort) {
+	public List<Map<String, Object>> stockListSort(String kind, String sort, List<Map<String, Object>> stockList) {
 		// sort : stockList가 String이면 sort error
-		Collections.sort(stockLists, new Comparator<Map<String, Object>>() {
+		Collections.sort(stockList, new Comparator<Map<String, Object>>() {
 			@Override
 			public int compare(Map<String, Object> o1, Map<String, Object> o2) {
 				if (sort.equals("asc")) {
@@ -217,13 +217,17 @@ public class StockServiceImpl implements StockService {
 				}
 			}
 		});
-		return stockLists;
+		return stockList;
 	}
 
 	@Override
-	public Map<String, Object> getStockInfo(String code){
+	public Map<String, Object> getStockInfo(String code) throws IOException, ParseException{
 		// 해당 이름에 대한 stock 정보를 담을 map 생성
 		Map<String, Object> stockInfo = new HashMap<>();
+		
+		if (stockLists == null) {
+			getStockList();
+		}
 		
 		for (int i = 0; i < stockLists.size(); i++) {
 			String codes = (String) stockLists.get(i).get("ISU_SRT_CD");
@@ -291,4 +295,23 @@ public class StockServiceImpl implements StockService {
 		return result;
 	}
 
+	@Override
+	public List<Map<String, Object>> getStockSearch(String search, List<Map<String, Object>> stockList) {
+		// 해당 이름에 대한 stock 정보를 담을 map 생성
+		List<Map<String, Object>> stockSearch = new ArrayList<>();
+		
+		for (int i = 0; i < stockList.size(); i++) {
+			String sname = ((String) stockList.get(i).get("ISU_ABBRV")).toUpperCase();
+			
+			// 해당 검색결과가 있는 map을 찾아서 리스트 생성
+			if (sname.contains(search.toUpperCase())) {
+				stockSearch.add(stockList.get(i));
+				break;
+			}
+		}
+		
+		return stockSearch;
+	}
+
+	
 }

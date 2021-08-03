@@ -225,7 +225,8 @@ CREATE TABLE FavoriteStock
 (
     mno    NUMBER NOT NULL,
     fs_no    NUMBER NOT NULL,
-    sno    NUMBER NOT NULL
+    sname	VARCHAR2(20) NOT NULL,
+    code	VARCHAR2(10) NOT NULL
 );
 
 ALTER TABLE FavoriteStock
