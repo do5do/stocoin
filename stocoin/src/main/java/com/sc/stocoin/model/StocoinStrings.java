@@ -20061,4 +20061,5 @@ public class StocoinStrings {
 				"	\r\n" + 
 				"}";
 	}
+
 }

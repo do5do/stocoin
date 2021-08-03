@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sc.stocoin.model.MyCoin;
 import com.sc.stocoin.model.TradeCoin;
+import com.sc.stocoin.model.TradeStock;
 
 @Repository
 public class TradeCoinDaoImpl implements TradeCoinDao {
@@ -26,6 +27,19 @@ public class TradeCoinDaoImpl implements TradeCoinDao {
 		sst.delete("tradeCoinns.delete", mno);
 	}
 
+	@Override
+	public int avgContract(String cname, int mno) {
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("mno", mno);
+		hm.put("cname", cname);		
+		return sst.selectOne("tradeCoinns.avgContract", hm);
+	}
+
+	@Override
+	public List<TradeStock> tradeList(int mno) {
+		return sst.selectList("tradeCoinns.tradeList", mno);
+	}
+	
 	// 보유현황
 	@Override
 	public MyCoin mySelect(int mno, String name) {
@@ -59,4 +73,11 @@ public class TradeCoinDaoImpl implements TradeCoinDao {
 	public void myDelete(int mno) {
 		sst.delete("myCoinns.delete", mno);
 	}
+
+	@Override
+	public List<MyCoin> myCoinList(int mno) {
+		return sst.selectList("myCoinns.myCoinList", mno);
+	}
+
+
 }

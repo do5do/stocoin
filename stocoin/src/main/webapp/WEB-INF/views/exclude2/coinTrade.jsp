@@ -42,7 +42,15 @@
 			$('#purchase').blur();
 		} else {
 			if (change == 'cnt') {
-				 change_op();
+				var val = event.target.value;
+				var val_float = val.split('.')[1].length;
+				if (val_float >= 5) {
+					alert("소수점 넷째자리까지만 입력가능합니다");
+					$('#cnt_txt').val(val.slice(0,-1));
+					$('#cnt_txt').blur();
+					return false;
+				}
+				change_op();
 			} else if (change == 'range') {
 				change_range();
 				change_cnt('range');
@@ -97,7 +105,7 @@
 			</div>
 			
 			<div id="cnt">
-				<input type="number" name="cnt" id="cnt_txt" placeholder="0" step="0.0001" onkeyUp="typeChk('cnt');">
+				<input type="number" name="cnt" id="cnt_txt" placeholder="0" step="0.0001" min="0.0001" onkeyUp="return typeChk('cnt');">
 				<span class="color_gray">${name}</span>
 				<input type="range" id="range" value="0" min="0" max="100" step="10" onmouseup="typeChk('range');">
 				<span><span id="range_percent">0</span>%</span>

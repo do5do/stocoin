@@ -11,10 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sc.stocoin.model.Coin;
 import com.sc.stocoin.model.FavoriteCoin;
 import com.sc.stocoin.model.Member;
 import com.sc.stocoin.model.MyCoin;
@@ -40,13 +39,14 @@ public class CoinController {
 	
 	@RequestMapping("/coin/coinList")
 	public String coinList() {
+		Coin coin = new Coin();
+		coin.getCoinNameKo();
 		return "coin/coinList";
 	}
 	
 	// coin list(interval)
 	@RequestMapping("/exclude2/coinListReload")
-	public String coinListReload(@RequestParam(value="val", required=false) String val, @RequestParam("kind") String kind,
-					@RequestParam("sort") String sort, @RequestParam("name") String name, @RequestParam("coin_tab") String coin_tab,
+	public String coinListReload(String val, String kind, String sort, String name, String coin_tab,
 					Model model, HttpSession session) throws IOException, ParseException {
 		List<Map<String, Object>> coinList = cs.getCoinList(kind, sort, coin_tab, val, session);
 		model.addAttribute("name", name);
@@ -69,7 +69,7 @@ public class CoinController {
 	public String coinTrade(Model model, String name, HttpSession session) throws IOException {
 		String id = (String) session.getAttribute("id");
 		Map<String, String> coinInfo = cs.getCoinInfo(name);
-		if (id != null) {			
+		if (id != null && !id.equals("admin")) {			
 			int mno = (int) session.getAttribute("mno");
 			Member member = ms.select(id);
 			model.addAttribute("coin_money", member.getCoin_money());

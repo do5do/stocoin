@@ -53,9 +53,9 @@
 						<p>예수금</p><!-- 내가 가진 현금 -->
 					</div>
 					<div class="right">
-						<p class="totalRate"></p>
+						<div class="totalRate"><p></p><span>%</span></div>
 						<p class="totalPurchase"></p>
-						<p class="totalGain"></p>
+						<div class="totalGain"><p></p><span>원</span></div>
 						<p class="evaluation"></p>
 						<p><fmt:formatNumber value="${stockMoney }"></fmt:formatNumber>원</p>
 					</div>
@@ -95,9 +95,9 @@
 								<!-- 현재가 -->
 								<p><fmt:formatNumber value="${myStock.get('recentPrice')}"></fmt:formatNumber>원</p>
 								<!-- 평가손익 -->
-								<p class="gain"><fmt:formatNumber value="${(myStock[key='recentPrice'] * myStock.cnt) - (myStock[key='contractAvg'] * myStock.cnt)}"></fmt:formatNumber>원</p>
+								<p class="gain"><fmt:formatNumber value="${(myStock[key='recentPrice'] * myStock.cnt) - (myStock[key='contractAvg'] * myStock.cnt)}"></fmt:formatNumber><span>원</span></p>
 								<!-- 수익률 -->
-								<p class="rate"><fmt:formatNumber value="${((myStock[key='recentPrice'] - myStock[key='contractAvg']) / myStock[key='contractAvg']) * 100 }" pattern="0.00"></fmt:formatNumber>%</p>									
+								<p class="rate"><fmt:formatNumber value="${((myStock[key='recentPrice'] - myStock[key='contractAvg']) / myStock[key='contractAvg']) * 100 }" pattern="0.00"></fmt:formatNumber><span>%</span></p>									
 								<!-- 매입금액 -->
 								<p class="purchase"><fmt:formatNumber value="${myStock.get('contractAvg') * myStock.cnt}"></fmt:formatNumber>원</p>
 								<!-- 평가금액 -->
@@ -121,6 +121,8 @@
 	var gain = document.querySelectorAll('.gain');
 	//총 수익률
 	var rate = document.querySelectorAll('.rate');
+	// 예수금
+	var stockMoney = ${stockMoney};
 	
 	var len = purchase.length;
 	var totalPurchase = 0;
@@ -130,8 +132,8 @@
 	// sum
 	for (var i = 0; i < len; i++) {
 		var intPurchase = parseInt(purchase[i].innerText.split('원')[0].replaceAll(",", ""));
-		var intGain = parseInt(gain[i].innerText.split('원')[0].replaceAll(",", ""));
-		var intRate = parseInt(rate[i].innerText.split('원')[0].replaceAll(",", ""));
+		var intGain = parseInt(gain[i].innerText.replaceAll(",", ""));
+		var intRate = parseInt(rate[i].innerText.replaceAll(",", ""));
 		
 		totalPurchase += intPurchase;
 		totalGain += intGain;
@@ -140,12 +142,12 @@
 	
 	// put
 	var replaceTotalPurchase = totalPurchase.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원";
-	var replaceTotalGain = totalGain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원";
-	var replaceTotalRate = totalRate.toFixed(2)+"%"; // 소수점 2자리로 고정
+	var replaceTotalGain = totalGain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	var replaceTotalRate = totalRate.toFixed(2); // 소수점 2자리로 고정
 	
 	$('.totalPurchase').text(replaceTotalPurchase);
-	$('.totalGain').text(replaceTotalGain);
-	$('.totalRate').text(replaceTotalRate);
+	$('.totalGain p').text(replaceTotalGain);
+	$('.totalRate p').text(replaceTotalRate);
 	
 	// 총 평가금
 	var evaluation = totalPurchase + totalGain;
@@ -153,7 +155,7 @@
 	$('.evaluation').text(replaceEvaluation);
 	
 	// 총 추정자산
-	var totalMoney = totalPurchase + totalGain + evaluation;
+	var totalMoney = totalPurchase + totalGain + stockMoney;
 	var replaceTotalMoney = totalMoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	$('.totalMoney').text(replaceTotalMoney);
 	
@@ -165,11 +167,20 @@
 	
 	// color function
 	function changeColor(name) {
-		if (name > 0) {
-			$('.'+name).addClass('color_red');
-		} else if (name < 0) {
-			$('.'+name).addClass('color_blue');
+		var names = document.querySelectorAll("."+name);
+		console.log(names.length);
+		console.log(name);
+		for (var i = 0; i < names.length; i++) {
+			console.log(names[i]);
+			var value = parseFloat(names[i].innerText.replaceAll(",", ""));
+			console.log(value);
+			if (value > 0) {
+				names[i].classList.add("color_red");
+			} else if (value < 0) {
+				names[i].classList.add("color_blue");
+			}
 		}
+		
 	}
 </script>
 </html>

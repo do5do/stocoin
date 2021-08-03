@@ -130,7 +130,7 @@ public class CoinServiceImpl implements CoinService {
 			float trade_value = data.getAsJsonObject().get(att.getKey()).getAsJsonObject().get("acc_trade_value_24H")
 					.getAsFloat();
 			String star = "☆";
-			if (id != null) {
+			if (id != null && !id.equals("admin")) {			
 				int mno = (int) session.getAttribute("mno");
 				List<FavoriteCoin> favoriteCoinName = fcd.favoriteCoinName(mno);
 				for (int i = 0; i < favoriteCoinName.size(); i ++) {

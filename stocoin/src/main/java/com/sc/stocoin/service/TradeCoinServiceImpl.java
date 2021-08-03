@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.sc.stocoin.dao.TradeCoinDao;
 import com.sc.stocoin.model.MyCoin;
 import com.sc.stocoin.model.TradeCoin;
+import com.sc.stocoin.model.TradeStock;
 
 @Service
 public class TradeCoinServiceImpl implements TradeCoinService {
@@ -25,6 +26,15 @@ public class TradeCoinServiceImpl implements TradeCoinService {
 		tcd.tradeDelete(mno);
 	}
 
+	@Override
+	public int avgContract(String cname, int mno) {
+		return tcd.avgContract(cname, mno);
+	}
+
+	@Override
+	public List<TradeStock> tradeList(int mno) {
+		return tcd.tradeList(mno);
+	}
 
 	//보유 현황
 	@Override
@@ -56,5 +66,11 @@ public class TradeCoinServiceImpl implements TradeCoinService {
 	public void myDelete(int mno) {
 		tcd.myDelete(mno);
 	}
+
+	@Override
+	public List<MyCoin> myCoinList(int mno) {
+		return tcd.myCoinList(mno);
+	}
+
 
 }

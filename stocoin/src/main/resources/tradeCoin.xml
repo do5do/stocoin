@@ -15,4 +15,12 @@
 		delete from tradeCoin where mno = #{mno}
 	</delete>
 
+	<select id="avgContract" parameterType="hashmap" resultType="integer">
+		select avg(contract) from tradeCoin where mno = #{mno} and cname = #{cname} and types = 1
+	</select>
+	
+	<select id="tradeList" parameterType="integer" resultType="tradeCoin">
+		select * from tradeCoin where mno = #{mno}
+	</select>
+
 </mapper>

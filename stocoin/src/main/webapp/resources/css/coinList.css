@@ -1,17 +1,5 @@
 @charset "UTF-8";
 
-.color_blue {
-	color: #19f !important;
-}
-
-.color_red {
-	color: #f40 !important;
-}
-
-.color_gray {
-	color: #888 !important;
-}
-
 .text-sm {
 	font-size: 16px; 
 }

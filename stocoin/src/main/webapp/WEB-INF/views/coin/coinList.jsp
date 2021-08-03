@@ -14,8 +14,11 @@
 	var tab = "all";
 	function coin_tab() {
 		tab = event.target.id;
-		if (${empty id} && tab != "all") {
+		if (${empty id} && tab != 'all') {
 			alert('로그인이 필요합니다.');
+			return false;
+		} else if (${id == 'admin'} && tab != 'all') {
+			alert('관리자는 이용불가합니다');
 			return false;
 		}
 		$('#coin_tab p').removeClass('blue');

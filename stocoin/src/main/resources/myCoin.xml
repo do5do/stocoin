@@ -32,5 +32,9 @@
 	<delete id="delete" parameterType="integer">
 		delete from myCoin where mno = #{mno}
 	</delete>
+		
+	<select id="myCoinList" parameterType="integer" resultType="myCoin">
+		select * from myCoin where mno = #{mno} and cnt > 0
+	</select>
 	
 </mapper>

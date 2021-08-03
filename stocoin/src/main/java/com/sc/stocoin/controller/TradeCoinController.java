@@ -1,5 +1,11 @@
 package com.sc.stocoin.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.sc.stocoin.model.Member;
 import com.sc.stocoin.model.MyCoin;
 import com.sc.stocoin.model.TradeCoin;
+import com.sc.stocoin.model.TradeStock;
+import com.sc.stocoin.service.CoinService;
 import com.sc.stocoin.service.MemberService;
 import com.sc.stocoin.service.TradeCoinService;
 @Controller
@@ -17,6 +25,9 @@ public class TradeCoinController {
 	@Autowired
 	private TradeCoinService tcs;
 
+	@Autowired
+	private CoinService cs;
+	
 	@Autowired
 	private MemberService ms;
 	
@@ -59,4 +70,49 @@ public class TradeCoinController {
 		
 		return "coin/tradeCoin";
 	}
+	
+	@RequestMapping("/myPage/myCoinList")
+	public String myCoin(HttpSession session, Model model) throws IOException {
+		int mno = (int) session.getAttribute("mno");
+		String id = (String) session.getAttribute("id");
+		
+		Member member = ms.select(id);
+		int coinMoney = member.getCoin_money();
+		
+		List<MyCoin> myCoinList = tcs.myCoinList(mno);
+		List<Map<String, Object>> totalList = new ArrayList<>();
+		
+		for (MyCoin list : myCoinList) {
+			Map<String, Object> map = new HashMap<>();
+			int contractAvg = tcs.avgContract(list.getCname(), mno);
+			Map<String, String> coinInfo = cs.getCoinInfo(list.getCname());
+			
+			map.put("contractAvg", contractAvg);
+			map.put("cname", list.getCname());
+			map.put("cnt", list.getCnt());
+			map.put("purchase", list.getPurchase());
+			map.put("fluc_rt", coinInfo.get("fluctate_rate_24H"));
+			map.put("closing_price", coinInfo.get("closing_price"));
+			
+			totalList.add(map);
+		}
+		
+		
+		model.addAttribute("coinMoney", coinMoney);
+		model.addAttribute("list", totalList);
+		return "myPage/myCoinList";
+	}
+	
+	@RequestMapping("/exclude2/coinTradeList")
+	public String tradeList(HttpSession session, Model model) {
+		int mno = (int) session.getAttribute("mno");
+		
+		// 거래내역 list
+		List<TradeStock> list = tcs.tradeList(mno);
+		
+		model.addAttribute("list", list);
+		return "exclude2/coinTradeList";
+	}
+
+	
 }
