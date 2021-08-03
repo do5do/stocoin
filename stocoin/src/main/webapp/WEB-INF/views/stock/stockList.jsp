@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/stocoin/resources/css/coinList.css">
+<link rel="stylesheet" type="text/css" href="/stocoin/resources/css/coin.css">
 <link rel="stylesheet" type="text/css" href="/stocoin/resources/css/stock.css">
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script type="text/javascript" src="/stocoin/resources/js/dayjs.min.js"></script>
@@ -48,7 +48,7 @@
 		// 선택한 리스트 표시
 		$(".list").removeClass('active');
 		$('#'+code).addClass('active');
-		//document.getElementById("name").innerHTML = selected;
+		document.getElementById("name").innerHTML = selected;
 		
 	}
 	
