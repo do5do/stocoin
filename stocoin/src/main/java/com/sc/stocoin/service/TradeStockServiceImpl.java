@@ -27,4 +27,9 @@ public class TradeStockServiceImpl implements TradeStockService {
 	public List<TradeStock> tradeList(int mno) {
 		return tsd.tradeList(mno);
 	}
+
+	@Override
+	public void deleteMno(int mno) {
+		tsd.deleteMno(mno);
+	}
 }

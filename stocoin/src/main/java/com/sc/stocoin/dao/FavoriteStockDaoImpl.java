@@ -32,4 +32,9 @@ public class FavoriteStockDaoImpl implements FavoriteStockDao {
 	public List<FavoriteStock> selectFavo(int mno) {
 		return sst.selectList("favoriteStockns.selectFavo", mno);
 	}
+
+	@Override
+	public void deleteMno(int mno) {
+		sst.delete("favoriteStockns.deleteMno", mno);
+	}
 }

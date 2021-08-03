@@ -12,5 +12,7 @@ public interface TradeStockService {
 
 	List<TradeStock> tradeList(int mno);
 
+	void deleteMno(int mno);
+
 	
 }

@@ -12,4 +12,6 @@ public interface TradeStockDao {
 
 	List<TradeStock> tradeList(int mno);
 
+	void deleteMno(int mno);
+
 }

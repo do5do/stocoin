@@ -14,4 +14,6 @@ public interface FavoriteStockService {
 
 	List<FavoriteStock> selectFavo(int mno);
 
+	void deleteMno(int mno);
+
 }

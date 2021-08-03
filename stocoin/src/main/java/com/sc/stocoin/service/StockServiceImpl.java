@@ -27,14 +27,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sc.stocoin.dao.StockDao;
 import com.sc.stocoin.model.StocoinStrings;
 
 @Service
 public class StockServiceImpl implements StockService {
-	@Autowired
-	private StockDao cd;
-
 	private List<Map<String, Object>> stockLists;
 	private List<Map<String, Object>> stockCodes;
 	private Map<String, String> corpCodes;

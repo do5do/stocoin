@@ -17,4 +17,8 @@
 	<select id="tradeList" parameterType="integer" resultType="tradeStock">
 		select * from tradeStock where mno = #{mno} order by ts_no desc
 	</select>
+	
+	<delete id="deleteMno" parameterType="integer">
+		delete from tradeStock where mno = #{mno}
+	</delete>
 </mapper>

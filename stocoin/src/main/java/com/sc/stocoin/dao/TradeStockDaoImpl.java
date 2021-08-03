@@ -31,4 +31,9 @@ public class TradeStockDaoImpl implements TradeStockDao {
 	public List<TradeStock> tradeList(int mno) {
 		return sst.selectList("tradestockns.tradeList", mno);
 	}
+
+	@Override
+	public void deleteMno(int mno) {
+		sst.delete("tradestockns.deleteMno", mno);
+	}
 }

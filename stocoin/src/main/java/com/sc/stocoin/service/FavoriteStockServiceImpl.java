@@ -32,4 +32,9 @@ public class FavoriteStockServiceImpl implements FavoriteStockService {
 	public List<FavoriteStock> selectFavo(int mno) {
 		return fsd.selectFavo(mno);
 	}
+
+	@Override
+	public void deleteMno(int mno) {
+		fsd.deleteMno(mno);
+	}
 }
