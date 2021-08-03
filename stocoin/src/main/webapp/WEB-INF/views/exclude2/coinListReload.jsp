@@ -42,6 +42,12 @@
 			alert('로그인이 필요합니다');
 			return false;
 		}
-		$.post('/stocoin/coin/favoriteCoin', 'name=' + name, function() {});
+		$.post('/stocoin/coin/favoriteCoin', 'name=' + name, function(data) {
+			if(data == "1") {
+				$('#' + name + ' .star').text("★");
+			} else {
+				$('#' + name + ' .star').text("☆");
+			}
+		});
 	}
 </script>

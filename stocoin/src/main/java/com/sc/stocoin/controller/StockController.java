@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sc.stocoin.model.Member;
@@ -92,4 +93,11 @@ public class StockController {
 		return "/exclude2/stockChart";
 	}
 	
+	@RequestMapping("/exclude/financialStatement/code/{code}")
+	public String financialStatement(@PathVariable String code, Model model) throws IOException {
+		String year = "2020";
+		List<Map<String,Object>> fs = ss.getFinancialStatement(code, year);
+		model.addAttribute("fsList", fs);
+		return "exclude/financialStatement";
+	}
 }

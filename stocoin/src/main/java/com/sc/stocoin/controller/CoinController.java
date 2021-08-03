@@ -8,11 +8,13 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sc.stocoin.model.FavoriteCoin;
@@ -39,8 +41,14 @@ public class CoinController {
 	private FavoriteCoinService fcs;
 	
 	@RequestMapping("/coin/coinList")
-	public String coinList() {
+	public String coinList(HttpSession session) throws IOException {
+		cs.initialCoinList(session);
 		return "coin/coinList";
+	}
+	@RequestMapping("/coin/refresh")
+	@ResponseStatus(value = HttpStatus.OK)
+	public void refresh(HttpSession session) throws IOException {
+		cs.initialCoinList(session);
 	}
 	
 	// coin list(interval)
@@ -88,14 +96,18 @@ public class CoinController {
 	@RequestMapping("/coin/favoriteCoin")
 	@ResponseBody
 	public String favoriteCoin(String name, Model model, HttpSession session) {
+		cs.changeCoinStar(name);
+		String star = "";
 		int mno = (int) session.getAttribute("mno");
 		FavoriteCoin fc = fcs.select(mno, name);
 		if (fc == null) {
 			fcs.insert(mno, name);
+			star = "1";
 		} else { 
 			fcs.delete(mno, name);
+			star = "2";
 		}
-		return "";
+		return star;
 	}
 
 }

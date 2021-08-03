@@ -14,4 +14,5 @@ public interface CoinService {
  
 	Map<String, String> getCoinInfo(String name) throws IOException;
 	
+	void changeCoinStar(String name);
 }
