@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sc.stocoin.model.Member;
@@ -81,13 +82,22 @@ public class StockController {
 	}
 	
 	@RequestMapping("/exclude2/stockChart")
-	public String stockChart(String code, Model model) throws IOException, ParseException {
-		if (code == null) {
+	public String stockChart(String code, String time, Model model) throws IOException, ParseException {
+		if (code == null) 
 			code = "005930"; // 삼성전자
-		}
-		String chartData = ss.getChart(code);
+		
+		if (time == null)
+			time = "1d";
+		String chartData = ss.getChart(code, time);
 		model.addAttribute("stockChart", chartData);
 		return "/exclude2/stockChart";
 	}
 	
+	@RequestMapping("/exclude/financialStatement/code/{code}")
+	public String financialStatement(@PathVariable String code, Model model) throws IOException {
+		String year = "2020";
+		List<Map<String,Object>> fs = ss.getFinancialStatement(code, year);
+		model.addAttribute("fsList", fs);
+		return "exclude/financialStatement";
+	}
 }

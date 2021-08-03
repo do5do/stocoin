@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 public interface StockService {
-	List<Map<String, Object>> getStockList() throws IOException, ParseException;
+	List<Map<String, Object>> getStockList() throws IOException;
 
 	List<Map<String, Object>> stockListSort(String kind, String sort);
 
 	Map<String, Object> getStockInfo(String code);
 	
-	String getChart(String name) throws IOException;
+	String getChart(String code, String time) throws IOException;
+	
+	List<Map<String, Object>> getFinancialStatement(String code, String year) throws IOException;
 }

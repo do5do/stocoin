@@ -160,6 +160,7 @@ function search_del() {
 setInterval(myTimer, 5000);
 function myTimer() {
 	change_chart(selected); 
+	$.ajax("/stocoin/coin/refresh");
 }
 
 // 정렬

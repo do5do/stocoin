@@ -144,8 +144,8 @@
 	
 	// 재무제표
 	function fState(corp_code) {
-		var link = "https://opendart.fss.or.kr/api/fnlttSinglAcntAll.json?crtfc_key=a248d130cedcab6227310f848b1b5bb297bc4ed1&corp_code=" + corp_code +"&bsns_year=2020&reprt_code=11011&fs_div=OFS";
-		window.open(link, "fState", "width=500,height=600");
+		var link = "/stocoin/exclude/financialStatement/code/" + corp_code;
+		window.open(link, "fState", "width=800,height=900");
 	}
 </script>
 <!-- 주식 정보 section -->

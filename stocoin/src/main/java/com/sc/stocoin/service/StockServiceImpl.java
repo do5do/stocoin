@@ -17,6 +17,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sc.stocoin.dao.StockDao;
+import com.sc.stocoin.model.FavoriteCoin;
 import com.sc.stocoin.model.StocoinStrings;
 
 @Service
@@ -38,9 +41,9 @@ public class StockServiceImpl implements StockService {
 	private List<Map<String, Object>> stockLists;
 	private List<Map<String, Object>> stockCodes;
 	private Map<String, String> corpCodes;
-	
+
 	@Override
-	public List<Map<String, Object>> getStockList() throws IOException, ParseException {
+	public List<Map<String, Object>> getStockList() throws IOException {
 		// 연결 URL 설정
 		String requestURL = "bld=dbms/MDC/STAT/standard/MDCSTAT01501&mktId=ALL&share=1&money=1&csvxls_isNo=false&trdDd=";
 		URL otpURL = new URL("http://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd");
@@ -51,25 +54,25 @@ public class StockServiceImpl implements StockService {
 		conn.setRequestProperty("referer",
 				"http://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd?menuId=MDC0201020101");
 		conn.setDoOutput(true);
-		
+
 		// 오늘 연월일 : today
-	    SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
-	    Date time = new Date();
-	    // 24시 부터 09시까지는 전날로 계산
-	    Calendar cal = Calendar.getInstance();
-	    cal.setTime(time);
-	    int hour = cal.get(Calendar.HOUR_OF_DAY);
-	    if(hour < 9)
-	    	cal.add(Calendar.DATE, -1);
-	    // 주말은 금요일로 계산
-	    int week = cal.get(Calendar.DAY_OF_WEEK);
-	    if(week == 1) // 일요일
-	    	cal.add(Calendar.DATE, -2);
-	    else if (week == 7) // 토요일
-	    	cal.add(Calendar.DATE, -1);
-	      
-	    time = cal.getTime();
-	    String today = format1.format(time);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+		Date time = new Date();
+		// 24시 부터 09시까지는 전날로 계산
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(time);
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		if (hour < 9)
+			cal.add(Calendar.DATE, -1);
+		// 주말은 금요일로 계산
+		int week = cal.get(Calendar.DAY_OF_WEEK);
+		if (week == 1) // 일요일
+			cal.add(Calendar.DATE, -2);
+		else if (week == 7) // 토요일
+			cal.add(Calendar.DATE, -1);
+
+		time = cal.getTime();
+		String today = format1.format(time);
 
 		// 연결
 		PrintStream ps = new PrintStream(conn.getOutputStream());
@@ -102,7 +105,8 @@ public class StockServiceImpl implements StockService {
 		JsonArray array = (JsonArray) object.get("OutBlock_1");
 
 		// 형식 지정 : map으로 쓰겠다
-		Type mapTokenType = new TypeToken<Map<String, Object>>() {}.getType();
+		Type mapTokenType = new TypeToken<Map<String, Object>>() {
+		}.getType();
 
 		// stock list
 		List<Map<String, Object>> stockList = new ArrayList<>();
@@ -116,8 +120,6 @@ public class StockServiceImpl implements StockService {
 		}
 		this.stockLists = stockList;
 
-		
-		
 		// 종목 코드 받아오기
 		requestURL = "bld=dbms/MDC/STAT/standard/MDCSTAT01901&mktId=ALL&share=1&csvxls_isNo=false";
 		// 연결 설정
@@ -142,7 +144,7 @@ public class StockServiceImpl implements StockService {
 		conn.disconnect();
 
 		result = sb.toString();
-		
+
 		// JSON 파싱
 		parser = new JsonParser();
 		element = parser.parse(result);
@@ -164,19 +166,17 @@ public class StockServiceImpl implements StockService {
 		this.stockCodes = stockCode;
 		// 종목코드 종료
 
-		
-		
 		// 종목코드 - 회사코드
 		corpCodes = new HashMap<String, String>();
 		StocoinStrings ss = new StocoinStrings();
 		String corpCode = ss.getCORPCODE();
-		
+
 		parser = new JsonParser();
 		element = parser.parse(corpCode);
 		object = element.getAsJsonObject();
-		
+
 		array = (JsonArray) object.get("list");
-		for(int i = 0; i < array.size(); i++) {
+		for (int i = 0; i < array.size(); i++) {
 			JsonObject object2 = (JsonObject) array.get(i);
 			corpCodes.put(object2.get("stock_code").getAsString(), object2.get("corp_code").getAsString());
 		}
@@ -221,10 +221,10 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public Map<String, Object> getStockInfo(String code){
+	public Map<String, Object> getStockInfo(String code) {
 		// 해당 이름에 대한 stock 정보를 담을 map 생성
 		Map<String, Object> stockInfo = new HashMap<>();
-		
+
 		for (int i = 0; i < stockLists.size(); i++) {
 			String codes = (String) stockLists.get(i).get("ISU_SRT_CD");
 
@@ -243,7 +243,7 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public String getChart(String code) throws IOException {
+	public String getChart(String code, String time) throws IOException {
 		// 종목 코드 검색
 		String isuCode = "";
 		for (int i = 0; i < stockCodes.size(); i++) {
@@ -256,8 +256,15 @@ public class StockServiceImpl implements StockService {
 			}
 		}
 		// 연결 URL 설정
-		String requestURL = "bld=dbms/MDC/STAT/standard/MDCSTAT02106&ddTp=1M&isuCd=" + isuCode
-				+ "&isuCd2=&param1isuCd_finder_stkisu0_0=ALL&csvxls_isNo=false";
+		String requestURL;
+		// 일간 차트
+		if (time.equals("1d"))
+			requestURL = "bld=dbms/MDC/STAT/standard/MDCSTAT02106&ddTp=1M&isuCd=" + isuCode
+					+ "&isuCd2=&param1isuCd_finder_stkisu0_0=ALL&csvxls_isNo=false";
+		// 일일 차트
+		else
+			requestURL = "bld=dbms/MDC/STAT/standard/MDCSTAT02105&isuCd=" + isuCode
+					+ "&isuCd2=&param1isuCd_finder_stkisu0_0=ALL&csvxls_isNo=false";
 		URL otpURL = new URL("http://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd");
 
 		// 연결 설정
@@ -291,4 +298,45 @@ public class StockServiceImpl implements StockService {
 		return result;
 	}
 
+	@Override
+	public List<Map<String, Object>> getFinancialStatement(String code, String year) throws IOException {
+		String reqURL = "https://opendart.fss.or.kr/api/fnlttSinglAcntAll.json?crtfc_key=a248d130cedcab6227310f848b1b5bb297bc4ed1&corp_code="
+				+ code + "&bsns_year=" + year + "&reprt_code=11011&fs_div=OFS";
+
+		URL url = new URL(reqURL);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+		// 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
+		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+		String line = "";
+		String result = "";
+
+		while ((line = br.readLine()) != null) {
+			result += line;
+		}
+
+		// JSON 파싱
+		JsonParser parser = new JsonParser();
+		JsonElement element = parser.parse(result);
+		// JSONObject에 담기
+		JsonObject object = element.getAsJsonObject();
+		// JSONArray에 담기
+		JsonArray array = (JsonArray) object.get("list");
+
+		// 형식 지정 : map으로 쓰겠다
+		Type mapTokenType = new TypeToken<Map<String, Object>>() {
+		}.getType();
+
+		// stock list
+		List<Map<String, Object>> fs = new ArrayList<>();
+
+		for (int i = 0; i < array.size(); i++) {
+			JsonObject object2 = (JsonObject) array.get(i);
+
+			// object2에 있는 모든 요소를 한번에 담기
+			Map<String, Object> map = new Gson().fromJson(object2, mapTokenType);
+			fs.add(map);
+		}
+		return fs;
+	}
 }
