@@ -58,6 +58,8 @@
 	// 주식 차트 간격 수정
 	function change_time(inputTime) {
 		time = inputTime;
+		$('.chart_btn button').removeClass('color_blue');
+		event.target.classList.add('color_blue');
 		$('#chart').load("/stocoin/exclude2/stockChart?code=" + code + "&time=" + time);
 	}
 	
