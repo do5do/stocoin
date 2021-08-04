@@ -6,7 +6,7 @@
     <thead>
 		<tr>
 			<th>거래일시</th>
-			<th>종목명</th>
+			<th>자산</th>
 			<th>거래구분</th>
 			<th>거래수량</th>
 			<th>체결가격</th>

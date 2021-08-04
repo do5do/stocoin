@@ -123,11 +123,6 @@ $(function() {
 	chart2.render();
 	$('.trade').load('/stocoin/exclude2/coinTrade?name=' + selected);
 	change_chart(selected);
-//	var className = document.getElementsByClassName('click_td');
-//	for (var i = 0; i < className.length; i++) {
-//		var selected_coin = className[i].parentElement.id;
-//		className[i].addEventListener('click', change_info(selected_coin));
-//	}
 });
 
 // 검색

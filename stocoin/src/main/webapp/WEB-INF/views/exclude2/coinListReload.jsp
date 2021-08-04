@@ -35,7 +35,6 @@
 	</table>
 </c:if>
 <script type="text/javascript">
-	$('.list').removeClass('active');
 	$('#${name}').addClass('active');
 	function change_star(name) {
 		if (${empty id}) {

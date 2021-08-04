@@ -37,6 +37,14 @@
 			});
 		}
 	}
+
+	$(function () {
+		$('header a').click(function() {
+			alert('닉네임을 입력해주세요');
+			return false;
+		});
+		document.getElementById("chat").onclick = null;
+	});
 </script>
 </head>
 <body>

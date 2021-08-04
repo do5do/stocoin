@@ -117,7 +117,7 @@
 			<ul>
 				<li><a href="/stocoin/coin/coinList" id="coin">코인</a></li>
 				<li><a href="/stocoin/stock/stockList" id="stock">주식</a></li>
-				<li><a onclick="chat()" id="stock">채팅</a></li>
+				<li><a onclick="chat()" id="chat">채팅</a></li>
 				<li><a href="/stocoin/board/boardList" id="board">게시판</a></li>
 				<c:if test="${empty id}">
 					<li><a onclick="login()" id="login">로그인</a></li>

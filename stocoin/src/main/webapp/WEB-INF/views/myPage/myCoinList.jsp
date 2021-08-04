@@ -17,7 +17,8 @@
 	// 5초 간격으로 interval
 	setInterval(myTimer, 5000);
 	function myTimer() {
-		$('.disp').load('/stocoin/exclude2/'+types+'CoinList');
+		if (types == 'my')
+			$('.disp').load('/stocoin/exclude2/myCoinList');
 	}
 
 	function tab(type) {

@@ -32,12 +32,20 @@
 		<c:forEach var="myCoin" items="${list}">
 			<li class="card_item">
 				<div class="content display_flex">
-					<p class="name">${myCoin.cname_ko}</p> <span class="color_gray">${myCoin.cname}</span>
+					<div>
+						<p class="name">${myCoin.cname_ko}</p>
+						<span class="color_gray">(${myCoin.cname})</span>
+					</div>
 					<div class="right">
 						<c:if test="${myCoin.fluc_rt + 0 > 0 }">
 							<p class="end_price color_red"><fmt:formatNumber value="${myCoin.closing_price}"></fmt:formatNumber>원</p>
 							<span class="time">등락률</span>
 							<span class="color_red">+${myCoin.fluc_rt}%</span>
+						</c:if>
+						<c:if test="${myCoin.fluc_rt + 0 == 0 }">
+							<p class="end_price"><fmt:formatNumber value="${myCoin.closing_price}"></fmt:formatNumber>원</p>
+							<span class="time">등락률</span>
+							<span>${myCoin.fluc_rt}%</span>
 						</c:if>
 						<c:if test="${myCoin.fluc_rt + 0 < 0 }">
 							<p class="end_price color_blue"><fmt:formatNumber value="${myCoin.closing_price}"></fmt:formatNumber>원</p>
@@ -57,18 +65,32 @@
 						<p>평가금액</p><!-- 현재가 * 수량(잔고) -->
 					</div>
 					<div class="right">
+						<c:set var="valuation" value="${myCoin.closing_price * myCoin.cnt}"></c:set>
+						<c:set var="purchase" value="${myCoin.contractAvg * myCoin.cnt}"></c:set>
+						<c:set var="gain" value="${valuation - purchase}"></c:set>
+						<c:set var="rate" value="${(gain / purchase) * 100 }"></c:set>
 						<!-- 수익률 -->
-						<p class="rate"><fmt:formatNumber value="${((myCoin.closing_price - myCoin.contractAvg) / myCoin.contractAvg) * 100 }" pattern="0.00"></fmt:formatNumber>%</p>									
+						<c:if test="${rate >= 0}">
+							<p class="rate">+<fmt:formatNumber value="${rate}" pattern="0.00"></fmt:formatNumber>%</p>									
+						</c:if>
+						<c:if test="${rate < 0}">
+							<p class="rate"><fmt:formatNumber value="${rate}" pattern="0.00"></fmt:formatNumber>%</p>									
+						</c:if>
 						<!-- 평가손익 -->
-						<p class="gain"><fmt:formatNumber  value="${(myCoin.closing_price * myCoin.cnt) - (myCoin.contractAvg * myCoin.cnt)}"></fmt:formatNumber>원</p>
+						<c:if test="${gain >= 0}">
+							<p class="gain">+<fmt:formatNumber value="${gain}" pattern="#,###"></fmt:formatNumber>원</p>									
+						</c:if>
+						<c:if test="${gain < 0}">
+							<p class="gain"><fmt:formatNumber value="${gain}" pattern="#,###"></fmt:formatNumber>원</p>									
+						</c:if>
 						<!-- 보유잔고 -->
 						<p>${myCoin.cnt} <span class="color_gray">${myCoin.cname}</span></p>
 						<!-- 평균매수가 -->
 						<p><fmt:formatNumber value="${myCoin.contractAvg}"></fmt:formatNumber>원</p>
 						<!-- 매수금액 -->
-						<p class="purchase"><fmt:formatNumber value="${myCoin.contractAvg * myCoin.cnt}" pattern="#,###"></fmt:formatNumber>원</p>
+						<p class="purchase"><fmt:formatNumber value="${purchase}" pattern="#,###"></fmt:formatNumber>원</p>
 						<!-- 평가금액 -->
-						<p><fmt:formatNumber value="${myCoin.closing_price * myCoin.cnt}" pattern="#,###"></fmt:formatNumber>원</p>
+						<p><fmt:formatNumber value="${valuation}" pattern="#,###"></fmt:formatNumber>원</p>
 					</div>
 				</div>
 			</li>
