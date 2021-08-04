@@ -154,17 +154,6 @@ ALTER TABLE Chat
 select * from chat;
  
 -- 코인 -------------------------------------------------------
-CREATE TABLE Coin
-(
-    cno    NUMBER NOT NULL,
-    cname    VARCHAR2(20) NOT NULL
-);
-
-ALTER TABLE Coin
- ADD CONSTRAINT coin_cno_PK PRIMARY KEY ( cno );
-
-select * from coin;
- 
 -- 코인관심종목
 CREATE TABLE FavoriteCoin
 (
@@ -180,6 +169,7 @@ CREATE TABLE MyCoin
     mno    NUMBER NOT NULL,
     mc_no    NUMBER NOT NULL,
     cname    VARCHAR(20) NOT NULL,
+    cname_ko    VARCHAR(70) NOT NULL,
     cnt    FLOAT NOT NULL,
     purchase    NUMBER NOT NULL
 );
@@ -196,6 +186,7 @@ CREATE TABLE TradeCoin
     mno    NUMBER NOT NULL,
     tc_no    NUMBER NOT NULL,
     cname    VARCHAR(20) NOT NULL,
+    cname_ko    VARCHAR(70) NOT NULL,
     types    NUMBER NOT NULL,
     dates    DATE NOT NULL,
     cnt    FLOAT NOT NULL,

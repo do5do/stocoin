@@ -45,6 +45,7 @@ public class CoinController {
 		cs.initialCoinList(session);
 		return "coin/coinList";
 	}
+	
 	@RequestMapping("/coin/refresh")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void refresh(HttpSession session) throws IOException {
@@ -87,8 +88,9 @@ public class CoinController {
 				model.addAttribute("cnt", 0);
 		}
 
-		model.addAttribute("name", name);
+		model.addAttribute("name", name); 
 		model.addAttribute("closing_price", coinInfo.get("closing_price"));
+		model.addAttribute("cname_ko", coinInfo.get("cname_ko"));
 		return "exclude2/coinTrade";
 	}
 	

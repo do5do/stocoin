@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/stocoin/resources/css/coinList.css">
+<link rel="stylesheet" type="text/css" href="/stocoin/resources/css/coin.css">
 <link rel="stylesheet" type="text/css" href="/stocoin/resources/css/stock.css">
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script type="text/javascript" src="/stocoin/resources/js/dayjs.min.js"></script>
@@ -50,12 +50,16 @@
 		</div>
 		
 		<div id="content_right">
-			<h4 id="coinName">BTC</h4>
-			<button class="btn btn-primary" onclick="change_time('1m')">1m</button>
-			<button class="btn btn-primary" onclick="change_time('5m')">5m</button>
-			<button class="btn btn-primary" onclick="change_time('10m')">10m</button>
-			<button class="btn btn-primary" onclick="change_time('1h')">1h</button>
-			<button class="btn btn-primary" onclick="change_time('24h')">1d</button>
+			<h4 class="coinName_ko">비트코인</h4> <span class="coinName_en color_gray">BTC</span>
+			<div class="chart_header">
+				<div class="chart_btn">
+					<button class="btn" onclick="change_time('1m')">1분</button>
+					<button class="btn color_blue" onclick="change_time('5m')">5분</button>
+					<button class="btn" onclick="change_time('10m')">10분</button>
+					<button class="btn" onclick="change_time('1h')">1시</button>
+					<button class="btn" onclick="change_time('24h')">1일</button>
+				</div>
+			</div>
 			<div id="chart"></div>
 			<div class="dp_flex">
 				<div id="info" class="col-5">

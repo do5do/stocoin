@@ -72,7 +72,17 @@ public class TradeCoinController {
 	}
 	
 	@RequestMapping("/myPage/myCoinList")
-	public String myCoin(HttpSession session, Model model) throws IOException {
+	public String myCoin(HttpSession session, Model model) {
+		String id = (String) session.getAttribute("id");
+		Member member = ms.select(id);
+		int coinMoney = member.getCoin_money();
+		
+		model.addAttribute("coinMoney", coinMoney);
+		return "myPage/myCoinList";
+	}
+	
+	@RequestMapping("/exclude2/myCoinList")
+	public String myCoinList(HttpSession session, Model model) throws IOException {
 		int mno = (int) session.getAttribute("mno");
 		String id = (String) session.getAttribute("id");
 		
@@ -88,6 +98,7 @@ public class TradeCoinController {
 			Map<String, String> coinInfo = cs.getCoinInfo(list.getCname());
 			
 			map.put("contractAvg", contractAvg);
+			map.put("cname_ko", list.getCname_ko());
 			map.put("cname", list.getCname());
 			map.put("cnt", list.getCnt());
 			map.put("purchase", list.getPurchase());
@@ -100,10 +111,10 @@ public class TradeCoinController {
 		
 		model.addAttribute("coinMoney", coinMoney);
 		model.addAttribute("list", totalList);
-		return "myPage/myCoinList";
+		return "exclude2/myCoinList";
 	}
 	
-	@RequestMapping("/exclude2/coinTradeList")
+	@RequestMapping("/exclude2/tradeCoinList")
 	public String tradeList(HttpSession session, Model model) {
 		int mno = (int) session.getAttribute("mno");
 		
@@ -111,7 +122,7 @@ public class TradeCoinController {
 		List<TradeStock> list = tcs.tradeList(mno);
 		
 		model.addAttribute("list", list);
-		return "exclude2/coinTradeList";
+		return "exclude2/tradeCoinList";
 	}
 
 	

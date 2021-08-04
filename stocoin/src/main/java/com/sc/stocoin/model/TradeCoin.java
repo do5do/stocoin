@@ -9,6 +9,7 @@ public class TradeCoin {
 	private int mno;
 	private int tc_no;
 	private String cname;
+	private String cname_ko;
 	private int types;
 	private Date dates;
 	private float cnt;

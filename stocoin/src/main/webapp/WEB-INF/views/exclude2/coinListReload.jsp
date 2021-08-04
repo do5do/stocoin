@@ -17,9 +17,9 @@
 	<table class="table table-hover">
 		<tbody>
 			<c:forEach var="coin" items="${coinList}">
-				<tr onclick="change_info('${coin.get('name')}')" class="list" id="${coin.get('name')}">
+				<tr onclick="change_info('${coin.name}', '${coin.cname_ko}')" class="list" id="${coin.get('name')}">
 					<td><span class="star" onclick="return change_star('${coin.get('name')}')">${coin.get('star')}</span></td>
-					<td><span class="coinName">${coin.get('name')}</span>(이더리움)</td>
+					<td><span class="coinName">${coin.cname_ko}</span>${coin.name}</td>
 					<c:if test="${coin.get('fluctuation_rate') + 0 >= 0 }">
 						<td class="color_red"><fmt:formatNumber value="${coin.get('price')}"></fmt:formatNumber></td>
 						<td class="color_red">+${coin.get('fluctuation_rate')}%</td>

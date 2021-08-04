@@ -8,7 +8,7 @@
 			select nvl(max(tc_no), 0) + 1 tc_no from tradeCoin where mno = #{mno}
 		</selectKey>
 		insert into tradeCoin values
-		(#{mno}, #{tc_no}, #{cname}, #{types}, sysdate, #{cnt}, #{contract})
+		(#{mno}, #{tc_no}, #{cname}, #{cname_ko}, #{types}, sysdate, #{cnt}, #{contract})
 	</insert>
 
 	<delete id="delete" parameterType="integer">
@@ -20,7 +20,7 @@
 	</select>
 	
 	<select id="tradeList" parameterType="integer" resultType="tradeCoin">
-		select * from tradeCoin where mno = #{mno}
+		select * from tradeCoin where mno = #{mno} order by dates desc
 	</select>
 
 </mapper>

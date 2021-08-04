@@ -12,7 +12,7 @@ public class Coin {
 	public List<Map<String, String>> getCoinNameKo() {
 		List<Map<String, String>> coinNameKo = new ArrayList<>();
 
-		String en[] = { "NMR", "ETH", "BTC", "DOT", "CVT", "XLM", "UNI", "BNB", "XRP", "MSB",
+		String en[] = {"NMR", "ETH", "BTC", "DOT", "CVT", "XLM", "UNI", "BNB", "XRP", "MSB",
 				"LTC", "DOGE", "KLAY","QTCON", "ETC", "ASM", "DVI", "LF", "CON", "BTG", "XNO",
 				"EOS", "ANW", "BCHA", "TMTG", "VRA", "MVC", "ADA", "BCH", "APIX", "RAI", "SAND",
 				"QTUM", "ALICE", "FLETA", "LINK", "REP", "PUNDIX", "CYCLUB", "BTT", "LUNA",

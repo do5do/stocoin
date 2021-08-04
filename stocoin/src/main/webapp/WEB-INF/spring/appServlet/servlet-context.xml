@@ -44,7 +44,6 @@
 		<interceptor>
 			<mapping path="/myPage/myStockList"/>
 			<mapping path="/myPage/myCoinList"/>
-			<mapping path="/exclude2/stockTradeList"/>
 			<beans:ref bean="sessionChk"></beans:ref>
 		</interceptor>
 	</interceptors>

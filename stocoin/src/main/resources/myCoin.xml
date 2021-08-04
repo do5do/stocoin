@@ -12,7 +12,7 @@
 			select nvl(max(mc_no), 0) + 1 mc_no from myCoin where mno = #{mno}
 		</selectKey>
 		insert into myCoin values
-		(#{mno}, #{mc_no}, #{cname}, #{cnt}, #{purchase})
+		(#{mno}, #{mc_no}, #{cname}, #{cname_ko}, #{cnt}, #{purchase})
 	</insert>
 	
 	<update id="updateBuy" parameterType="myCoin">

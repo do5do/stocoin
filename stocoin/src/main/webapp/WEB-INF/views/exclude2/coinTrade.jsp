@@ -91,6 +91,7 @@
 		<div class="right">
 			<input type="hidden" name="types" id="types" value="1">
 			<input type="hidden" name="cname" value="${name}">
+			<input type="hidden" name="cname_ko" value="${cname_ko}">
 			<c:if test="${empty id }">
 				<p class="orderable">0원</p>
 			</c:if>

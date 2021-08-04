@@ -181,8 +181,9 @@ function sort(kind) {
 }
 
 // 코인 클릭 시 해당 코인 active & trade load
-function change_info(name) {
-	$('#coinName').text(name);
+function change_info(name, name_ko) {
+	$('.coinName_ko').text(name_ko);
+	$('.coinName_en').text(name);
 	$(".list").removeClass('active');
 	$('#'+name).addClass('active');
 	$('.trade').load('/stocoin/exclude2/coinTrade?name=' + name);
@@ -217,6 +218,8 @@ function change_chart(name = selected) {
 
 // 코인 차트 간격 수정
 function change_time(inputTime) {
+	$('.chart_btn button').removeClass('color_blue');
+	event.target.classList.add('color_blue');
 	time = inputTime;
 	change_chart();
 }
@@ -235,14 +238,14 @@ function change_cnt(type) {
 				var cnt = money_percent/closing_price;
 				cnt_txt = Math.floor(cnt * 10000)/10000;
 				if (cnt_txt < 0.001) {
-					alert("주문 가능 금액을 초과하였습니다");
+					alert('주문 가능 금액을 초과하였습니다');
 					$('#range').val('0');
 					change_range();
 					cnt_txt = 0;
 				}
 			} else { // 매도
 				if (count == 0) {
-					alert("주문 가능한 수량이 없습니다");
+					alert('주문 가능한 수량이 없습니다');
 					$('#range').val('0');
 					change_range();
 					cnt_txt = 0;
@@ -259,14 +262,14 @@ function change_cnt(type) {
 		cnt_txt = Math.floor($('#purchase').val() / closing_price * 10000) / 10000;
 		// 매수
 		if (types == 1 && $('#purchase').val() > max_price) {
-			alert("주문 가능 금액을 초과하였습니다");
+			alert('주문 가능 금액을 초과하였습니다');
 			$('#cnt_txt').val(max_cnt);
 			change_op();
 		// 매도
 		} else if (types == 2) {
 			max_price = Math.floor(count * closing_price);
 			if ($('#purchase').val() > max_price) {
-				alert("주문 가능 수량을 초과하였습니다");
+				alert('주문 가능 수량을 초과하였습니다');
 				$('#cnt_txt').val(count);
 				change_op();
 			}

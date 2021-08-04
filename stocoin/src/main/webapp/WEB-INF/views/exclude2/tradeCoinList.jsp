@@ -17,14 +17,14 @@
 		<c:forEach var="coin" items="${list}">
 			<tr>
 				<td>${coin.dates}</td>
-				<td>${coin.cname}</td>
+				<td>${coin.cname_ko} <span class="color_gray">(${coin.cname})</span></td>
 				<c:if test="${coin.types == 1 }">
 					<td class="color_red">매수</td>
 				</c:if>
 				<c:if test="${coin.types == 2 }">
 					<td class="color_blue">매도</td>
 				</c:if>
-				<td>${coin.cnt}<span class="color_gray">${coin.cname}</span></td>
+				<td>${coin.cnt}<span class="color_gray"> ${coin.cname}</span></td>
 				<td><fmt:formatNumber value="${coin.contract}"></fmt:formatNumber>원</td>
 				<td><fmt:formatNumber value="${coin.contract * coin.cnt}"></fmt:formatNumber>원</td>
 			</tr>

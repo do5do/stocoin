@@ -216,9 +216,33 @@
 /* 왼쪽 테이블 영역 끝 ------------------------------------ */
 
 /* 오른쪽 영역 시작 ------------------------------------ */
+.coinName_ko {
+	display: inline-block;
+}
+
+.chart_header {
+	position: relative;
+}
+
+.chart_btn {
+	position: absolute;
+	top: 2px;
+	right: 146px;
+	z-index: 99;
+}
+
+.chart_btn > button {
+    width: 30px;
+    height: 26px;
+    color: #adafae;
+    font-size: 12px;
+    padding: 0;
+    cursor: pointer;
+}
+
 #chart {
 	height: 500px;
-	margin: 20px 0;
+	margin-top: 4px;
 }
 
 /* 차트 하단 왼쪽 코인 정보 영역 시작 --------------------- */

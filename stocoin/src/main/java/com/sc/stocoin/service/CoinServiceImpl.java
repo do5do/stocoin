@@ -28,6 +28,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sc.stocoin.dao.FavoriteCoinDao;
 import com.sc.stocoin.dao.TradeCoinDao;
+import com.sc.stocoin.model.Coin;
 import com.sc.stocoin.model.FavoriteCoin;
 import com.sc.stocoin.model.MyCoin;
 
@@ -58,7 +59,7 @@ public class CoinServiceImpl implements CoinService {
 		while ((line = br.readLine()) != null) {
 			result += line;
 		}
-
+		
 		// JSON파싱 객체 생성
 		JsonParser parser = new JsonParser();
 		JsonElement element = parser.parse(result);
@@ -82,9 +83,19 @@ public class CoinServiceImpl implements CoinService {
 
 		// 코인 정보 담을 list 세팅
 		List<Map<String, Object>> coinList = new ArrayList<Map<String, Object>>();
-
-		// map에 있는 key이름을 list에 담기
+		
+		Coin c = new Coin();
+		List<Map<String, String>> coinNameKo = c.getCoinNameKo();
+		String cname_ko = null;
+		
+		 // map에 있는 key이름을 list에 담기
 		for (Map.Entry<String, Object> att : attributes.entrySet()) {
+			for (Map<String, String> cnk : coinNameKo) {
+				if (cnk.get("en").equals(att.getKey())) {
+					cname_ko = cnk.get("ko");
+					break;
+				}
+			}
 			Map<String, Object> coin = new HashMap<String, Object>();
 			float price = data.getAsJsonObject().get(att.getKey()).getAsJsonObject().get("closing_price").getAsFloat();
 			float fluctuation_rate = data.getAsJsonObject().get(att.getKey()).getAsJsonObject().get("fluctate_rate_24H")
@@ -96,6 +107,7 @@ public class CoinServiceImpl implements CoinService {
 			coin.put("fluctuation_rate", fluctuation_rate);
 			coin.put("price", price);
 			coin.put("name", att.getKey());
+			coin.put("cname_ko", cname_ko);
 
 			coinList.add(coin);
 		}
@@ -214,7 +226,7 @@ public class CoinServiceImpl implements CoinService {
 	@Override
 	public Map<String, String> getCoinInfo(String name) throws IOException {
 		// 가져올 api 주소 연결
-		String reqURL = "https://api.bithumb.com/public/ticker/ALL";
+		String reqURL = "https://api.bithumb.com/public/ticker/" + name;
 		URL url = new URL(reqURL);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("POST");
@@ -234,13 +246,25 @@ public class CoinServiceImpl implements CoinService {
 
 		// data 키에 들어있는 코인 정보
 		JsonObject data = element.getAsJsonObject().get("data").getAsJsonObject();
-		JsonObject coin = data.getAsJsonObject().get(name).getAsJsonObject();
+//		JsonObject coin = data.getAsJsonObject().get(name).getAsJsonObject();
 
 		@SuppressWarnings("serial")
 		Type mapTokenType = new TypeToken<Map<String, String>>() {
 		}.getType();
 
-		Map<String, String> coinInfo = new Gson().fromJson(coin, mapTokenType);
+		Map<String, String> coinInfo = new Gson().fromJson(data, mapTokenType);
+		
+		Coin c = new Coin();
+		List<Map<String, String>> coinNameKo = c.getCoinNameKo();
+		String cname_ko = null;
+		for (Map<String, String> cnk : coinNameKo) {
+			if (cnk.get("en").equals(name)) {
+				cname_ko = cnk.get("ko");
+				break;
+			}
+		}
+
+		coinInfo.put("cname_ko", cname_ko);
 
 		return coinInfo;
 	}
