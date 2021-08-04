@@ -47,7 +47,7 @@
 </c:if>
 <script>
    $(function() {
-	   $('#005930').addClass('active');
+	   $('#${code}').addClass('active');
    })
    
    function change_star(code, name) {
@@ -61,7 +61,6 @@
 				   $('#star_'+code).text("★");
 			   } else {
 				   $('#star_'+code).text("☆");
-				   $('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search);
 			   }
 		   })
 	   }

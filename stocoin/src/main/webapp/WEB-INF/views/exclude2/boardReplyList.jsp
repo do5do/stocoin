@@ -33,7 +33,6 @@
 			$('#content_'+rno).attr('contenteditable', 'false');
 			$('#hide_'+rno).hide();
 			$('#show_'+rno).show();
-			//alert('리뷰가 수정되었습니다.');
 		})
 	 }
 	 
@@ -43,7 +42,6 @@
 		 
 		 $.post('/stocoin/board/boardReplyDelete', sendData, function(data) {
 			 $('#replyLoad').html(data);
-			 //alert("리뷰가 삭제되었습니다.");
 		 })
 	 }
 	 

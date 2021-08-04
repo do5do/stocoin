@@ -36,4 +36,6 @@ public interface MemberService {
 	public void updateAllStock();
 
 	public void updateAllCoin();
+
+	public void resetMoney();
 }

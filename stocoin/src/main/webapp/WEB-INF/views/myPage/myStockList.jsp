@@ -47,15 +47,15 @@
 				<div class="total_bottom display_flex">
 					<div class="left">
 						<p>총 수익률</p><!-- (총평가손익 / 총매입금액) * 100 -->
-						<p>총 매입금액</p>
 						<p>총 평가손익</p>
+						<p>총 매입금액</p>
 						<p>총 평가금</p><!-- 총 매입금액 + 총 평가손익 -->
 						<p>예수금</p><!-- 내가 가진 현금 -->
 					</div>
 					<div class="right">
-						<div class="totalRate"><p></p><span>%</span></div>
+						<p class="totalRate"></p>
+						<p class="totalGain"></p>
 						<p class="totalPurchase"></p>
-						<div class="totalGain"><p></p><span>원</span></div>
 						<p class="evaluation"></p>
 						<p><fmt:formatNumber value="${stockMoney }"></fmt:formatNumber>원</p>
 					</div>
@@ -67,12 +67,19 @@
 						<div class="content display_flex">
 							<p class="name">${myStock.sname }</p>
 							<div class="right">
-								<p class="end_price"><fmt:formatNumber value="${myStock.purchase }"></fmt:formatNumber>원</p>
-								<span class="time">등락률</span>
 								<c:if test="${(myStock.fluc_rt + 0) > 0 }">
+									<p class="end_price color_red"><fmt:formatNumber value="${myStock.recentPrice }"></fmt:formatNumber>원</p>
+									<span class="time">등락률</span>
 									<span class="color_red">+${myStock.fluc_rt }%</span>
 								</c:if>
+								<c:if test="${(myStock.fluc_rt + 0) == 0 }">
+									<p class="end_price"><fmt:formatNumber value="${myStock.recentPrice }"></fmt:formatNumber>원</p>
+									<span class="time">등락률</span>
+									<span>${myStock.fluc_rt }%</span>
+								</c:if>
 								<c:if test="${(myStock.fluc_rt + 0) < 0 }">
+									<p class="end_price color_blue"><fmt:formatNumber value="${myStock.recentPrice }"></fmt:formatNumber>원</p>
+									<span class="time">등락률</span>
 									<span class="color_blue">${myStock.fluc_rt }%</span>
 								</c:if>
 							</div>
@@ -81,7 +88,6 @@
 							<div class="left">
 								<p>보유잔고</p><!-- 가진 주 개수 -->
 								<p>매매단가</p><!-- 내가 산 종가의 평균(체결가 평균) -->
-								<p>현재가</p><!-- 현재 종가 -->
 								<p>평가손익</p><!-- 평가금액 - 매입금액 -->
 								<p>수익률</p><!-- (평가손익 / 매입금액) * 100 or ((현재가 - 매매단가) / 매매단가) * 100  -->
 								<p>매입금액</p><!-- 매매단가 * 수량(잔고) -->
@@ -92,8 +98,6 @@
 								<p>${myStock.cnt }주</p>
 								<!-- 매매단가 -->
 								<p><fmt:formatNumber value="${myStock.contractAvg }"></fmt:formatNumber>원</p>
-								<!-- 현재가 -->
-								<p><fmt:formatNumber value="${myStock.recentPrice }"></fmt:formatNumber>원</p>
 								<!-- 평가손익 -->
 								<p class="gain"><fmt:formatNumber value="${(myStock.recentPrice * myStock.cnt) - (myStock.contractAvg * myStock.cnt)}"></fmt:formatNumber>원</p>
 								<!-- 수익률 -->
@@ -140,12 +144,22 @@
 	
 	// put
 	var replaceTotalPurchase = totalPurchase.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원";
-	var replaceTotalGain = totalGain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	var replaceTotalRate = totalRate.toFixed(2); // 소수점 2자리로 고정
+	var replaceTotalGain = totalGain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원";
+	var replaceTotalRate = totalRate.toFixed(2)+"%"; // 소수점 2자리로 고정
 	
 	$('.totalPurchase').text(replaceTotalPurchase);
-	$('.totalGain p').text(replaceTotalGain);
-	$('.totalRate p').text(replaceTotalRate);
+	$('.totalGain').text(replaceTotalGain);
+	
+	// 수익률이 없을때
+	if (isNaN(totalRate)) {
+		$('.totalRate').text('0.00%');
+	} else {
+		if (totalRate > 0) {
+			$('.totalRate').text("+" + replaceTotalRate);
+		} else {
+			$('.totalRate').text(replaceTotalRate);
+		}
+	}
 	
 	// 총 평가금
 	var evaluation = totalPurchase + totalGain;

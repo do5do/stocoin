@@ -3,60 +3,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="common.css">
-<link rel="stylesheet" href="board.css">
-<link rel="stylesheet" href="bootstrap_black.css">
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<style>
+		.admin.container {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+		
+		.table {
+			width: 800px;
+			margin: 80px auto 20px;
+		}
+		
+		.white .table {
+			border-color: #efefef;
+			color: #000;
+		}
+		
+		.id-box, .pw-box {
+			text-align: center;
+			vertical-align: middle;
+		}
+		
+		.id-inputbox {
+			vertical-align: middle;
+		}
+	</style>
 </head>
-<style>
-.admin.container {
-	margin-top: 0;
-	margin-bottom: 0;
-}
-
-.table {
-	width: 800px;
-	margin: 80px auto 20px;
-}
-
-.id-box, .pw-box {
-	text-align: center;
-	vertical-align: middle;
-}
-
-.id-inputbox {
-	vertical-align: middle;
-}
-
-input[type="text"] {
-	width: 97%;
-	height: 40px;
-	border: none;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-	outline: 0;
-	font-size: 15px;
-	margin-bottom: 0;
-	font-family: inherit;
-	background: none;
-	color: #fff;
-}
-
-input[type="text"]::placeholder {
-	color: rgba(255, 255, 255, 0.5);
-}
-
-input[type="password"] {
-	width: 97%;
-	height: 40px;
-	color: #fff;
-	outline: none;
-	border: transparent;
-	padding: 2px 0;
-	background: transparent;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.9);
-}
-</style>
 <body>
 	<div class="container admin">
 		<h2 class="title" align="center">관리자 로그인</h2>

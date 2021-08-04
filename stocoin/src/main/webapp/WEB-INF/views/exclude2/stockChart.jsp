@@ -38,7 +38,7 @@
 				type : 'category',
 				labels : {
 					formatter : function(val) {
-						return dayjs(val).format('MM월 DD HH:mm')
+						return dayjs(val).format('MM월 DD일 hh:mm')
 					}
 				}
 			},
@@ -106,9 +106,9 @@
 
 		$(function() {
 			// 차트 생성
-			chart = new ApexCharts(document.querySelector("#chart"), options);
+			chart = new ApexCharts(document.getElementById("chart"), options);
 			chart.render();
-			chart2 = new ApexCharts(document.querySelector("#chart_sm"), options2);
+			chart2 = new ApexCharts(document.getElementById("chart_sm"), options2);
 	        chart2.render();
 			chartLoad();
 		});
@@ -126,6 +126,16 @@
 						parseFloat(item.TDD_CLSPRC.replace(",", ""))
 					]);
 				});
+				chart.updateOptions({
+					xaxis : {
+						type : 'category',
+						labels : {
+							formatter : function(val) {
+								return dayjs(val).format('MM월 DD일')
+							}
+						}
+					}
+				});
 			}
 			else {
 				var date = jsonData.CURRENT_DATETIME.substring(0, 11);
@@ -140,6 +150,16 @@
 						parseFloat(jsonData.output[i].TDD_CLSPRC.replace(",", ""))
 					]);
 				}
+				chart.updateOptions({
+					xaxis : {
+						type : 'category',
+						labels : {
+							formatter : function(val) {
+								return dayjs(val).format('MM월 DD일 hh:mm')
+							}
+						}
+					}
+				});
 			}
 			chart.updateOptions({
 				title : {
