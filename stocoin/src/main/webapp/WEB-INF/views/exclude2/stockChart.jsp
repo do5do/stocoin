@@ -130,6 +130,8 @@
 			else {
 				var date = jsonData.CURRENT_DATETIME.substring(0, 11);
 				for(var i = 0; i < jsonData.output.length; i += 5) {
+					if(jsonData.output[i].TDD_CLSPRC == "")
+						break;
 					jsonArray.push([
 						Date.parse(date + jsonData.output[i].TRD_DD), 
 						parseFloat(jsonData.output[i].TDD_OPNPRC.replace(",", "")),
@@ -139,7 +141,6 @@
 					]);
 				}
 			}
-			console.log(jsonArray);
 			chart.updateOptions({
 				title : {
 					text : name,
