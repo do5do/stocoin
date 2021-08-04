@@ -8,6 +8,10 @@
 	var intEndPrice = endPrice.replace(/,/g, ""); // 천단위 마다 콤마 삭제
 	// 현재 가진 돈
 	var myMoney = parseInt("${member.stock_money }");
+	if (isNaN(myMoney)) {
+		$('.myMoney').text('0원');
+		myMoney = 0;
+	}
 	// 최대 수량
 	var maxNum = Math.floor(myMoney / intEndPrice);
 	// 매수/매도 타입 구별
@@ -71,6 +75,12 @@
 			var num = parseInt($('.fee').val());
 			var payPrice = num * intEndPrice;
 			
+			// Nan check
+			if (isNaN(num)) {
+				num = 0;
+				payPrice = 0;
+			}
+			
 			if (types == 1) {
 				if (num > maxNum) {
 					num = maxNum;
@@ -111,15 +121,19 @@
 			$('#buy').removeClass('red');
 			
 			if (${not empty id}) {
-				$('.myMoney').text('${cnt}주');
+				if (isNaN(${cnt})) {
+					$('.myMoney').text('0주');
+				} else {
+					$('.myMoney').text('${cnt}주');					
+				}
 			}
 		} else {
 			types = 1;
 			$('#buy').addClass('red');
 			$('#sell').removeClass('blue');
 			
-			if (${not empty id}) {
-				$('.myMoney').text(myMoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+			if (${not empty id}) {	
+				$('.myMoney').text(myMoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");					
 			}
 		}
 		// 초기화
@@ -135,6 +149,9 @@
 		} else {
 			if ($(".fee").val() == "") {
 				alert("최소 수량을 입력해주세요.");
+				return false;
+			} else if ($('.myMoney').text().slice(0, 1) == '0') {
+				alert("주문가능한 금액이 부족합니다.");
 				return false;
 			} else {
 				document.frm.action = "/stocoin/stock/tradeStock?types="+types+"&contract="+intEndPrice+"&code=${stockInfo.get('ISU_SRT_CD')}";

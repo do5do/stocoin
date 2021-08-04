@@ -17,10 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.reflect.TypeToken;
@@ -29,8 +26,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sc.stocoin.dao.StockDao;
-import com.sc.stocoin.model.FavoriteCoin;
 import com.sc.stocoin.model.StocoinStrings;
 
 @Service
@@ -340,6 +335,8 @@ public class StockServiceImpl implements StockService {
 		}
 		return fs;
 	}
+	
+	@Override
 	public List<Map<String, Object>> getStockSearch(String search, List<Map<String, Object>> stockList) {
 		// 해당 이름에 대한 stock 정보를 담을 map 생성
 		List<Map<String, Object>> stockSearch = new ArrayList<>();
@@ -350,7 +347,6 @@ public class StockServiceImpl implements StockService {
 			// 해당 검색결과가 있는 map을 찾아서 리스트 생성
 			if (sname.contains(search.toUpperCase())) {
 				stockSearch.add(stockList.get(i));
-				break;
 			}
 		}
 		

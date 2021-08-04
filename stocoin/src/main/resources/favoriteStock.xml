@@ -17,7 +17,7 @@
 		delete from favoriteStock where mno = #{mno} and sname = #{sname}
 	</delete>
 	
-	<select id="selectFavo" parameterType="favoriteStock" resultType="favoriteStock">
+	<select id="selectFavo" parameterType="integer" resultType="favoriteStock">
 		select * from favoriteStock where mno = #{mno} order by fs_no desc
 	</select>
 	

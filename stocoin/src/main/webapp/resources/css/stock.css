@@ -158,3 +158,7 @@ input[type=range]::-webkit-slider-thumb {
 	background: var(--point-color);
 	transition: background .15s ease-in-out;
 }
+
+.stock_chart_btn {
+	top: 0;
+}

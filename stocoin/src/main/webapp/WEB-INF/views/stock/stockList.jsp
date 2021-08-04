@@ -19,7 +19,7 @@
 	
 	// 주식 리스트 로드, info 로드
 	$(function() {
-		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search);
+		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search+"&code="+code);
 		$('.dp_flex').load("/stocoin/exclude2/stockInfo");
 		$('#chart').load("/stocoin/exclude2/stockChart");
 		
@@ -33,14 +33,15 @@
 		if ($('#'+kind).text() == "↓") {
 			kinds = kind;
 			sorts = "asc";
+			$('.sort').text("");
 			$('#'+kind).text("↑");
 		} else {
 			kinds = kind;
 			sorts = "desc";
+			$('.sort').text("");
 			$('#'+kind).text("↓");
 		}
-		$('.sort').text("");
-		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search);
+		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search+"&code="+code);
 	}
 	
 	function stockInfo(inputCode, name) {
@@ -69,13 +70,13 @@
 		}
 		$('#main_tab p').removeClass('active');
 		$('#'+tab).addClass('active');
-		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search);
+		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search+"&code="+code);
 	}
 	
 	// search
 	function search_stock() {
 		search = document.getElementById('search_stock').value;
-		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search);
+		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search+"&code="+code);
 		
 		if (search == null || search == "") {
 			$('#search_del').removeClass('fa-times').addClass('fa-search');
@@ -93,7 +94,7 @@
 			$('#search_stock').val('');
 			$('#search_del').css('cursor', 'default');
 			$('#search_del').removeClass('fa-times').addClass('fa-search');
-			$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search);
+			$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search+"&code="+code);
 		}
 	}
 </script>
@@ -121,8 +122,12 @@
 		
 		<div id="content_right">
 			<h4 id="name">삼성전자</h4>
-			<button class="btn btn-primary" onclick="change_time('5m')">5m</button>
-			<button class="btn btn-primary" onclick="change_time('1d')">1d</button>
+			<div class="chart_header">
+				<div class="chart_btn stock_chart_btn">
+					<button class="btn" onclick="change_time('5m')">5분</button>
+					<button class="btn color_blue" onclick="change_time('1d')">1일</button>
+				</div>
+			</div>
 			<div id="chart"></div>
 			<div class="dp_flex"></div>
 		</div>

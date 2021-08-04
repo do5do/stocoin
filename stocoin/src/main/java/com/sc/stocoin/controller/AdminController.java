@@ -86,6 +86,7 @@ public class AdminController {
     	ms.updateCoinMoney(member);
     	return "admin/updateCoinMoney";
     }
+    
     @RequestMapping("/admin/updateStockMoney/id/{id}")
     public String updateStockMoney(@PathVariable String id) {
     	Member member = ms.select(id);
@@ -93,14 +94,22 @@ public class AdminController {
     	ms.updateStockMoney(member);
     	return "admin/updateStockMoney";
     }
+    
     @RequestMapping("/admin/updateAllStock")
     public String updateAllStock() {
     	ms.updateAllStock();
     	return "admin/updateAllStock";
     }
+    
     @RequestMapping("/admin/updateAllCoin")
     public String updateAllCoin() {
     	ms.updateAllCoin();
     	return "admin/updateAllCoin";
+    }
+    
+    @RequestMapping("/admin/resetMoney")
+    public String resetMoney() {
+    	ms.resetMoney();
+    	return "admin/resetMoney";
     }
 }

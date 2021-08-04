@@ -51,12 +51,13 @@ public class StockController {
 	}
 
 	@RequestMapping("/exclude2/stockListReload")
-	public String stockListReload(Model model, String kind, String sort, String tab, String search, HttpSession session) throws IOException, ParseException {
+	public String stockListReload(Model model, String kind, String sort, String tab, String search, String code, HttpSession session) throws IOException, ParseException {
 		String id = (String) session.getAttribute("id");
 		
 		Member member = null;
 		List<FavoriteStock> favoriteList = null;
-		if (id != null) {
+		
+		if (id != null && !id.equals("admin")) {
 			member = ms.select(id);
 			// 관심 조회
 			favoriteList = fss.selectFavo(member.getMno());
@@ -104,6 +105,7 @@ public class StockController {
 		model.addAttribute("favoriteList", favoriteList);
 		model.addAttribute("stockList", stockList);
 		model.addAttribute("tab", tab);
+		model.addAttribute("code", code);
 		return "exclude2/stockListReload";
 	}
 
@@ -121,7 +123,7 @@ public class StockController {
 		String sname = (String) stockInfo.get("ISU_ABBRV");
 		
 		// 로그인 한 회원 가진 잔금, 주식 현황
-		if (id != null) {
+		if (id != null && !id.equals("admin")) {
 			Member member = ms.select(id);
 			model.addAttribute("member", member);
 			
@@ -157,6 +159,7 @@ public class StockController {
 		model.addAttribute("fsList", fs);
 		return "exclude/financialStatement";
 	}
+	
 	@RequestMapping("/stock/changeStar")
 	@ResponseBody
 	public String changeStar(FavoriteStock fs, HttpSession session) {

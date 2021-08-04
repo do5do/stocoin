@@ -73,4 +73,9 @@ public class MemberDaoImpl implements MemberDao	{
 	public void updateAllCoin() {
 		sst.update("memberns.updateAllCoin");		
 	}
+
+	@Override
+	public void resetMoney() {
+		sst.update("memberns.resetMoney");
+	}
 }

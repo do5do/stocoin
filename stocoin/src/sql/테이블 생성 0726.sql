@@ -200,7 +200,6 @@ select * from tradeCoin;
 delete from tradecoin;
  
 -- 주식 ------------------------------------------------------
- 
 -- 주식관심종목
 CREATE TABLE FavoriteStock
 (
@@ -249,7 +248,3 @@ ALTER TABLE TradeStock
  ADD CONSTRAINT tradestock_ts_no_PK PRIMARY KEY ( ts_no,mno );
  
 select * from tradeStock;
-
-alter table FavoriteStock modify(sname VARCHAR2(50));
-alter table MyStock modify(sname VARCHAR2(50));
-alter table TradeStock modify(sname VARCHAR2(50));

@@ -52,4 +52,8 @@
 	<update id="updateAllCoin">
 		update member set coin_money = coin_money + 3000000
 	</update>
+	
+	<update id="resetMoney">
+		update member set coin_money = 3000000, stock_money = 3000000
+	</update>
 </mapper>

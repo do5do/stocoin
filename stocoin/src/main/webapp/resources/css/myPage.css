@@ -1,5 +1,15 @@
 @charset "UTF-8";
 
+/* adminPage */
+.admin.container {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.memberMoney a {
+	text-decoration: underline !important;
+}
+
 /* myPage tab */
 .myPage_tabs {
 	display: flex;

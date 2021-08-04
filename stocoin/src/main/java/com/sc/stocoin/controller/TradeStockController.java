@@ -38,22 +38,21 @@ public class TradeStockController {
 	
 	@RequestMapping("/stock/tradeStock")
 	public String tradeStock(TradeStock ts, MyStock myStock, int types, int contract, String code, Model model, HttpSession session) {
-		int mno = (int) session.getAttribute("mno");
 		String id = (String) session.getAttribute("id");
+		Member member = ms.select(id);
 		
 		// setting
-		ts.setMno(mno);
+		ts.setMno(member.getMno());
 		ts.setTypes(types);
 		ts.setContract(contract); // 체결 가격
 		ts.setCode(code);
-		myStock.setMno(mno);
+		myStock.setMno(member.getMno());
 		myStock.setPurchase(contract * ts.getCnt()); // 매입 금액
 		myStock.setCode(code);
 		
 		// 거래내역 insert
 		int result = tss.insert(ts);
 		
-		Member member = ms.select(id);
 		int stockMoney = member.getStock_money();
 		
 		// 해당 주 보유현황 확인
