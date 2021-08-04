@@ -145,7 +145,7 @@
 	// 재무제표
 	function fState(corp_code) {
 		var link = "/stocoin/exclude/financialStatement/code/" + corp_code;
-		window.open(link, "fState", "width=800,height=900");
+		window.open(link, "fState", "width=1100,height=900");
 	}
 </script>
 <!-- 주식 정보 section -->
