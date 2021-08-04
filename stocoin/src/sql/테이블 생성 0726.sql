@@ -200,23 +200,14 @@ select * from tradeCoin;
 delete from tradecoin;
  
 -- 주식 ------------------------------------------------------
-CREATE TABLE Stock
-(
-    sno    NUMBER NOT NULL,
-    sname    VARCHAR2(20) NOT NULL
-);
-
-ALTER TABLE Stock
- ADD CONSTRAINT stock_sno_PK PRIMARY KEY ( sno );
-
-select * from stock;
  
 -- 주식관심종목
 CREATE TABLE FavoriteStock
 (
     mno    NUMBER NOT NULL,
     fs_no    NUMBER NOT NULL,
-    sno    NUMBER NOT NULL
+    sname	VARCHAR2(50) NOT NULL,
+    code	VARCHAR2(10) NOT NULL
 );
 
 ALTER TABLE FavoriteStock
@@ -229,7 +220,7 @@ CREATE TABLE MyStock
 (
     mno    NUMBER NOT NULL,
     ms_no    NUMBER NOT NULL,
-    sname    VARCHAR2(20) NOT NULL,
+    sname    VARCHAR2(50) NOT NULL,
     code    VARCHAR2(10) NOT NULL,
     cnt    NUMBER NOT NULL,
     purchase    NUMBER NOT NULL
@@ -246,7 +237,7 @@ CREATE TABLE TradeStock
 (
     mno    NUMBER NOT NULL,
     ts_no    NUMBER NOT NULL,
-    sname    VARCHAR2(20) NOT NULL,
+    sname    VARCHAR2(50) NOT NULL,
     code    VARCHAR2(10) NOT NULL,
     types    NUMBER NOT NULL,
     dates    DATE NOT NULL,
@@ -258,4 +249,7 @@ ALTER TABLE TradeStock
  ADD CONSTRAINT tradestock_ts_no_PK PRIMARY KEY ( ts_no,mno );
  
 select * from tradeStock;
-delete from tradeStock;
+
+alter table FavoriteStock modify(sname VARCHAR2(50));
+alter table MyStock modify(sname VARCHAR2(50));
+alter table TradeStock modify(sname VARCHAR2(50));

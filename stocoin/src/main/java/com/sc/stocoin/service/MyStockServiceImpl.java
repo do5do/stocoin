@@ -43,5 +43,10 @@ public class MyStockServiceImpl implements MyStockService {
 		return msd.selectMy(mno);
 	}
 
+	@Override
+	public void deleteMno(int mno) {
+		msd.deleteMno(mno);
+	}
+
 	
 }

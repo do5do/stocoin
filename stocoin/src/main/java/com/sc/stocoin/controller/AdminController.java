@@ -72,4 +72,10 @@ public class AdminController {
         as.memberOut(id);
     return "admin/memberOut";
 	}
+	
+	// chat
+	@RequestMapping("chat")
+	public String chat() {
+		return "exclude/chat";
+	}
 }

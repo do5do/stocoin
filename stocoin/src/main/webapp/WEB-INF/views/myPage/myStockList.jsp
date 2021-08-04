@@ -46,7 +46,7 @@
 				</div>
 				<div class="total_bottom display_flex">
 					<div class="left">
-						<p>총 수익률</p>
+						<p>총 수익률</p><!-- (총평가손익 / 총매입금액) * 100 -->
 						<p>총 매입금액</p>
 						<p>총 평가손익</p>
 						<p>총 평가금</p><!-- 총 매입금액 + 총 평가손익 -->
@@ -65,15 +65,15 @@
 				<c:forEach var="myStock" items="${list }">
 					<li class="card_item">
 						<div class="content display_flex">
-							<p class="name">${myStock.get("sname") }</p>
+							<p class="name">${myStock.sname }</p>
 							<div class="right">
 								<p class="end_price"><fmt:formatNumber value="${myStock.purchase }"></fmt:formatNumber>원</p>
 								<span class="time">등락률</span>
-								<c:if test="${myStock.get('fluc_rt')+0 > 0 }">
-									<span class="color_red">+${myStock.get('fluc_rt')}%</span>
+								<c:if test="${(myStock.fluc_rt + 0) > 0 }">
+									<span class="color_red">+${myStock.fluc_rt }%</span>
 								</c:if>
-								<c:if test="${myStock.get('fluc_rt')+0 < 0 }">
-									<span class="color_blue">${myStock.get('fluc_rt')}%</span>
+								<c:if test="${(myStock.fluc_rt + 0) < 0 }">
+									<span class="color_blue">${myStock.fluc_rt }%</span>
 								</c:if>
 							</div>
 						</div>
@@ -91,17 +91,17 @@
 								<!-- 보유잔고 -->
 								<p>${myStock.cnt }주</p>
 								<!-- 매매단가 -->
-								<p><fmt:formatNumber value="${myStock.get('contractAvg')}"></fmt:formatNumber>원</p>
+								<p><fmt:formatNumber value="${myStock.contractAvg }"></fmt:formatNumber>원</p>
 								<!-- 현재가 -->
-								<p><fmt:formatNumber value="${myStock.get('recentPrice')}"></fmt:formatNumber>원</p>
+								<p><fmt:formatNumber value="${myStock.recentPrice }"></fmt:formatNumber>원</p>
 								<!-- 평가손익 -->
-								<p class="gain"><fmt:formatNumber value="${(myStock[key='recentPrice'] * myStock.cnt) - (myStock[key='contractAvg'] * myStock.cnt)}"></fmt:formatNumber><span>원</span></p>
+								<p class="gain"><fmt:formatNumber value="${(myStock.recentPrice * myStock.cnt) - (myStock.contractAvg * myStock.cnt)}"></fmt:formatNumber>원</p>
 								<!-- 수익률 -->
-								<p class="rate"><fmt:formatNumber value="${((myStock[key='recentPrice'] - myStock[key='contractAvg']) / myStock[key='contractAvg']) * 100 }" pattern="0.00"></fmt:formatNumber><span>%</span></p>									
+								<p class="rate"><fmt:formatNumber value="${((myStock.recentPrice - myStock.contractAvg) / myStock.contractAvg) * 100 }" pattern="0.00"></fmt:formatNumber>%</p>									
 								<!-- 매입금액 -->
-								<p class="purchase"><fmt:formatNumber value="${myStock.get('contractAvg') * myStock.cnt}"></fmt:formatNumber>원</p>
+								<p class="purchase"><fmt:formatNumber value="${myStock.contractAvg * myStock.cnt}" pattern="#,###"></fmt:formatNumber>원</p>
 								<!-- 평가금액 -->
-								<p><fmt:formatNumber value="${myStock.get('recentPrice') * myStock.cnt}"></fmt:formatNumber>원</p>
+								<p><fmt:formatNumber value="${myStock.recentPrice * myStock.cnt}" pattern="#,###"></fmt:formatNumber>원</p>
 							</div>
 						</div>
 					</li>
@@ -119,8 +119,6 @@
 	var purchase = document.querySelectorAll('.purchase');
 	//총 평가손익
 	var gain = document.querySelectorAll('.gain');
-	//총 수익률
-	var rate = document.querySelectorAll('.rate');
 	// 예수금
 	var stockMoney = ${stockMoney};
 	
@@ -132,13 +130,13 @@
 	// sum
 	for (var i = 0; i < len; i++) {
 		var intPurchase = parseInt(purchase[i].innerText.split('원')[0].replaceAll(",", ""));
-		var intGain = parseInt(gain[i].innerText.replaceAll(",", ""));
-		var intRate = parseInt(rate[i].innerText.replaceAll(",", ""));
+		var intGain = parseInt(gain[i].innerText.split('원')[0].replaceAll(",", ""));
 		
 		totalPurchase += intPurchase;
 		totalGain += intGain;
-		totalRate += intRate;
 	}
+	// 총 수익률
+	totalRate = (totalGain / totalPurchase) * 100;
 	
 	// put
 	var replaceTotalPurchase = totalPurchase.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원";
@@ -168,12 +166,10 @@
 	// color function
 	function changeColor(name) {
 		var names = document.querySelectorAll("."+name);
-		console.log(names.length);
-		console.log(name);
+		
 		for (var i = 0; i < names.length; i++) {
-			console.log(names[i]);
-			var value = parseFloat(names[i].innerText.replaceAll(",", ""));
-			console.log(value);
+			var value = parseFloat(names[i].innerText.slice(0, -1).replaceAll(",", ""));
+			
 			if (value > 0) {
 				names[i].classList.add("color_red");
 			} else if (value < 0) {

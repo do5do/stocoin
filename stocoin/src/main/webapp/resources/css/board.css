@@ -21,6 +21,10 @@
 	cursor: pointer;
 }
 
+.white .contents li {
+	border-bottom: 1px solid #c5c5c5;
+}
+
 .contents li p {
 	color: #fff;
 	margin-bottom: 0;
@@ -48,6 +52,7 @@
 
 .fa-pen {
 	padding-right: 8px;
+	color: var(--point-color) !important;
 }
 /* boardList :end */
 
@@ -140,8 +145,16 @@ textarea::placeholder {
 	padding-top: 48px;
 }
 
+.white .qaDetail_reply p {
+	color: #4a4a4a !important;
+}
+
 .content {
 	padding-bottom: 16px;
+}
+
+.white .content .text {
+	color: #4a4a4a !important;
 }
 
 .sub_title .q {
@@ -153,6 +166,10 @@ textarea::placeholder {
 	margin-bottom: 6px;
 	font-size: 15px;
 	text-align: right;
+}
+
+.white .dates {
+	color: #888 !important;
 }
 
 #qrFrm {

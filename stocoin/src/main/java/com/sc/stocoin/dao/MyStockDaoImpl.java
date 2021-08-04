@@ -46,4 +46,9 @@ public class MyStockDaoImpl implements MyStockDao {
 	public List<MyStock> selectMy(int mno) {
 		return sst.selectList("mystockns.selectMy", mno);
 	}
+
+	@Override
+	public void deleteMno(int mno) {
+		sst.delete("mystockns.deleteMno", mno);
+	}
 }

@@ -10,11 +10,15 @@
 		(#{mno}, #{ts_no}, #{sname}, lpad(${code}, 6, 0), #{types}, sysdate, #{cnt}, #{contract})
 	</insert>
 	
-	<select id="avgContract" parameterType="string" resultType="integer">
-		select avg(contract) from tradeStock where sname = #{sname} and types = 1
+	<select id="avgContract" parameterType="hashmap" resultType="integer">
+		select avg(contract) from tradeStock where sname = #{sname} and mno = #{mno} and types = 1
 	</select>
 	
 	<select id="tradeList" parameterType="integer" resultType="tradeStock">
 		select * from tradeStock where mno = #{mno} order by ts_no desc
 	</select>
+	
+	<delete id="deleteMno" parameterType="integer">
+		delete from tradeStock where mno = #{mno}
+	</delete>
 </mapper>

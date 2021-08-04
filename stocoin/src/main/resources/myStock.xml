@@ -31,4 +31,8 @@
 	<select id="selectMy" parameterType="integer" resultType="myStock">
 		select * from myStock where mno = #{mno} and cnt != 0 order by ms_no desc
 	</select>
+	
+	<delete id="deleteMno" parameterType="integer">
+		delete from myStock where mno = #{mno}
+	</delete>
 </mapper>

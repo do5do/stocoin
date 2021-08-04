@@ -18,5 +18,7 @@ public interface MyStockService {
 
 	List<MyStock> selectMy(int mno);
 
+	void deleteMno(int mno);
+
 	
 }

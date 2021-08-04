@@ -18,4 +18,6 @@ public interface MyStockDao {
 
 	List<MyStock> selectMy(int mno);
 
+	void deleteMno(int mno);
+
 }

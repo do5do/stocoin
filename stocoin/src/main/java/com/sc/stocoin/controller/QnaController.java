@@ -72,13 +72,11 @@ public class QnaController {
 	
 	@RequestMapping("/board/qaDetail")
 	public String qaDetail(int qno, Model model) {
+		// 문의글
 		Qna qna = qs.select(qno);
 		
-		// 문의글에 대한 답변이 있는지
+		// 문의글에 대한 답변
 		QnaReply qr = qrs.select(qno);
-		
-//		if (qr != null) {
-//		}
 		
 		model.addAttribute("qr", qr);
 		model.addAttribute("qna", qna);

@@ -1,5 +1,6 @@
 package com.sc.stocoin.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -19,12 +20,20 @@ public class TradeStockDaoImpl implements TradeStockDao {
 	}
 
 	@Override
-	public int avgContract(String sname) {
-		return sst.selectOne("tradestockns.avgContract", sname);
+	public int avgContract(String sname, int mno) {
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("sname", sname);
+		hm.put("mno", mno);
+		return sst.selectOne("tradestockns.avgContract", hm);
 	}
 
 	@Override
 	public List<TradeStock> tradeList(int mno) {
 		return sst.selectList("tradestockns.tradeList", mno);
+	}
+
+	@Override
+	public void deleteMno(int mno) {
+		sst.delete("tradestockns.deleteMno", mno);
 	}
 }

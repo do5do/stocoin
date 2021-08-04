@@ -104,7 +104,7 @@
 	}
 	
 	// tab
-	function tab(item) {
+	function tradeTab(item) {
 		if (item == 'sell') {
 			types = 2;
 			$('#sell').addClass('blue');
@@ -197,8 +197,8 @@
 			<input type="text"/>
 		</div>
 		<ul class="trade_tab">
-			<li class="red" id="buy" onclick="tab('buy')">매수</li>
-			<li id="sell" onclick="tab('sell')">매도</li>
+			<li class="red" id="buy" onclick="tradeTab('buy')">매수</li>
+			<li id="sell" onclick="tradeTab('sell')">매도</li>
 		</ul>
 		<div class="trade_detail">
 			<div class="left">

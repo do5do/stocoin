@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sc.stocoin.model.Member;
 import com.sc.stocoin.service.FavoriteCoinService;
+import com.sc.stocoin.service.FavoriteStockService;
 import com.sc.stocoin.service.MemberService;
 import com.sc.stocoin.service.MyStockService;
 import com.sc.stocoin.service.TradeCoinService;
@@ -37,8 +38,17 @@ public class MemberController{
     @Autowired
     private MyStockService mss;
  
+    @Autowired
+	private FavoriteStockService fss;
     
     private String url;
+    
+    @RequestMapping("mode")
+    @ResponseBody
+    public String mode(String mode, HttpSession session) {
+    	session.setAttribute("mode", mode);
+    	return mode;
+    }
     
     @RequestMapping("login2")
     @ResponseBody
@@ -96,8 +106,9 @@ public class MemberController{
         tcs.tradeDelete(mno);
         tcs.myDelete(mno);
         fcs.deleteMno(mno);
-//        tss.delete(mno);
-//        mss.delete(mno);
+        tss.deleteMno(mno);
+        mss.deleteMno(mno);
+        fss.deleteMno(mno);
         session.invalidate();
         return "member/delete";
     }

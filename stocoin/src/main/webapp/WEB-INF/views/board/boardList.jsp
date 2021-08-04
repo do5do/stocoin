@@ -95,7 +95,7 @@
 				<button class="btn btn-outline-primary" onclick="location.href='/stocoin/board/boardWriteForm?types=${types}'">글쓰기</button>
 			</c:if>
 		</c:if>
-		<button class="btn btn-outline-primary col-2" onclick="location.href='/stocoin/board/insertBoard?types=${types}'">insertBoard</button>
+<%-- 		<button class="btn btn-outline-primary col-2" onclick="location.href='/stocoin/board/insertBoard?types=${types}'">insertBoard</button> --%>
 	</div>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/stocoin/resources/css/coinList.css">
+<link rel="stylesheet" type="text/css" href="/stocoin/resources/css/coin.css">
 <link rel="stylesheet" type="text/css" href="/stocoin/resources/css/stock.css">
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script type="text/javascript" src="/stocoin/resources/js/dayjs.min.js"></script>
@@ -14,14 +14,16 @@
 	var selected = "삼성전자";
 	var code = "005930";
 	var time = "1d";
+	var tab = "all";
+	var search = "";
 	
 	// 주식 리스트 로드, info 로드
 	$(function() {
-		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts);
-		$('#chart').load("/stocoin/exclude2/stockChart");
+		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search);
 		$('.dp_flex').load("/stocoin/exclude2/stockInfo");
+		$('#chart').load("/stocoin/exclude2/stockChart");
 		
-		// content left, right height 맞추기
+		//content left, right height 맞추기
 		var layoutHeight = $('#content_right').height();
 		$('#table_wrapper').height(layoutHeight - 108);
 	});
@@ -31,16 +33,14 @@
 		if ($('#'+kind).text() == "↓") {
 			kinds = kind;
 			sorts = "asc";
-			$('.sort').text("");
 			$('#'+kind).text("↑");
-			$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts);
 		} else {
 			kinds = kind;
 			sorts = "desc";
-			$('.sort').text("");
 			$('#'+kind).text("↓");
-			$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts);
 		}
+		$('.sort').text("");
+		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search);
 	}
 	
 	function stockInfo(inputCode, name) {
@@ -59,13 +59,56 @@
 		time = inputTime;
 		$('#chart').load("/stocoin/exclude2/stockChart?code=" + code + "&time=" + time);
 	}
+	
+	// main tab
+	function mainTab() {
+		tab = event.target.id;
+		if (${empty id} && tab != "all") {
+			alert('로그인이 필요합니다.');
+			tab = "all";
+		}
+		$('#main_tab p').removeClass('active');
+		$('#'+tab).addClass('active');
+		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search);
+	}
+	
+	// search
+	function search_stock() {
+		search = document.getElementById('search_stock').value;
+		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search);
+		
+		if (search == null || search == "") {
+			$('#search_del').removeClass('fa-times').addClass('fa-search');
+			$('#search_del').css('cursor', 'default');
+		} else {
+			$('#search_del').removeClass('fa-search').addClass('fa-times');
+			$('#search_del').css('cursor', 'pointer');
+		}
+	}
+	
+	// 검색어 삭제
+	function search_del() {
+		if ($('#search_del').hasClass('fa-times')) {
+			search = "";
+			$('#search_stock').val('');
+			$('#search_del').css('cursor', 'default');
+			$('#search_del').removeClass('fa-times').addClass('fa-search');
+			$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search);
+		}
+	}
 </script>
 </head>
 <body>
-	<div id="content" class="">
+	<div id="content">
 		<div id="content_left">
+			<div id="main_tab">
+				<p class="active" onclick="mainTab()" id="all">전체</p>
+				<p onclick="mainTab()" id="my">보유</p>
+				<p onclick="mainTab()" id="favorite">관심</p>
+			</div>
 			<div id="search">
-				<input type="text" name="search" placeholder="검색어를 입력하세요"> <a href="#">검색</a>
+				<input type="text" name="search" id="search_stock" placeholder="검색어를 입력하세요" onkeyUp="search_stock()">
+				<span class="fas fa-search" id="search_del" onclick="search_del()"></span>
 			</div>
 			<ul>
 				<li class="col-3" onclick="sort('ISU_ABBRV')">주식명 <span id="ISU_ABBRV" class="sort"></span></li>

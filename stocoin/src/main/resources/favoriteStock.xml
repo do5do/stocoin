@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="favoriteStockns">
+	<select id="select" parameterType="favoriteStock" resultType="favoriteStock">
+		select * from favoriteStock where mno = #{mno} and sname = #{sname}
+	</select>
+	
+	<insert id="insertFavo" parameterType="favoriteStock">
+		<selectKey order="BEFORE" keyProperty="fs_no" resultType="integer">
+			select nvl(max(fs_no), 0) + 1 fs_no from favoriteStock where mno = #{mno}
+		</selectKey>
+		insert into favoriteStock values(#{mno}, #{fs_no}, #{sname}, #{code})
+	</insert>
+	
+	<delete id="deleteFavo" parameterType="favoriteStock">
+		delete from favoriteStock where mno = #{mno} and sname = #{sname}
+	</delete>
+	
+	<select id="selectFavo" parameterType="favoriteStock" resultType="favoriteStock">
+		select * from favoriteStock where mno = #{mno} order by fs_no desc
+	</select>
+	
+	<delete id="deleteMno" parameterType="integer">
+		delete from favoriteStock where mno = #{mno}
+	</delete>
+</mapper>
