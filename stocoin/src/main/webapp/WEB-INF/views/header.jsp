@@ -9,9 +9,8 @@
 	var curUrl = window.location.href;
 	var sliceUrl = curUrl.split("/")[4];
 	
-	$('#'+sliceUrl).addClass("active");
-	
 	$(function() {
+		$('#'+sliceUrl).addClass("active");
 		if ("${mode}" == "white") {
 			$('#mode_btn').addClass('active');
 			$('#mode_btn figure img').attr('src', '/stocoin/resources/images/sun.svg');
