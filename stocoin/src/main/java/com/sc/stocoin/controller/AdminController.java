@@ -72,4 +72,29 @@ public class AdminController {
         as.memberOut(id);
     return "admin/memberOut";
 	}
+
+    @RequestMapping("/admin/updateCoinMoney/id/{id}")
+    public String updateCoinMoney(@PathVariable String id) {
+    	Member member = ms.select(id);
+    	member.setCoin_money(member.getCoin_money() + 3000000);
+    	ms.updateCoinMoney(member);
+    	return "admin/updateCoinMoney";
+    }
+    @RequestMapping("/admin/updateStockMoney/id/{id}")
+    public String updateStockMoney(@PathVariable String id) {
+    	Member member = ms.select(id);
+    	member.setStock_money(member.getStock_money() + 3000000);
+    	ms.updateStockMoney(member);
+    	return "admin/updateStockMoney";
+    }
+    @RequestMapping("/admin/updateAllStock")
+    public String updateAllStock() {
+    	ms.updateAllStock();
+    	return "admin/updateAllStock";
+    }
+    @RequestMapping("/admin/updateAllCoin")
+    public String updateAllCoin() {
+    	ms.updateAllCoin();
+    	return "admin/updateAllCoin";
+    }
 }
