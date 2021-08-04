@@ -99,9 +99,9 @@
 								<!-- 수익률 -->
 								<p class="rate"><fmt:formatNumber value="${((myStock.recentPrice - myStock.contractAvg) / myStock.contractAvg) * 100 }" pattern="0.00"></fmt:formatNumber>%</p>									
 								<!-- 매입금액 -->
-								<p class="purchase"><fmt:formatNumber value="${myStock.contractAvg * myStock.cnt}"></fmt:formatNumber>원</p>
+								<p class="purchase"><fmt:formatNumber value="${myStock.contractAvg * myStock.cnt}" pattern="#,###"></fmt:formatNumber>원</p>
 								<!-- 평가금액 -->
-								<p><fmt:formatNumber value="${myStock.recentPrice * myStock.cnt}"></fmt:formatNumber>원</p>
+								<p><fmt:formatNumber value="${myStock.recentPrice * myStock.cnt}" pattern="#,###"></fmt:formatNumber>원</p>
 							</div>
 						</div>
 					</li>

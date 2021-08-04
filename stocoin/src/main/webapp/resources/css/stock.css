@@ -83,6 +83,10 @@ p.fee {
 	position: relative;
 }
 
+.white .cnt_box {
+	border: 1px solid #000;
+}
+
 .line_box {
 	padding: 16px 10px;
 	cursor: pointer;
@@ -92,6 +96,10 @@ p.fee {
 	width: 14px;
 	height: 1px;
 	background: #fff;
+}
+
+.white .cnt_box .line {
+	background: #000;
 }
 
 .cnt_box .vertical {

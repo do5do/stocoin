@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/stocoin/resources/css/coinList.css">
+<link rel="stylesheet" type="text/css" href="/stocoin/resources/css/coin.css">
 <link rel="stylesheet" type="text/css" href="/stocoin/resources/css/stock.css">
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script type="text/javascript" src="/stocoin/resources/js/dayjs.min.js"></script>

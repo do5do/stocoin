@@ -15,6 +15,10 @@
 	border-radius: 30px;
 }
 
+.myPage_tabs li.active a {
+	color: #fff !important;
+}
+
 /* 공통 */
 .display_flex {
 	display: flex;
@@ -49,6 +53,10 @@ p {
 .total_top {
 	border-bottom: 1px solid #383838;
 	color: #fff;
+}
+
+.white .total_top {
+	border-bottom: 1px solid #c5c5c5;
 }
 
 .total_top .totalMoney {
@@ -88,9 +96,17 @@ p {
 	margin-bottom: 24px;
 }
 
+.white .card_item {
+	border-bottom: 1px solid #efefef;
+}
+
 .content {
 	border-bottom: 1px solid #383838;
 	padding-bottom: 8px;
+}
+
+.white .content {
+	border-bottom: 1px solid #c5c5c5;
 }
 
 .name {
@@ -131,6 +147,15 @@ th:first-child, td:first-child {
 
 .table > :not(:last-child) > :last-child > * {
     border-bottom-color: #555 !important;
+}
+
+.white .table > :not(:last-child) > :last-child > * {
+    border-bottom-color: #c5c5c5 !important;
+}
+
+.white .table {
+	border-color: #c5c5c5;
+	color: #000;
 }
 
 .stock_name {

@@ -43,6 +43,13 @@ public class MemberController{
     
     private String url;
     
+    @RequestMapping("mode")
+    @ResponseBody
+    public String mode(String mode, HttpSession session) {
+    	session.setAttribute("mode", mode);
+    	return mode;
+    }
+    
     @RequestMapping("login2")
     @ResponseBody
     public String login2(String curUrl) {

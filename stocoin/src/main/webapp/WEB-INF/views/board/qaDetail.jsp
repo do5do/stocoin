@@ -17,11 +17,11 @@
 		<p class="dates">${qna.dates }</p>
 		<div class="content">
 			<span class="sub">제목</span>
-			<p class="inline_block">${qna.title }</p>
+			<p class="inline_block text">${qna.title }</p>
 		</div>
 		<div class="content">
 			<span class="sub">내용</span>
-			<pre class="inline_block">${qna.content }</pre>
+			<pre class="inline_block text">${qna.content }</pre>
 		</div>
 		
 		<section class="qaDetail_reply">
@@ -33,7 +33,7 @@
 				<p>답변이 작성되지 않았습니다.</p>
 			</c:if> 
 		</section>
-		<div class="input_box right">
+		<div class="input_box">
 			<button class="btn btn-outline-primary col-3" onclick="history.go(-1)">목록</button>
 			<button class="btn btn-outline-primary col-3" onclick="formOpen()">임시 입력 버튼</button>
 		</div>

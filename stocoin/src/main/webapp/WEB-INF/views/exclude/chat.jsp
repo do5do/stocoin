@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:useBean id="ss" class="com.sc.stocoin.model.StocoinStrings" scope="page" />
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Insert title here</title>
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+	.btn-primary {
+		background-color: #19f !important;
+		border-radius: 0;
+	}
+</style>
 <script type="text/javascript">
 	var websocket; // function밖으로 빼변 전역변수로 활용
 	var nick;  // 별명
@@ -55,13 +63,20 @@
 		objDiv.scrollTop = objDiv.scrollHeight;
 	}
 </script>
-</head><body>
-<div class="container">
-<table class="table table-hover">
-	<tr><td>메세지</td><td><input type="text" id="message" class="form-control" style=" background-color: rgba(0, 0, 0, 0);"></td>
-		<td><input type="button" id="sendBtn" value="전송" class="btn btn-sm btn-success"></td></tr>
-	<tr><td>대화영역</td><td colspan="2"><div id="chatMessage"></div></td></tr>
-</table>
-</div>
+</head>
+<body>
+	<div class="container">
+		<table class="table table-hover">
+			<tr>
+				<td>메세지</td>
+				<td><input type="text" id="message" class="form-control" style=" background-color: rgba(0, 0, 0, 0);"></td>
+				<td><input type="button" id="sendBtn" value="전송" class="btn btn-sm btn-primary"></td>
+			</tr>
+			<tr>
+				<td>대화영역</td>
+				<td colspan="2"><div id="chatMessage"></div></td>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>
