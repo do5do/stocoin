@@ -14,6 +14,7 @@
 	var selected = "삼성전자";
 	var code = "005930";
 	var time = "1d";
+	
 	// 주식 리스트 로드, info 로드
 	$(function() {
 		$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts);

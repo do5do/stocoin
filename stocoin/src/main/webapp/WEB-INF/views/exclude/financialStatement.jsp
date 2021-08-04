@@ -16,6 +16,7 @@
 			<thead>
 				<tr>
 					<th></th>
+					<th></th>
 					<th>${fsList[0].get('bfefrmtrm_nm') }</th>
 					<th>${fsList[0].get('frmtrm_nm') }</th>
 					<th>${fsList[0].get('thstrm_nm') }</th>
@@ -23,8 +24,8 @@
 			</thead>
 			<tbody>
 				<c:forEach var="fs" items="${fsList}" varStatus="status">
-					<%-- <c:if test="${status > 0 and  }" --%>
 					<tr>
+						<td>${fs.get('sj_nm') }</td>
 						<td>${fs.get('account_nm') }</td>
 						<td>${fs.get('bfefrmtrm_amount') }</td>
 						<td>${fs.get('frmtrm_amount') }</td>
