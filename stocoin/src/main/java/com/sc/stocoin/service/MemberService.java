@@ -32,4 +32,8 @@ public interface MemberService {
 	public void updateStockMoney(Member member);
 
 	public void updateCoinMoney(Member member);
+
+	public void updateAllStock();
+
+	public void updateAllCoin();
 }

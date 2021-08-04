@@ -49,8 +49,14 @@
 		<p>${board.content }</p>
 		<div class="input_box right">
 			<button class="btn btn-outline-primary col-3" onclick="location.href='/stocoin/board/boardList?types=${types}'">목록</button>
-			<button class="btn btn-outline-primary col-3" onclick="location.href='/stocoin/board/boardUpdate/bno/${board.bno}'">수정</button>
-			<button class="btn btn-outline-primary col-3" onclick="boardDel()">삭제</button>
+			<c:if test="${not empty id}">
+			<c:if test="${id == 'admin' }">
+				<button class="btn btn-outline-primary col-3" onclick="location.href='/stocoin/board/boardUpdate/bno/${board.bno}'">수정</button>
+			</c:if>
+			</c:if>
+			<c:if test="${id == 'admin' }">
+				<button class="btn btn-outline-primary col-3" onclick="boardDel()">삭제</button>
+			</c:if>
 		</div>
 		
 		<section class="reply">

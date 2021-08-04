@@ -159,4 +159,13 @@ public class MemberServiceImpl implements MemberService {
 		md.updateCoinMoney(member);		
 	}
 
+	@Override
+	public void updateAllStock() {
+		md.updateAllStock();
+	}
+
+	@Override
+	public void updateAllCoin() {
+		md.updateAllCoin();
+	}
 }

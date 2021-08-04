@@ -27,19 +27,6 @@
 	})
 	
 	// 문의글 작성하기 session check
-	function sessionChk() {
-		if (${empty id}) {
-			var con = confirm("로그인이 필요합니다.");
-			if (con) {
-				var curUrl = window.location.pathname;
-				$.post("/stocoin/login2", "curUrl="+curUrl, function(data) {});
-				location.href="https://kauth.kakao.com/oauth/authorize?client_id=8d7498ce8ee97c514f96feb042750e1e&redirect_uri=http://localhost:8080/stocoin/login&response_type=code";
-			}
-		} else {
-			location.href='/stocoin/board/qaWriteForm';
-		}
-	}
-	
 	function secret(mno, qno) {
 		if (${not empty id}) {
 			if (${id != "admin"}) {

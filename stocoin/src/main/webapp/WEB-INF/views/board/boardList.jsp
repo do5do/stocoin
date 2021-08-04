@@ -90,11 +90,11 @@
 				</li>
 			</c:if>
 		</ul>
-		<c:if test="${not empty id}">
-			<c:if test="${id == 'admin' }">
-				<button class="btn btn-outline-primary" onclick="location.href='/stocoin/board/boardWriteForm?types=${types}'">글쓰기</button>
+			<c:if test="${not empty id}">
+				<c:if test="${id == 'admin' }">
+					<button class="btn btn-outline-primary" onclick="location.href='/stocoin/board/boardWriteForm?types=${types}'">글쓰기</button>
+				</c:if>
 			</c:if>
-		</c:if>
 <%-- 		<button class="btn btn-outline-primary col-2" onclick="location.href='/stocoin/board/insertBoard?types=${types}'">insertBoard</button> --%>
 	</div>
 </body>

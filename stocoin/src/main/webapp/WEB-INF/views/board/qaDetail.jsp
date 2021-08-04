@@ -35,7 +35,11 @@
 		</section>
 		<div class="input_box">
 			<button class="btn btn-outline-primary col-3" onclick="history.go(-1)">목록</button>
-			<button class="btn btn-outline-primary col-3" onclick="formOpen()">임시 입력 버튼</button>
+			<c:if test="${not empty id}">
+				<c:if test="${id == 'admin' }">
+						<button class="btn btn-outline-primary col-3" onclick="formOpen()">답변</button>
+				</c:if>
+			</c:if>
 		</div>
 		<!-- 관리자에서는 디폴트로 보이게 -->
 		<form action="/stocoin/board/qnaReplyWrite" method="post" id="qrFrm">

@@ -22,7 +22,30 @@
 			location.href = "/stocoin/admin/memberOut/id/" + id;
 		} 
 	}
-	
+	function updateCoin(id) {
+		var con = confirm("입금시키시겠습니까?");
+		if (con) {
+			location.href = "/stocoin/admin/updateCoinMoney/id/" + id;
+		} 
+	}
+	function updateStock(id) {
+		var con = confirm("입금시키시겠습니까?");
+		if (con) {
+			location.href = "/stocoin/admin/updateStockMoney/id/" +id;
+		} 
+	}
+	function updateAllStock() {
+		var con = confirm("입금시키시겠습니까?");
+		if (con) {
+			location.href = "/stocoin/admin/updateAllStock";
+		} 
+	}
+	function updateAllCoin() {
+		var con = confirm("입금시키시겠습니까?");
+		if (con) {
+			location.href = "/stocoin/admin/updateAllCoin";
+		} 
+	}
 	$(function() {
 		// tab active control
 		$('#1').addClass('active');
@@ -45,21 +68,17 @@
 			<li id="1">
 				<a class="tab" href="/stocoin/admin/adminPage">회원 관리</a>
 			</li>	
-			<li>
-				<a class="tab" href="">주식 관리</a>
-			</li>
-			<li>
-				<a class="tab" href="">코인 관리</a>
-			</li>
 		</ul>
 	
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th class="col-2" style="padding-left:20px;">회원번호</th>
+					<th class="col-1" style="padding-left:20px;">회원번호</th>
 					<th class="col-2">닉네임</th>
-					<th class="col-3">가입일</th>
-					<th class="col-3">ID상태</th>
+					<th class="col-2">가입일</th>
+					<th class="col-2">ID상태</th>
+					<th class="col-2">잔액</th>
+					<th class="col-2">입금</th>
 					<th class="col-2">삭제</th>
 				</tr>
 			</thead>
@@ -67,19 +86,21 @@
 				<c:forEach var="member" items="${list}">
 					<tr>
 						<td style="padding-left:20px;">${member.mno }</td>
-						<td>${member.nick }</td>
-						<td>${member.reg_date }</td>
+						<td style="padding-top: 18px;">${member.nick }</td>
+						<td style="padding-top: 18px;">${member.reg_date }</td>
 						<c:choose>
-							<c:when test="${member.del eq 'y'}"><td>탈퇴</td></c:when>
-							<c:when test="${member.del eq 'n'}"><td>가입</td></c:when>
+							<c:when test="${member.del eq 'y'}"><td style="padding-top: 18px;">탈퇴</td></c:when>
+							<c:when test="${member.del eq 'n'}"><td style="padding-top: 18px;">가입</td></c:when>
 						</c:choose>
-						<td><a onclick="del(${member.id})">삭제</a></td>
+						<td>코인 ${member.coin_money}원 <br> 주식 ${member.stock_money}원</td>
+						<td style="padding-top: 21px;"><a onclick="updateCoin('${member.id}')">코인</a> / <a onclick="updateStock(${member.id})">주식</a></td>
+						<td style="padding-top: 21px;"><a onclick="del(${member.id})">삭제</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		
 		<div align="right">
+			<a class="btn btn-primary col-1" onclick="updateAllCoin()">코인</a> <a class="btn btn-primary col-1" onclick="updateAllStock()">주식</a>
 			<a href="adminLogout.do" class="btn btn-primary col-2">관리자 로그아웃</a>
 		</div>
 		
