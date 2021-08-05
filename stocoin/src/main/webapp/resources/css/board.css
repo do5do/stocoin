@@ -52,7 +52,7 @@
 
 .fa-pen {
 	padding-right: 8px;
-	color: var(--point-color) !important;
+	color: var(- -point-color) !important;
 }
 /* boardList :end */
 
@@ -109,9 +109,14 @@ textarea::placeholder {
 	color: #fff;
 }
 
+.white #replyList .li_inner {
+	color: #000;
+	border-bottom: 1px solid #c5c5c5;
+}
+
 #replyList li .content {
 	word-break: break-all;
-} 
+}
 
 #replyList li .likes {
 	color: #888;
@@ -137,7 +142,7 @@ textarea::placeholder {
 }
 
 .sub.q {
-	color: var(--point-color) !important;
+	color: var(- -point-color) !important;
 	font-size: 17px;
 }
 
@@ -166,6 +171,7 @@ textarea::placeholder {
 	margin-bottom: 6px;
 	font-size: 15px;
 	text-align: right;
+	color: #888 !important;
 }
 
 .white .dates {
@@ -174,4 +180,5 @@ textarea::placeholder {
 
 #qrFrm {
 	display: none;
+	margin-top: 36px;
 }

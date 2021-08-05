@@ -25,6 +25,11 @@ a {
 	text-decoration: none;
 }
 
+
+pre {
+	font-family: Apple SD Gothic Neo, AppleSDGothicNeo;
+}
+
 /* common */
 .container {
 	margin: 180px auto;

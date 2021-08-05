@@ -146,7 +146,7 @@ public class CoinServiceImpl implements CoinService {
 				coinList = coinLists;
 			} else {
 				for(int i = 0; i < coinLists.size(); i++) {
-					if(coinLists.get(i).get("name").toString().contains(val.toUpperCase()))
+					if(coinLists.get(i).get("name").toString().contains(val.toUpperCase()) || coinLists.get(i).get("cname_ko").toString().contains(val))
 						coinList.add(coinLists.get(i));
 				}
 			}
@@ -162,7 +162,7 @@ public class CoinServiceImpl implements CoinService {
 						if(val == null || val.equals("")) {
 							coinList.add(coinLists.get(j));
 						} else {
-							if(coinLists.get(j).get("name").toString().contains(val.toUpperCase()))
+							if(coinLists.get(j).get("name").toString().contains(val.toUpperCase()) || coinLists.get(i).get("cname_ko").toString().contains(val))
 								coinList.add(coinLists.get(j));
 						}
 						break;
@@ -181,7 +181,7 @@ public class CoinServiceImpl implements CoinService {
 						if(val == null || val.equals("")) {
 							coinList.add(coinLists.get(j));
 						} else {
-							if(coinLists.get(j).get("name").toString().contains(val.toUpperCase()))
+							if(coinLists.get(j).get("name").toString().contains(val.toUpperCase()) || coinLists.get(i).get("cname_ko").toString().contains(val))
 								coinList.add(coinLists.get(j));
 						}
 						break;

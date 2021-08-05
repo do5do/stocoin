@@ -62,47 +62,53 @@
 		
 		var chart2;
 		var options2 = {
-     		series: [],
-	        chart: {
-	            height: 180,
-	            type: 'area',
-	       	    toolbar: {
-	      	        show: false
-	       	    },
-	       	 	zoom: {
-	            	enabled: false
-	           }
-	        },
-	        dataLabels: {
-	            enabled: false
-	        },
-	        stroke: {
-	            curve: 'smooth',
-	            colors: ['#19f'],
-	            width: 1
-	        },
-	        xaxis: {
-        	    type: 'datetime',
-	            categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"],
-	        	tooltip: {
-	            	enabled: false
-	        	}
-	        },
-        	yaxis: {
-        	    show: false
-        	},
-	        tooltip: {
-	          x: {
-	            format: 'yyyy/MM/dd HH:mm'
-	          },
-	          marker: {
-	              show: false
-	          }
-	        },
-	        grid: {
-	            show: false
-	        }
-        };
+				series : [],
+				noData : {
+					text : 'Loading...'
+				},
+				chart : {
+					height : 180,
+					type : 'area',
+					toolbar : {
+						show : false
+					},
+					zoom : {
+						enabled : false
+					}
+				},
+				dataLabels : {
+					enabled : false
+				},
+				stroke : {
+					curve : 'smooth',
+					colors : [ '#19f' ],
+					width : 1
+				},
+				xaxis : {
+					type : 'datetime',
+					categories : [ "2018-09-19T00:00:00.000Z",
+							"2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z",
+							"2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z",
+							"2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z" ],
+					tooltip : {
+						enabled : false
+					}
+				},
+				yaxis : {
+					show : false
+				},
+				tooltip : {
+					x : {
+						format : 'yyyy/MM/dd HH:mm'
+					},
+					marker : {
+						show : false
+					}
+				},
+				grid : {
+					show : false
+				}
+			};
 
 		$(function() {
 			// 차트 생성
@@ -116,6 +122,7 @@
 		function chartLoad() {
 			var jsonData = JSON.parse('${stockChart}');
 			let jsonArray = [];
+			let jsonArray2 = [];
 			if(time == "1d") {
 				jsonData.output.forEach((item)=>{
 					jsonArray.push([
@@ -123,6 +130,10 @@
 						parseFloat(item.TDD_OPNPRC.replace(",", "")),
 						parseFloat(item.TDD_HGPRC.replace(",", "")),
 						parseFloat(item.TDD_LWPRC.replace(",", "")),
+						parseFloat(item.TDD_CLSPRC.replace(",", ""))
+					]);
+					jsonArray2.push([
+						Date.parse(item.TRD_DD), 
 						parseFloat(item.TDD_CLSPRC.replace(",", ""))
 					]);
 				});
@@ -149,6 +160,10 @@
 						parseFloat(jsonData.output[i].TDD_LWPRC.replace(",", "")),
 						parseFloat(jsonData.output[i].TDD_CLSPRC.replace(",", ""))
 					]);
+					jsonArray2.push([
+						Date.parse(date + jsonData.output[i].TRD_DD), 
+						parseFloat(jsonData.output[i].TDD_CLSPRC.replace(",", ""))
+					]);
 				}
 				chart.updateOptions({
 					xaxis : {
@@ -167,19 +182,13 @@
 					align : 'left'
 				}
 			});
-			chart2.updateOptions({
-				title : {
-					text : name,
-					align : 'left'
-				}
-			});
 			chart.updateSeries([{
 			  name: 'Sales',
 			  data: jsonArray
 			}]);
 			chart2.updateSeries([{
 			  name: 'price',
-			  data: jsonArray
+			  data: jsonArray2
 			}]);
 		}
 	</script>

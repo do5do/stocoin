@@ -207,7 +207,7 @@
 </section>
 <!-- 매수, 매도 -->
 <section class="trade col-7">
-	<form action="" method="post" name="frm" onsubmit="trade()">
+	<form action="" method="post" name="frm" onsubmit="return trade()">
 		<!-- 엔터키 전송 막기 -->
 		<div style="display:none">
 			<input type="submit" onclick="return false"/>

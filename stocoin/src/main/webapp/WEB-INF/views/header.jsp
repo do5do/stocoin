@@ -95,7 +95,9 @@
 	
 	// white session store
 	function whiteSession() {
-		$.post("/stocoin/mode", "mode="+mode, function(data) {});
+		$.post("/stocoin/mode", "mode="+mode, function(data) {
+			mode = data;
+		});
 	}
 	
 </script>

@@ -29,6 +29,11 @@ public class AdminController {
 	
 	@RequestMapping("/admin/adminLogin")
 	public String adminLogin(Admin admin, Model model, HttpSession session) {
+    	session.removeAttribute("nick");
+    	session.removeAttribute("id");
+    	session.removeAttribute("mno");
+    	session.removeAttribute("access_Token");
+
 		int result = 0; // 암호가 다름
 		Admin admin2 = as.select(admin.getId());
 		if (admin == null || !admin.getId().equals(admin2.getId())) 

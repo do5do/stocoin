@@ -287,7 +287,7 @@
     color: #000 !important;
     border: none;
 }
-#chart_sm .apexcharts-tooltip *{
+.apexcharts-tooltip *{
 	color: #000 !important;
 }
 

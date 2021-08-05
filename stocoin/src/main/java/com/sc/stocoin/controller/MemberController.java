@@ -9,10 +9,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sc.stocoin.model.Member;
 import com.sc.stocoin.service.FavoriteCoinService;
@@ -43,11 +43,13 @@ public class MemberController{
 	private FavoriteStockService fss;
     
     private String url;
+    private String mode;
     
     @RequestMapping("mode")
     @ResponseBody
     public String mode(String mode, HttpSession session) {
     	session.setAttribute("mode", mode);
+    	this.mode = mode;
     	return mode;
     }
     
@@ -81,7 +83,7 @@ public class MemberController{
     		} else { // 그냥 로그인 일 때
     			nick = member.getNick();
     			result = 0;
-    		}
+    		} 
     		mno = member.getMno();
     	} 
     	
@@ -89,6 +91,10 @@ public class MemberController{
     	session.setAttribute("id", id);
     	session.setAttribute("access_Token", access_Token);
     	session.setAttribute("nick", nick);
+    	
+    	// white/black 모드
+    	String mode = this.mode;
+    	session.setAttribute("mode", mode);
 
     	// 이전 주소 가져오기
     	String prevUrl = url;
