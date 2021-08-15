@@ -95,6 +95,7 @@ public class QnaController {
 	@RequestMapping("/board/qnaReplyUpdate")
 	public String qnaReplyUpdate(QnaReply qr, Model model) {
 		int result = qrs.update(qr);
+		
 		model.addAttribute("result", result);
 		model.addAttribute("qno", qr.getQno());
 		return "/board/qnaReplyUpdate";
