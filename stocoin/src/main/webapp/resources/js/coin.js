@@ -123,9 +123,9 @@ $(function() {
 	chart2.render();
 	$('.trade').load('/stocoin/exclude2/coinTrade?name=' + selected);
 	change_chart(selected);
+	
 	//content left, right height 맞추기
 	var layoutHeight = $('#content_right').height();
-	console.log(layoutHeight);
 	$('#table_wrapper').css('height', layoutHeight - 156);
 });
 

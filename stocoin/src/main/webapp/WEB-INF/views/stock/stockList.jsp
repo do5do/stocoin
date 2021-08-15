@@ -25,7 +25,6 @@
 		
 		//content left, right height 맞추기
 		var layoutHeight = $('#content_right').height();
-		console.log(layoutHeight);
 		$('#table_wrapper').css('height', layoutHeight - 156);
 	});
 	

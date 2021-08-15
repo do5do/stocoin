@@ -61,7 +61,7 @@
 				<textarea name="content" placeholder="답변을 작성해주세요." required></textarea>
 			</c:if>
 			<c:if test="${not empty qr }">
-				<textarea name="content" placeholder="답변을 작성해주세요." required>${qr.content }</textarea>
+				<textarea name="content" required>${qr.content }</textarea>
 			</c:if>
 			<div class="input_box">
 				<input type="submit" value="확인" class="btn btn-primary col-4">
