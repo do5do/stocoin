@@ -12,7 +12,7 @@
 	
 	<!-- chat history -->
 	<select id="chatHistory" resultType="chat">
-		select * from (select * from chat order by rownum desc) where rownum between 1 and 20 order by cno
+		select * from (select * from chat order by rownum desc) where rownum between 1 and 50 order by cno
 	</select>
 	
 </mapper>
