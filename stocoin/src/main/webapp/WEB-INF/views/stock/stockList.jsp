@@ -25,7 +25,7 @@
 		
 		//content left, right height 맞추기
 		var layoutHeight = $('#content_right').height();
-		$('#table_wrapper').height(layoutHeight - 108);
+		$('#table_wrapper').css('height', layoutHeight - 156);
 	});
 	
 	// sort
@@ -115,6 +115,7 @@
 				<p onclick="mainTab()" id="favorite">관심</p>
 				<p onclick="refresh()">새로고침</p>
 			</div>
+			<a href="/stocoin/stock/refresh" class="refresh color_gray">새로고침</a>
 			<div id="search">
 				<input type="text" name="search" id="search_stock" placeholder="검색어를 입력하세요" onkeyUp="search_stock()">
 				<span class="fas fa-search" id="search_del" onclick="search_del()"></span>

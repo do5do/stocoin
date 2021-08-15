@@ -9,6 +9,14 @@
 	function formOpen() {
 		$('form').show();
 	}
+	
+	function qrReply() {
+		if (${empty qr}) {
+			document.qrFrm.action = '/stocoin/board/qnaReplyWrite';
+		} else {
+			document.qrFrm.action = '/stocoin/board/qnaReplyUpdate';
+		}
+	}
 </script>
 </head>
 <body>
@@ -27,7 +35,7 @@
 		<section class="qaDetail_reply">
 			<h5 class="sub_title"><span class="sub q">A</span>답변</h5>
 			<c:if test="${not empty qr }">
-				<p>${qr.content }</p>
+				<pre class="qr_pre">${qr.content }</pre>
 			</c:if>
 			<c:if test="${empty qr }">
 				<p>답변이 작성되지 않았습니다.</p>
@@ -37,14 +45,24 @@
 			<button class="btn btn-outline-primary col-3" onclick="history.go(-1)">목록</button>
 			<c:if test="${not empty id}">
 				<c:if test="${id == 'admin' }">
-						<button class="btn btn-outline-primary col-3" onclick="formOpen()">답변</button>
+						<c:if test="${empty qr }">
+							<button class="btn btn-outline-primary col-3" onclick="formOpen()">답변</button>
+						</c:if>
+						<c:if test="${not empty qr }">
+							<button class="btn btn-outline-primary col-3" onclick="formOpen()">수정</button>
+						</c:if>
 				</c:if>
 			</c:if>
 		</div>
 		<!-- 관리자에서는 디폴트로 보이게 -->
-		<form action="/stocoin/board/qnaReplyWrite" method="post" id="qrFrm">
+		<form action="" method="post" id="qrFrm" name="qrFrm" onsubmit="return qrReply()">
 			<input type="hidden" name="qno" value="${qna.qno}">
-			<textarea name="content" placeholder="답변을 작성해주세요." required></textarea>
+			<c:if test="${empty qr }">
+				<textarea name="content" placeholder="답변을 작성해주세요." required></textarea>
+			</c:if>
+			<c:if test="${not empty qr }">
+				<textarea name="content" required>${qr.content }</textarea>
+			</c:if>
 			<div class="input_box">
 				<input type="submit" value="확인" class="btn btn-primary col-4">
 			</div>

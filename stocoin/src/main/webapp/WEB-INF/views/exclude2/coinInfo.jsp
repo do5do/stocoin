@@ -29,7 +29,7 @@
 		<td>거래금액(24H)</td>
 		<td>
 			<fmt:formatNumber value="${coinInfo.get('acc_trade_value_24H') / 1000000}" pattern="#,###"></fmt:formatNumber>
-			<span class="color_gray">백만</span>
+			<span class="color_gray million">백만</span>
 		</td>
 		<td>저가(당일)</td>
 		<td><fmt:formatNumber value="${coinInfo.get('min_price')}"></fmt:formatNumber></td>

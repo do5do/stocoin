@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:useBean id="ss" class="com.sc.stocoin.model.StocoinStrings" scope="page" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,12 +46,12 @@
 		if (${not empty id}) {
 			if (${id != "admin"}) {
 				if ("${mno}" == mno) {
-					location.href='/stocoin/board/qaDetail?qno='+qno;
+					location.href='/stocoin/board/qaDetail/qno/'+qno;
 				} else {
 					alert('비밀글입니다.');
 				}
 			} else if (${id == "admin"}) {
-				location.href='/stocoin/board/qaDetail?qno='+qno;
+				location.href='/stocoin/board/qaDetail/qno/'+qno;
 			} 
 		} else {
 			alert('확인하려면 로그인이 필요합니다.');
@@ -93,7 +94,7 @@
 						</c:if>
 						<!-- 일반글 -->
 						<c:if test="${qna.secret == 'n' }">
-							<li onclick="location.href='/stocoin/board/qaDetail?qno=${qna.qno}'">
+							<li onclick="location.href='/stocoin/board/qaDetail/qno/${qna.qno}'">
 								<div class="left">
 									<p><span class="sub q">Q</span>${qna.title }</p>
 									<p class="date">${qna.dates }</p>

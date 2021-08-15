@@ -8,4 +8,6 @@ public interface QnaReplyService {
 
 	int insert(QnaReply qr);
 
+	int update(QnaReply qr);
+
 }

@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.sc.stocoin.model.FavoriteStock;
 import com.sc.stocoin.model.Member;
@@ -41,11 +43,19 @@ public class StockController {
 	private List<Map<String, Object>> stockLists;
 
 	private String today;
+	
+	@RequestMapping("/stock/refresh")
+	public String refresh() throws IOException {
+		List<Map<String, Object>> stockList = ss.getStockList();		
+		this.stockLists = stockList;
+		return "redirect:/stock/stockList";
+	}
+	
 	@RequestMapping("/stock/stockList")
 	public String stockList(Model model) throws IOException, ParseException {
 		// 첫 실행때만 실제 리스트 로딩
 		if (stockLists == null) {
-			List<Map<String, Object>> stockList = ss.getStockList();
+			List<Map<String, Object>> stockList = ss.getStockList();		
 			this.stockLists = stockList;
 			today = ss.getToday();
 		}

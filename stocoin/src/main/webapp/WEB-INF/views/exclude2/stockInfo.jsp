@@ -190,8 +190,13 @@
 			<tr>
 				<td>거래금액(24H)</td>
 				<td>
-					<fmt:formatNumber value="${stockInfo.get('trade_price') / 1000000}" pattern="#,###"></fmt:formatNumber>
-					<span class="color_gray">백만</span>
+					<c:if test="${stockInfo.get('trade_price') < 1000000 }">
+						<fmt:formatNumber value="${stockInfo.get('trade_price')}" pattern="#,###"></fmt:formatNumber>
+					</c:if>
+					<c:if test="${stockInfo.get('trade_price') > 1000000 }">
+						<fmt:formatNumber value="${stockInfo.get('trade_price') / 1000000}" pattern="#,###"></fmt:formatNumber>
+						<span class="color_gray million">백만</span>
+					</c:if>
 				</td>
 				<td>저가(당일)</td>
 				<td>${stockInfo.get('TDD_LWPRC')}</td>
