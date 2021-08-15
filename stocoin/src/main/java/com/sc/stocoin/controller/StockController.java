@@ -62,6 +62,7 @@ public class StockController {
 		// 날짜가 바뀌면 다시 로딩
 		if(!today.equals(ss.getToday())) {
 			stockLists = ss.getStockList();
+			today = ss.getToday();
 		}
 		return "stock/stockList";
 	}
@@ -193,11 +194,5 @@ public class StockController {
 		}
 
 		return data;
-	}
-
-	@RequestMapping("/stock/refresh")
-	@ResponseBody
-	public void refresh() throws IOException {
-		stockLists = ss.getStockList();
 	}
 }

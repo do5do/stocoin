@@ -99,11 +99,6 @@
 			$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search+"&code="+code);
 		}
 	}
-	function refresh() {
-		$.post('/stocoin/stock/refresh', function() {
-			location.reload();
-		});
-	}
 </script>
 </head>
 <body>
@@ -113,7 +108,6 @@
 				<p class="active" onclick="mainTab()" id="all">전체</p>
 				<p onclick="mainTab()" id="my">보유</p>
 				<p onclick="mainTab()" id="favorite">관심</p>
-				<p onclick="refresh()">새로고침</p>
 			</div>
 			<a href="/stocoin/stock/refresh" class="refresh color_gray">새로고침</a>
 			<div id="search">
