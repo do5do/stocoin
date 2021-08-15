@@ -46,7 +46,7 @@ public class StockServiceImpl implements StockService {
 		conn.setRequestProperty("referer",
 				"http://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd?menuId=MDC0201020101");
 		conn.setDoOutput(true);
- 
+
 		// 오늘 연월일 : today
 		String today = getToday();
 
