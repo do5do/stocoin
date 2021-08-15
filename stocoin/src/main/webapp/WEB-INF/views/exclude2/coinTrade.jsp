@@ -43,12 +43,14 @@
 		} else {
 			if (change == 'cnt') {
 				var val = event.target.value;
-				var val_float = val.split('.')[1].length;
-				if (val_float >= 5) {
-					alert("소수점 넷째자리까지만 입력가능합니다");
-					$('#cnt_txt').val(val.slice(0,-1));
-					$('#cnt_txt').blur();
-					return false;
+				if (val.includes('.')) {
+					var val_float = val.split('.')[1].length;
+					if (val_float >= 5) {
+						alert("소수점 넷째자리까지만 입력가능합니다");
+						$('#cnt_txt').val(val.slice(0,-1));
+						$('#cnt_txt').blur();
+						return false;
+					}
 				}
 				change_op();
 			} else if (change == 'range') {
