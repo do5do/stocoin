@@ -48,23 +48,7 @@ public class StockServiceImpl implements StockService {
 		conn.setDoOutput(true);
 
 		// 오늘 연월일 : today
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
-		Date time = new Date();
-		// 24시 부터 09시까지는 전날로 계산
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(time);
-		int hour = cal.get(Calendar.HOUR_OF_DAY);
-		if (hour < 9)
-			cal.add(Calendar.DATE, -1);
-		// 주말은 금요일로 계산
-		int week = cal.get(Calendar.DAY_OF_WEEK);
-		if (week == 1) // 일요일
-			cal.add(Calendar.DATE, -2);
-		else if (week == 7) // 토요일
-			cal.add(Calendar.DATE, -1);
-
-		time = cal.getTime();
-		String today = format1.format(time);
+		String today = getToday();
 
 		// 연결
 		PrintStream ps = new PrintStream(conn.getOutputStream());
@@ -213,14 +197,14 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public Map<String, Object> getStockInfo(String code) throws IOException, ParseException{
+	public Map<String, Object> getStockInfo(String code) throws IOException, ParseException {
 		// 해당 이름에 대한 stock 정보를 담을 map 생성
 		Map<String, Object> stockInfo = new HashMap<>();
-		
+
 		if (stockLists == null) {
 			getStockList();
 		}
-		
+
 		for (int i = 0; i < stockLists.size(); i++) {
 			String codes = (String) stockLists.get(i).get("ISU_SRT_CD");
 
@@ -335,23 +319,45 @@ public class StockServiceImpl implements StockService {
 		}
 		return fs;
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> getStockSearch(String search, List<Map<String, Object>> stockList) {
 		// 해당 이름에 대한 stock 정보를 담을 map 생성
 		List<Map<String, Object>> stockSearch = new ArrayList<>();
-		
+
 		for (int i = 0; i < stockList.size(); i++) {
 			String sname = ((String) stockList.get(i).get("ISU_ABBRV")).toUpperCase();
-			
+
 			// 해당 검색결과가 있는 map을 찾아서 리스트 생성
 			if (sname.contains(search.toUpperCase())) {
 				stockSearch.add(stockList.get(i));
 			}
 		}
-		
+
 		return stockSearch;
 	}
 
-	
+	@Override
+	public String getToday() {
+		// 오늘 연월일 : today
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+		Date time = new Date();
+		// 24시 부터 09시까지는 전날로 계산
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(time);
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		if (hour < 9)
+			cal.add(Calendar.DATE, -1);
+		// 주말은 금요일로 계산
+		int week = cal.get(Calendar.DAY_OF_WEEK);
+		if (week == 1) // 일요일
+			cal.add(Calendar.DATE, -2);
+		else if (week == 7) // 토요일
+			cal.add(Calendar.DATE, -1);
+
+		time = cal.getTime();
+		String today = format1.format(time);
+		return today;
+	}
+
 }

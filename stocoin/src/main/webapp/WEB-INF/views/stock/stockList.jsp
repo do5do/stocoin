@@ -99,6 +99,11 @@
 			$('#table_wrapper').load("/stocoin/exclude2/stockListReload?kind="+kinds+"&sort="+sorts+"&tab="+tab+"&search="+search+"&code="+code);
 		}
 	}
+	function refresh() {
+		$.post('/stocoin/stock/refresh', function() {
+			location.reload();
+		});
+	}
 </script>
 </head>
 <body>
@@ -108,6 +113,7 @@
 				<p class="active" onclick="mainTab()" id="all">전체</p>
 				<p onclick="mainTab()" id="my">보유</p>
 				<p onclick="mainTab()" id="favorite">관심</p>
+				<p onclick="refresh()">새로고침</p>
 			</div>
 			<div id="search">
 				<input type="text" name="search" id="search_stock" placeholder="검색어를 입력하세요" onkeyUp="search_stock()">

@@ -18,4 +18,5 @@ public interface StockService {
 	
 	List<Map<String, Object>> getStockSearch(String search, List<Map<String, Object>> stockList);
 	
+	String getToday();
 }
