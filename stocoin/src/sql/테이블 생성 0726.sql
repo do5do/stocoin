@@ -138,6 +138,7 @@ ALTER TABLE QnaReply
  ADD CONSTRAINT qnareply_qr_no_PK PRIMARY KEY ( qr_no );
 
 select * from qnaReply;
+delete from QNAREPLY where qr_no = 2;
  
 -- 채팅 -------------------------------------------------------
 CREATE TABLE Chat

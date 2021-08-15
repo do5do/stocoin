@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sc.stocoin.model.Qna;
@@ -70,8 +71,8 @@ public class QnaController {
 		return "board/qaList";
 	}
 	
-	@RequestMapping("/board/qaDetail")
-	public String qaDetail(int qno, Model model) {
+	@RequestMapping("/board/qaDetail/qno/{qno}")
+	public String qaDetail(@PathVariable int qno, Model model) {
 		// 문의글
 		Qna qna = qs.select(qno);
 		
@@ -89,6 +90,14 @@ public class QnaController {
 		model.addAttribute("result", result);
 		model.addAttribute("qno", qr.getQno());
 		return "board/qnaReplyWrite";
+	}
+	
+	@RequestMapping("/board/qnaReplyUpdate")
+	public String qnaReplyUpdate(QnaReply qr, Model model) {
+		int result = qrs.update(qr);
+		model.addAttribute("result", result);
+		model.addAttribute("qno", qr.getQno());
+		return "/board/qnaReplyUpdate";
 	}
 	
 }

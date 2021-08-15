@@ -26,7 +26,7 @@
 				</c:if>
 				<td>${coin.cnt}<span class="color_gray"> ${coin.cname}</span></td>
 				<td><fmt:formatNumber value="${coin.contract}"></fmt:formatNumber>원</td>
-				<td><fmt:formatNumber value="${coin.contract * coin.cnt}"></fmt:formatNumber>원</td>
+				<td><fmt:formatNumber value="${coin.contract * coin.cnt}" pattern="#,###"></fmt:formatNumber>원</td>
 			</tr>
 		</c:forEach>
     </tbody>

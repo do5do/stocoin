@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="/stocoin/resources/css/board.css">
-<c:set var="id" value='${sessionScope.id}'></c:set>
+<jsp:useBean id="ss" class="com.sc.stocoin.model.StocoinStrings" scope="page" />
 <script type="text/javascript">
 	$(function() {
 		// reply list load
@@ -27,20 +27,8 @@
 			var con = confirm("로그인이 필요합니다.");
 			if (con) {
 				var curUrl = window.location.pathname;
-				$.post("/stocoin/login2", "curUrl="+curUrl, function(data) {});
-				// 문의글 작성하기 session check
-				   function sessionChk() {
-				      if (${empty id}) {
-				         var con = confirm("로그인이 필요합니다.");
-				         if (con) {
-				            var curUrl = window.location.pathname;
-				            $.post("/stocoin/login2", "curUrl="+curUrl, function(data) {});
-				            location.href="https://kauth.kakao.com/oauth/authorize?client_id=8d7498ce8ee97c514f96feb042750e1e&redirect_uri=http://" + "${ss.getIP()}" + "/stocoin/login&response_type=code";
-				         }
-				      } else {
-				         location.href='/stocoin/board/qaWriteForm';
-				      }
-				   }
+	            $.post("/stocoin/login2", "curUrl="+curUrl, function(data) {});
+	            location.href="https://kauth.kakao.com/oauth/authorize?client_id=8d7498ce8ee97c514f96feb042750e1e&redirect_uri=http://" + "${ss.getIP()}" + "/stocoin/login&response_type=code";
 			}
 		}
 	}
@@ -58,7 +46,7 @@
 <body>
 	<div class="container col-8 board">
 		<h2 class="title" align="center">${board.title }</h2>
-		<p>${board.content }</p>
+		<pre>${board.content }</pre>
 		<div class="input_box right">
 			<button class="btn btn-outline-primary col-3" onclick="location.href='/stocoin/board/boardList?types=${types}'">목록</button>
 			<c:if test="${not empty id}">

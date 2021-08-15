@@ -52,7 +52,7 @@
 
 .fa-pen {
 	padding-right: 8px;
-	color: var(- -point-color) !important;
+	color: var(--point-color) !important;
 }
 /* boardList :end */
 
@@ -181,4 +181,9 @@ textarea::placeholder {
 #qrFrm {
 	display: none;
 	margin-top: 36px;
+}
+
+.qr_pre {
+	font-size: 16px;
+	margin: 1em 0;
 }

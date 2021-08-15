@@ -9,6 +9,7 @@
 }
 
 #content_left {
+	position: relative;
 	width: 28%;
 	padding-right: 10px;
 }
@@ -103,7 +104,6 @@
 }
 
 #table_wrapper {
-	height: 97vh;
     overflow-y: auto;
     margin-right: -4px; /* scroll thumb size */
 	mask-size: 100% 20000px;
@@ -249,6 +249,7 @@
 /* 차트 하단 왼쪽 코인 정보 영역 시작 --------------------- */
 .dp_flex {
 	display: flex;
+	min-height: 360px;
 }
 
 #coinInfo {
@@ -266,7 +267,8 @@
     font-weight: 300;
     border: none;
     background: none;
-    padding: 0.3rem;
+    padding: 0 4px;
+    height: 44px;
 }
 
 .white #coinInfo table td {
@@ -278,7 +280,7 @@
 }
 
 #chart_sm {
-	margin-top: auto;
+	margin-top: -23px;
 }
 
 #chart_sm .apexcharts-tooltip {

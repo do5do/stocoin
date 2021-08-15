@@ -20,4 +20,9 @@ public class QnaReplyDaoImpl implements QnaReplyDao {
 	public int insert(QnaReply qr) {
 		return sst.insert("qnareplyns.insert", qr);
 	}
+
+	@Override
+	public int update(QnaReply qr) {
+		return sst.update("qnareplyns.update", qr);
+	}
 }

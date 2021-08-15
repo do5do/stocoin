@@ -12,4 +12,8 @@
 		</selectKey>
 		insert into qnaReply values(#{qr_no}, #{content}, sysdate, #{qno})
 	</insert>
+	
+	<update id="update" parameterType="qnaReply">
+		update qnaReply set content = #{content} where qno = #{qno}
+	</update>
 </mapper>

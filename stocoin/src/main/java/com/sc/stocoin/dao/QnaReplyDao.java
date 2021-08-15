@@ -8,4 +8,6 @@ public interface QnaReplyDao {
 
 	int insert(QnaReply qr);
 
+	int update(QnaReply qr);
+
 }

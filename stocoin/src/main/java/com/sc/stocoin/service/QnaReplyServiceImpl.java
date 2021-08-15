@@ -20,4 +20,9 @@ public class QnaReplyServiceImpl implements QnaReplyService {
 	public int insert(QnaReply qr) {
 		return qrd.insert(qr);
 	}
+
+	@Override
+	public int update(QnaReply qr) {
+		return qrd.update(qr);
+	}
 }

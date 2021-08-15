@@ -1,6 +1,15 @@
 @charset "UTF-8";
 
 /* stock list */
+.refresh {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	font-size: 13px;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
 .market_name {
 	font-size: 12px;
 	color: #707071;
